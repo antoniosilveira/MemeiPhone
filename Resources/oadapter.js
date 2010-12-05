@@ -10,7 +10,6 @@
 Ti.include('lib/sha1.js');
 Ti.include('lib/oauth.js');
 Ti.include('lib/secrets.js');
-Ti.include('lib/yql_queries.js');
 
 var authorizationUI = function() {
 	var authWindow, oauthWebView, signingIn;
@@ -189,24 +188,24 @@ var OAuthAdapter = function(pService, authorize) {
 		client.open(message.method, myUrl, false);
         client.send();
 
-		Ti.API.debug(">>>>> _______________");
-		Ti.API.debug(">>>>> | YQL REQUEST |");
-		Ti.API.debug(">>>>> |_____________|");
-		Ti.API.debug(">>>>> parameters: [" + pParameters + "]");
-		Ti.API.debug(">>>>> url: " + myUrl);
-		Ti.API.debug(">>>>> ________________");
-		Ti.API.debug(">>>>> | YQL RESPONSE |");
-		Ti.API.debug(">>>>> |______________|");
-		Ti.API.debug(">>>>> client data: [" + JSON.stringify(client) + "]");
-		Ti.API.debug(">>>>> HTTP status code: " + client.status);
-		Ti.API.debug(">>>>> HTTP response header [Date]: " + client.getResponseHeader('Date'));
-		Ti.API.debug(">>>>> HTTP response header [Server]: " + client.getResponseHeader('Server'));
-		Ti.API.debug(">>>>> HTTP response header [Content-Type]: " + client.getResponseHeader('Content-Type'));
-		Ti.API.debug(">>>>> HTTP response header [Content-Length]: " + client.getResponseHeader('Content-Length'));
-		Ti.API.debug(">>>>> response: " + client.responseText);
-		Ti.API.debug(">>>>> ____________");
-		Ti.API.debug(">>>>> | END YQL! |");
-		Ti.API.debug(">>>>> |__________|");
+		// Ti.API.debug(">>>>> _______________");
+		// Ti.API.debug(">>>>> | YQL REQUEST |");
+		// 		Ti.API.debug(">>>>> |_____________|");
+		// 		Ti.API.debug(">>>>> parameters: [" + pParameters + "]");
+		// 		Ti.API.debug(">>>>> url: " + myUrl);
+		// 		Ti.API.debug(">>>>> ________________");
+		// 		Ti.API.debug(">>>>> | YQL RESPONSE |");
+		// 		Ti.API.debug(">>>>> |______________|");
+		// 		Ti.API.debug(">>>>> client data: [" + JSON.stringify(client) + "]");
+		// 		Ti.API.debug(">>>>> HTTP status code: " + client.status);
+		// 		Ti.API.debug(">>>>> HTTP response header [Date]: " + client.getResponseHeader('Date'));
+		// 		Ti.API.debug(">>>>> HTTP response header [Server]: " + client.getResponseHeader('Server'));
+		// 		Ti.API.debug(">>>>> HTTP response header [Content-Type]: " + client.getResponseHeader('Content-Type'));
+		// 		Ti.API.debug(">>>>> HTTP response header [Content-Length]: " + client.getResponseHeader('Content-Length'));
+		// 		Ti.API.debug(">>>>> response: " + client.responseText);
+		// 		Ti.API.debug(">>>>> ____________");
+		// 		Ti.API.debug(">>>>> | END YQL! |");
+		// 		Ti.API.debug(">>>>> |__________|");
 
 		return(client.responseText);
 	};
@@ -253,15 +252,18 @@ var OAuthAdapter = function(pService, authorize) {
 			var file  = tokenFilename();
 			var token = JSON.parse(file.read());
 			
-			if ( ! token.token.oauth_token || token.token.oauth_token === 'undefined'){
-				// IF Token Dict is empty then Starts the Sign Process Again
-				Ti.API.debug("Token{} Empty " + JSON.stringify(token.token));
-			} else {
-				Ti.API.debug("Loading token from file done: " + JSON.stringify(token));
-				return(token);
+			if (token) {
+				if ( ! token.token.oauth_token || token.token.oauth_token === 'undefined'){
+					// IF Token Dict is empty then Starts the Sign Process Again
+					Ti.API.debug("Token{} Empty (will authenticate again): " + JSON.stringify(token.token));
+				} else {
+					//Ti.API.debug("Loading token from file done: " + JSON.stringify(token));
+					return(token);
+				}
 			}
         } catch(e) {
-			Ti.API.debug("Loading token failed. Reason=" + e.message);
+			//Ti.API.debug("Loading token failed. Reason=" + e.message);
+			return null;
 		}
 	};
 	
@@ -335,8 +337,12 @@ var OAuthAdapter = function(pService, authorize) {
 		return false;
 	}
 	
+	// returns proper YQL (2 or 3 legged)
 	var getYql = function() {
-		return { query: query };
+		if (isLoggedIn()) {
+			return { query: query };
+		}
+		return { query: query2legg };
 	}
 	
 	// will check if access tokens are stored in the config file
@@ -360,10 +366,18 @@ var OAuthAdapter = function(pService, authorize) {
 		file.deleteFile();
 	};
 	
+	var getUserGuid = function() {
+		var token = loadToken();
+		if (token && token.token && token.token.xoauth_yahoo_guid) {
+			return token.token.xoauth_yahoo_guid;
+		}
+		return null;
+	}
+	
 	return({
 		attachLogin: attachLogin,
 		logout: logout,
-		query: query2legg,
+		getUserGuid: getUserGuid,
 		isLoggedIn: isLoggedIn,
 		getYql: getYql
 	});
