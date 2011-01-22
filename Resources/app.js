@@ -1,18 +1,43 @@
 // create a new OAuthAdapter instance by passing by your consumer data and signature method
 Ti.include('oadapter.js');
 Ti.include('lib/cache.js');
-// Ti.include('app_highlight.js');
+Ti.include('lib/meme.js');
+Ti.include('lib/analytics.js');
 
 Ti.API.info("Current Language: " + Ti.Locale.currentLanguage);
+Ti.API.info("App Name: " + Ti.App.getName() + " and App Version: " + Ti.App.getVersion());
+
+// ==================
+// = Global objects =
+// ==================
+
+// indicates if app is in development or production
+// used to disable cache, analytics, etc
+Ti.App.development = false; // WARNING: remove this before put in production :)
 
 Ti.App.myMemeInfo = null;
+
 Ti.App.oAuthAdapter = OAuthAdapter('meme', authorizationUI());
 
 Ti.App.cache = Cache({ 
 	cache_expiration_interval: 60, 
-	disable: true // WARNING: remove this before put in production :)
+	disable: Ti.App.development
 });
 
+Ti.App.meme = Meme();
+
+// =======================
+// = Global control vars =
+// =======================
+var clickTimeoutStartPosting 	= 	0; 	// Sets the initial ClickTimeout for startPOsting Button
+var clickTimeoutSignIn 	= 	0; 	// Sets the initial ClickTimeout for SignIn Button
+Ti.App.newpostIsOpen = false; // controls for multiple clicks on Start new post btn
+Ti.App.permalinkIsOpened = false; // control of Permalink Open
+Ti.App.browserIsOpened = false; // control of Browser Open
+
+// ===============
+// = Application =
+// ===============
 //base Window
 var win1 = Titanium.UI.createWindow({  
     title: 				'Meme for iPad',
@@ -22,6 +47,9 @@ var win1 = Titanium.UI.createWindow({
 		Titanium.UI.LANDSCAPE_RIGHT
 	]
 });
+
+//Analytics Request
+doYwaRequest(analytics.APP_STARTED);
 
 var appNavBarView = Ti.UI.createView({
 	backgroundImage: 		'images/bg_app_navbar.png',
@@ -47,10 +75,14 @@ appNavBarView.add(logoHeader);
 
 var btn_signin = Titanium.UI.createButton({
 	backgroundImage: L('path_btn_signin_background_image'),
-	top: 			-22,
-	left: 			940,
-	width: 			96, // 72
-	height: 		97,  // 54
+	top: 			-6,
+	left: 			936,
+	width: 			100, 
+	height: 		66,  
+	title: 			L('path_btn_signin_title'),
+	color: 			'white',
+	textAlign: 		'center',
+	font: 			{fontSize:13, fontFamily:'Helvetica Neue', fontWeight:'regular'},
 	opacity: 		1,
 	visible: 		false,
 	zIndex: 		3
@@ -59,10 +91,10 @@ win1.add(btn_signin);
 
 var btn_signup = Titanium.UI.createButton({
 	backgroundImage: 	L('path_btn_signup_background_image'),
-	top: 				-26,
-	left: 				599,
-	width: 				369, //actual: 303	
-	height: 			106, //actual: 54
+	top: 				-6,
+	left: 				632,
+	width: 				315, //actual: 303	
+	height: 			66, //actual: 54
 	opacity: 			1,
 	visible: 			false,
 	zIndex: 			3
@@ -70,13 +102,48 @@ var btn_signup = Titanium.UI.createButton({
 win1.add(btn_signup);
 
 btn_signup.addEventListener("click", function(e) {
-	Ti.App.fireEvent('openLinkOnSafari', { 
-		title: L("btn_signup_alert"),
-		message: L("btn_signup_message"),
+	//Analytics Request
+	doYwaRequest(analytics.OPEN_SAFARI_CREATE_ACCOUNT);
+	
+	Ti.App.fireEvent('openBrowser', {
 		url: L("btn_signup_url")
 	});
+	
 });
 
+Ti.App.activitySmall = Ti.UI.createActivityIndicator({
+	style: 				Ti.UI.iPhone.ActivityIndicatorStyle.PLAIN,
+	color: 				'white',
+	backgroundColor: 	'black',
+	width: 				35,
+	height: 			35,
+	borderRadius: 		5,
+	opacity: 			0.8,
+	zIndex: 			2
+});
+
+// ==========================
+// = CREATE THE POST WINDOW =
+// ==========================
+
+var a = Titanium.UI.createAnimation();
+a.duration = 300;
+a.top = 0;
+
+var newPost = function(link) {
+	Ti.UI.createWindow({
+		url: 'newpost.js',
+		title: 'New Post',
+		backgroundColor: 'white',
+		left: 0,
+		top: -749,
+		height: 748,
+		width: 1024,
+		zIndex: 3,
+		link: link,
+		navBarHidden: true
+	}).open(a);
+};
 
 // ====================
 // = LOGGED IN HEADER =
@@ -96,85 +163,76 @@ var showHeader = function (successCallback) {
 	win1.add(headerView);
 
 	if (Ti.App.oAuthAdapter.isLoggedIn()) {
-
-		// ========================
-		// = retrieving yql data =
-		// ========================
-		var info_cache_key = 'myMemeInfo' + Ti.App.oAuthAdapter.getUserGuid();
+		Ti.App.myMemeInfo = Ti.App.meme.userInfo('me', 35, 35, true);
 		
-		Ti.App.myMemeInfo = Ti.App.cache.get(info_cache_key);
-		
-		if (!Ti.App.myMemeInfo) {
-			var yqlMemeInfo = Ti.App.oAuthAdapter.getYql().query("SELECT * FROM meme.info where owner_guid=me | meme.functions.thumbs(width=35,height=35)");
-
-			if (!yqlMemeInfo.query.results) {
-				Ti.App.fireEvent('yqlerror');
-			}
-
-			Ti.App.myMemeInfo = yqlMemeInfo.query.results.meme;
-			
-			// cache results for 24 hours
-			Ti.App.cache.put(info_cache_key, yqlMemeInfo.query.results.meme, 86400);
-		}
-		
-		var btn_Username = Ti.UI.createButton({
-			backgroundImage: 	'images/btn_username.png',
-			backgroundSelectedImage: 'images/btn_username_selected.png',
-			// title: 				Ti.App.myMemeInfo.title,
-			font: 		{fontSize:14, fontFamily:'Helvetica Neue', fontWeight:'bold'},	
-			height: 			49,
-			width: 				243,
-			left: 				207,
-			top: 				0,
-			opacity: 			1,
-			zIndex:  			1,
-			style: Titanium.UI.iPhone.SystemButtonStyle.PLAIN
+		var btn_Username = Ti.UI.createView({
+			backgroundImage: 			'images/btn_username.png',	
+			backgroundLeftCap: 			2,
+			backgroundRightCap: 		33,
+			height: 					49,
+			width: 						250, // original: 243
+			left: 						207,
+			top: 						0,
+			opacity: 					1,
+			zIndex:  					1,
+			style: 						Titanium.UI.iPhone.SystemButtonStyle.PLAIN
 		});
 		headerView.add(btn_Username);
 	
 		var memeTitleLabel = Ti.UI.createLabel({
-			color: 		'#ffffff',
-			text:  		Ti.App.myMemeInfo.title,
-			font: 		{fontSize:14, fontFamily:'Helvetica Neue', fontWeight:'bold'},
-			textAlign: 	'left',		
-			top: 		14,
-			left:  		12,
-			height: 	20,
-			width: 		200,
-			opacity: 	1,
-			zIndex: 	99	
-		});
+				color: 		'#ffffff',
+				text:  		Ti.App.myMemeInfo.title,
+				font: 		{fontSize:14, fontFamily:'Helvetica Neue', fontWeight:'bold'},
+				textAlign: 	'left',		
+				top: 		14,
+				left:  		12,
+				height: 	20,
+				width: 		204,
+				opacity: 	1,
+				zIndex: 	99	
+			});
 		btn_Username.add(memeTitleLabel);
 	
 		// ================
 		// = PopOver Menu =
 		// ================
+		
+		btn_Username.addEventListener('touchend', function()	{
+			
+			btn_Username.backgroundImage = 'images/btn_username.png';
+		});
 
 		// build User popover
 		btn_Username.addEventListener('click', function()	{
 			
 			//PopOver 
+			
+			btn_Username.backgroundImage = 'images/btn_username_selected.png';
+			
+			//DEFINES THE HEIGHT OF THE POPOVER
+			var height_small = 180;
+			var height_big = 334;
+			
 			var popover = Ti.UI.iPad.createPopover({
-				width:341,
-				height:160, 
-				backgroundColor: 'white',
-				navBarHidden: true,
-				arrowDirection:Ti.UI.iPad.POPOVER_ARROW_DIRECTION_UP
+				width: 				341,
+				height: 			height_small, 
+				backgroundColor: 	'white',
+				navBarHidden: 		true,
+				arrowDirection: 	Ti.UI.iPad.POPOVER_ARROW_DIRECTION_UP
 			});
-			
-			var main = Ti.UI.createWindow({
-				top: 0,
-				left: 0,
-				width: 340,
-				height: 420,
-				backgroundColor:"#FFF",
-				navBarHidden: true
-			});
-			
-			popover.add(main);
-			
+
 			// BUILDING THE TABLE VIEW
 			var data = [];
+			
+			var settingsTableView = Ti.UI.createTableView({
+				data: 			data,
+				top: 			0,
+				left: 			0,
+				width: 			340,
+				height: 		height_small,
+				separatorColor: '#CCC',
+				style: 			0 //Ti.UI.iPhone.TableViewStyle.PLAIN
+			});
 			
 			// ROW 1 LINK TO MEME AND SIGNOUT BUTTON
 			var row1 = Ti.UI.createTableViewRow({
@@ -183,36 +241,39 @@ var showHeader = function (successCallback) {
 			});
 			
 			var linkMeme = Ti.UI.createLabel({
-			 	color: 			'#7D0670',
-				text: 			L('meme_short_domain') + Ti.App.myMemeInfo.name,
-				textAlign: 		'left',
-				font: 			{fontSize:18, fontWeight:'regular'},
-				top: 			16,
-				left: 			14,
-				height: 		30,
-				width: 			224
+			 	color: 				'#7D0670',
+				text: 				L('meme_short_domain') + Ti.App.myMemeInfo.name,
+				textAlign: 			'left',
+				font: 				{fontSize:18, fontWeight:'regular'},
+				minimumFontSize: 	16,
+				top: 				16,
+				left: 				14,
+				height: 			30,
+				width: 				224
 			});	
 			row1.add(linkMeme);
 
 			linkMeme.addEventListener("click", function(e) {
-				Ti.App.fireEvent('openLinkOnSafari', {
-					url: Ti.App.myMemeInfo.url,
-					title: L('open_link_title'),
-					message: L('open_link_message')
+				popover.hide();
+				Ti.App.fireEvent('openBrowser', {
+					url: Ti.App.myMemeInfo.url
 				});
+
 			});
 
 			var btn_signout = Ti.UI.createButton({
-				top:14,
-				left:256,
-				width:64,
-				height:31,
-				title: L('btn_signout_title'),
-				color: '#666666',
-				font:{fontSize:11, fontWeight:'regular'},
-				backgroundImage: L('path_btn_signout_background_image'),
-				style: Titanium.UI.iPhone.SystemButtonStyle.PLAIN,
-				borderRadius: 5
+				top: 						14,
+				backgroundLeftCap: 			10,
+				backgroundRightCap: 		10,
+				left: 						245,
+				width: 						75,
+				height: 					31,
+				title: 						L('btn_signout_title'),
+				color: 						'#666666',
+				font: 						{fontSize:11, fontWeight:'regular'},
+				backgroundImage: 			L('path_btn_signout_background_image'),
+				style: 						Titanium.UI.iPhone.SystemButtonStyle.PLAIN,
+				borderRadius: 				5
 			});
 			row1.add(btn_signout);
 			
@@ -221,17 +282,18 @@ var showHeader = function (successCallback) {
 			{
 				Ti.API.info("Signout Link clicked");
 				popover.hide({animated:true});
-				Ti.App.oAuthAdapter.logout('meme');
-				Ti.App.fireEvent('remove_tableview');
-				headerView.hide();
-				startApplication();
+				Ti.App.oAuthAdapter.logout('meme', function() {
+					headerView.hide();
+					startApplication();
+				});
 			});
+			
 			data[0] = row1;
 			
 			// ROW 2 FOLLOWERS
 			var row2 = Ti.UI.createTableViewRow({
 				height: 40,
-				selectionStyle:'none',
+				selectionStyle:'none'
 			});
 			
 			var iconGraphic = Ti.UI.createImageView({
@@ -256,49 +318,79 @@ var showHeader = function (successCallback) {
 			
 			data[1] = row2;
 			
-			// ROW 3: ABOUT
+			// ROW 3: SETTINGS
 			var row3 = Ti.UI.createTableViewRow({
 				selectedBackgroundColor: '#CCC',
-				height: 60,
-				hasChild: true
+				height: 40
 			});
 			
-			var aboutApp = Ti.UI.createLabel({
+			var bookmarklet = Ti.UI.createLabel({
  				color: 			'#333',
-				text: 			L('ATOS'),
+				text: 			L('meme_install_bookmarklet_text'),
 				textAlign: 		'left',
-				font: 			{fontSize:18, fontFamily:'Helvetica', fontWeight:'bold'},
+				font: 			{fontSize:16, fontFamily:'Helvetica', fontWeight:'bold'},
 				left: 			14,
 				height: 		34,
 				width: 			260
 			});	
-			row3.add(aboutApp);
+			row3.add(bookmarklet);
 			
 			data[2] = row3;
 			
-			var settingsTableView = Ti.UI.createTableView({
-				data: 			data,
-				top: 			0,
-				left: 			0,
-				width: 			340,
-				height: 		160,
-				separatorColor: '#CCC',
-				style: 			0 //Ti.UI.iPhone.TableViewStyle.PLAIN
+			// ROW 4: ABOUT
+			var row4 = Ti.UI.createTableViewRow({
+				selectedBackgroundColor: '#CCC',
+				height: 40,
+				hasChild: true
 			});
 			
+			var aboutLabel = Ti.UI.createLabel({
+ 				color: 			'#333',
+				text: 			L('meme_about_text'),
+				textAlign: 		'left',
+				font: 			{fontSize:16, fontFamily:'Helvetica', fontWeight:'bold'},
+				left: 			14,
+				height: 		34,
+				width: 			260
+			});	
+			row4.add(aboutLabel);
 			
-			main.add(settingsTableView);
+			data[3] = row4;
+			
+			
+			//Sets the data to the TableView
+			settingsTableView.data = data;
+			
+			popover.add(settingsTableView);
+			
+			// CREATES THE NAVIGATION FOR THE ABOUT
+			
+
 			
 			//ABOUT WINDOW
-			var aboutWindow = Ti.UI.createView({
-				backgroundColor: 	"white",
-				top: 				0,
-				left: 				341,
-				width: 				340,
-				height: 			420,
-				visible: 			true
+			var aboutWindow = Ti.UI.createWindow({
+				title: 					L('meme_about_text'),
+				backgroundColor: 		"white",
+				color: 					'white',
+				top: 					0,
+				left: 					341,
+				width: 					340,
+				height: 				420,
+				visible: 				true,
+				// LeftNavButton: 			backButton,
+				backButtonTitle: 		'about',
+				barColor: 				'black',
+				navBarHidden: 			true
+				
 			});
-			main.add(aboutWindow);
+			// aboutWindow.setLeftNavButton = backButton;
+			
+			var navGroup = Ti.UI.iPhone.createNavigationGroup({
+				window: 	aboutWindow,
+				visible: 	false
+			});
+			popover.add(navGroup);
+			
 			
 			//ABOUT WINDOW
 			var navBar = Ti.UI.createView({
@@ -311,88 +403,376 @@ var showHeader = function (successCallback) {
 			});
 			aboutWindow.add(navBar);
 			
+			var aboutWindowTitle = Ti.UI.createLabel({
+ 				color: 			'white',
+				text: 			L('meme_about_text'),
+				textAlign: 		'center',
+				font: 			{fontSize:16, fontFamily:'Helvetica', fontWeight:'bold'},
+				left: 			115,
+				height: 		34,
+				width: 			100
+			});	
+			navBar.add(aboutWindowTitle);
+			
 			var backButton = Ti.UI.createButton({
-				backgroundImage: 	L('path_btn_back'),
-				left: 				0,
-				top: 				-5,
-				height: 			52, //29
-				width: 				73, // 50
-			    title: 				'back',
-				color: 				'white',
-				textAlign: 			'center',
-				font: 				{fontSize:12, fontFamily:'Helvetica', fontWeight:'bold'},
-				style: 				Titanium.UI.iPhone.SystemButtonStyle.PLAIN
+				backgroundImage: 			L('path_btn_back'),
+				backgroundLeftCap: 			20,
+				backgroundRightCap: 		20,
+				left: 						-5,
+				top: 						-5,
+				height: 					52, //29
+				width: 						100, // 50
+			    title: 						L('btn_back_title'),
+				color: 						'white',
+				textAlign: 					'center',
+				font: 						{fontSize:12, fontFamily:'Helvetica', fontWeight:'bold'},
+				style: 						Titanium.UI.iPhone.SystemButtonStyle.PLAIN
 			});
 			navBar.add(backButton);
 
 			backButton.addEventListener('click', function (){
 				settingsTableView.animate({left: 0, duration: 200});
-				aboutWindow.animate({left: 341, duration: 200});
-				popover.height = 160; 
+				navGroup.hide(aboutWindow); //.animate({left: 341, duration: 200});
+				popover.height = height_small; 
 			});
 			
-			var aboutHTML = '<html><head><script language="javascript">var link = function(url) { Ti.App.fireEvent("openLinkOnSafari", { url: url }); }</script></head><body>';
-			aboutHTML += '<font face="Helvetica Neue" style="font-size:14px;"><p>Meme for iPad is a pet project from the Yahoo! Meme Team, originated in one of our internal Hack Events.</p><p>It was developed by Antonio Carlos Silveira (<a href="javascript:link(\'http://twitter.com/acarlos1000\');">@acarlos1000</a>) and Guilherme Chapiewski (<a href="javascript:link(\'http://twitter.com/gchapiewski\');">@gchapiewski</a>) with Design/UI by Guilherme Neumann (<a href="javascript:link(\'http://twitter.com/gneumann\');">@gneumann</a>).</p><p>This app is totally developed on top of the Open Source Titanium SDK and Yahoo\'s YQL.</p><p>The source code of this app is freely available at GitHub, feel free to download and learn from it.</p></font>';
-			aboutHTML += '</body></html>'
-			
 			var aboutView = Ti.UI.createWebView({
-				url: 				L('url_atos_html'), // aboutHTML,
-				top: 				50,	
-				width: 				335,
-				height: 			360, // correct: 270
+				top: 				44,	
+				width: 				341,
+				height: 			365, // correct: 270
 				backgroundColor: 	'#FFF'
 			});
 			aboutWindow.add(aboutView);
 			
-			var aboutGitButton = Ti.UI.createButton({
-				top: 				325,
+			// Legal tableview
+			var dataLegal = [];
+			
+			var legalTableView = Ti.UI.createTableView({
+				data: 			dataLegal,
+				top: 			0,
+				left: 			0,
+				width: 			341,
+				height: 		365,
+				separatorColor: '#CCC',
+				style: 			Ti.UI.iPhone.TableViewStyle.PLAIN
+			});
+			aboutView.add(legalTableView);
+
+			//ROW 1: App button/version
+			var rowl1 = Ti.UI.createTableViewRow({
+				selectedBackgroundColor: 	'#CCC',
+				backgroundColor: 			'#303030',
+				height: 					91
+			});
+			
+			var aboutAppButton = Ti.UI.createView({
+				top: 				0,
 				image: 				'images/btn_about.png',
 				width: 				335, //real 329
 				height: 			91, //real: 85
-				style: 				Ti.UI.iPhone.SystemButtonStyle.PLAIN,
 				zIndex: 			3
 			});
-			// aboutWindow.add(aboutGitButton);
+			
+			aboutAppButton.addEventListener("click", function(e) {
+				// popover.hide();
+				// Ti.App.fireEvent('openBrowser', {
+				// 	url: L('memeapp_url')
+				// });
+			});
 
-			aboutGitButton.addEventListener("click", function(e) {
-				Ti.App.fireEvent('openLinkOnSafari', {
-					url: L('memeapp_source_url')
-				});
+			var appIcon = Ti.UI.createImageView({
+				image: 			'images/icon_memeapp_dropshadow.png',
+				left: 			-5,
+				width: 			97, //real 80
+				height: 		96 //real 80
 			});
+			aboutAppButton.add(appIcon);
 			
-			var githubIcon = Ti.UI.createImageView({
-				image: 			'images/github.png',
-				left: 			20,
-				width: 			60,
-				height: 		60,
-				borderRadius: 	4
-			});
-			aboutGitButton.add(githubIcon);
-			
-			var aboutGitLabel = Ti.UI.createLabel({
-				text: 				L('aboutGitLabel_text'),
-				font: 				{fontSize:14,fontFamily:'Helvetica Neue', fontWeight:'bold'},	
-				left: 				githubIcon.left + githubIcon.width + 10,
-				width: 				220,
-				height: 			70,
+			var aboutAppName = Ti.UI.createLabel({
+				text: 				L('app_name'),
+				font: 				{fontSize:28, fontFamily:'Gotham Rounded', fontWeight:'Bold'},	
+				left: 				90,
+				top: 				18,
+				width: 				240,
+				height: 			40,
 				backgroundColor: 	'transparent',
-				color: 				'white',
-				shadowColor: 		'black',
-				shadowOffset: 		{x:1,y:1}
+				minimumFontSize: 	25,
+				color: 				'white'
 			});
-			aboutGitButton.add(aboutGitLabel);
+			aboutAppButton.add(aboutAppName);
+
+			var aboutAppLabel = Ti.UI.createLabel({
+				text: 				L('about_version') + Ti.App.getVersion(),
+				font: 				{fontSize:14,fontFamily:'Helvetica', fontWeight:'Light'},	
+				left: 				93,
+				top: 				43,
+				width: 				220,
+				height: 			25,
+				backgroundColor: 	'transparent',
+				color: 				'white'
+			});
+			aboutAppButton.add(aboutAppLabel);
 			
+			rowl1.add(aboutAppButton);
+			dataLegal[0] = rowl1;
+			
+			
+			//NEW ROWS
+			// ROW 2: ATOS
+			var rowl2 = Ti.UI.createTableViewRow({
+				selectedBackgroundColor: '#CCC',
+				height: 40,
+				hasChild: true
+			});
+
+			var atosLabel = Ti.UI.createLabel({
+				color: 			'#333',
+				text: 			L('about_ATOS'),
+				textAlign: 		'left',
+				font: 			{fontSize:16, fontFamily:'Helvetica', fontWeight:'bold'},
+				left: 			14,
+				height: 		34,
+				width: 			260
+			});	
+			rowl2.add(atosLabel);
+
+			dataLegal[1] = rowl2;
+
+
+			// ROW 3: YAHOO TOS
+			var rowl3 = Ti.UI.createTableViewRow({
+				selectedBackgroundColor: '#CCC',
+				height: 40,
+				hasChild: true
+			});
+
+			var tosLabel = Ti.UI.createLabel({
+				color: 			'#333',
+				text: 			L('about_UTOS'),
+				textAlign: 		'left',
+				font: 			{fontSize:16, fontFamily:'Helvetica', fontWeight:'bold'},
+				left: 			14,
+				height: 		34,
+				width: 			260
+			});	
+			rowl3.add(tosLabel);
+
+			dataLegal[2] = rowl3;
+
+			// ROW 4: PRIVACY
+			var rowl4 = Ti.UI.createTableViewRow({
+				selectedBackgroundColor: '#CCC',
+				height: 40,
+				hasChild: true
+			});
+
+			var privacyLabel = Ti.UI.createLabel({
+				color: 			'#333',
+				text: 			L('about_privacy'),
+				textAlign: 		'left',
+				font: 			{fontSize:16, fontFamily:'Helvetica', fontWeight:'bold'},
+				left: 			14,
+				height: 		34,
+				width: 			260
+			});	
+			rowl4.add(privacyLabel);
+
+			dataLegal[3] = rowl4;
+
+			// ROW 5: GUIDELINES
+			var rowl5 = Ti.UI.createTableViewRow({
+				selectedBackgroundColor: '#CCC',
+				height: 40,
+				hasChild: true
+			});
+
+			var guidelinesLabel = Ti.UI.createLabel({
+				color: 			'#333',
+				text: 			L('about_guidelines'),
+				textAlign: 		'left',
+				font: 			{fontSize:16, fontFamily:'Helvetica', fontWeight:'bold'},
+				left: 			14,
+				height: 		34,
+				width: 			260
+			});	
+			rowl5.add(guidelinesLabel);
+
+			dataLegal[4] = rowl5;
+
+			// ROW 6: FEEDBACK
+			var rowl6 = Ti.UI.createTableViewRow({
+				selectedBackgroundColor: '#CCC',
+				height: 40,
+				hasChild: true
+			});
+
+			var feedbackLabel = Ti.UI.createLabel({
+				color: 			'#333',
+				text: 			L('about_feedback'),
+				textAlign: 		'left',
+				font: 			{fontSize:16, fontFamily:'Helvetica', fontWeight:'bold'},
+				left: 			14,
+				height: 		34,
+				width: 			260
+			});	
+			rowl6.add(feedbackLabel);
+
+			dataLegal[5] = rowl6;
+			
+			legalTableView.data = dataLegal;
+			
+			// Legal TableView Listener
+			legalTableView.addEventListener('click', function(e)	{
+				
+				// adds loaders before the webview is loaded and hides it after loading
+				function addAjaxLoader () {
+					// Loader
+					var actAjax = Ti.UI.createActivityIndicator({
+						message: 		'',
+						zIndex: 		2,
+						visible: 		false,
+						style: 			Ti.UI.iPhone.ActivityIndicatorStyle.DARK
+					});
+					wv.add(actAjax);
+					
+					wv.addEventListener("beforeload", function(e) {
+						// displays the ajax 
+						actAjax.show();
+					});	
+					wv.addEventListener("load", function(e) {
+						// hides the ajax 
+						actAjax.hide();
+					});
+				};
+				
+				if (e.index == 1) {
+					var baseWindow = Ti.UI.createWindow({
+						navBarHidden: 			false,
+						barColor: 				'black'
+					});
+					var wv = Ti.UI.createWebView({
+						url: 				String.format(L("url_atos_html"),Ti.Locale.currentLanguage), 
+						top: 				0,	
+						width: 				341,
+						height: 			365, // correct: 270
+						backgroundColor: 	'#FFF'
+					});
+					baseWindow.add(wv);
+					navGroup.open(baseWindow);	
+					
+					addAjaxLoader();
+					
+				}
+				else if (e.index == 2) {
+					var baseWindow = Ti.UI.createWindow({
+						navBarHidden: 			false,
+						barColor: 				'black'
+					});
+					var wv = Ti.UI.createWebView({
+						url: 				String.format(L("url_utos_html"),Ti.Locale.currentLanguage),
+						top: 				0,	
+						width: 				341,
+						height: 			365, // correct: 270
+						backgroundColor: 	'#FFF'
+					});
+					baseWindow.add(wv);
+					navGroup.open(baseWindow);		
+					addAjaxLoader();
+				}
+				else if (e.index == 3) {
+					var baseWindow = Ti.UI.createWindow({
+						navBarHidden: 			false,
+						barColor: 				'black'
+					});
+					var wv = Ti.UI.createWebView({
+						url: 				String.format(L("url_privacy_html"),Ti.Locale.currentLanguage),
+						top: 				0,	
+						width: 				341,
+						height: 			365, // correct: 270
+						backgroundColor: 	'#FFF'
+					});
+					baseWindow.add(wv);
+					navGroup.open(baseWindow);	
+					addAjaxLoader();			
+				}
+				else if (e.index == 4) {
+					var baseWindow = Ti.UI.createWindow({
+						navBarHidden: 			false,
+						barColor: 				'black'
+					});
+					var wv = Ti.UI.createWebView({
+						url: 				L('url_guidelines_html'),
+						top: 				0,	
+						width: 				341,
+						height: 			365, // correct: 270
+						backgroundColor: 	'#FFF'
+					});
+					baseWindow.add(wv);
+					navGroup.open(baseWindow);	
+					addAjaxLoader();			
+				}
+				else if (e.index == 5) {
+					var emailDialog = Titanium.UI.createEmailDialog();
+					emailDialog.setHtml(false);
+		            emailDialog.setBarColor('black');
+
+					var messageSubject = String.format(L("mail_message_subject_feedback"),Ti.App.getVersion());
+
+			        emailDialog.setSubject(messageSubject);
+					emailDialog.setToRecipients([L('feedback_mail_address')]);
+
+			        emailDialog.addEventListener('complete',function(e)
+			        {
+			            if (e.result == emailDialog.SENT)
+			            {
+							//Analytics Request
+							doYwaRequest(analytics.FEEDBACK_MAIL_SENT);
+
+		                    Ti.API.log("Mail message was sent");
+			            }
+			            else
+			            {
+			                Ti.API.log("Mail message was not sent. result = " + e.result);
+			            }
+			        });
+			        emailDialog.open();		
+					popover.hide();
+				}
+			});
+			
+
+			// Main TableView Listener
 			settingsTableView.addEventListener('click', function(e)	{
 				if (e.index == 2) {
-					popover.height = 420; 
+					
+					popover.hide();
+					
+					//Alert to remove the photo
+					var alertBookmarklet = Titanium.UI.createAlertDialog({
+						title: L('meme_bookmarklet_alert_title'),
+						message: L('meme_bookmarklet_alert_message'),
+						buttonNames: [L('btn_alert_CANCEL'),L('btn_alert_INSTALL')],
+						cancel: 0
+					});
+					alertBookmarklet.show();
+
+					alertBookmarklet.addEventListener('click',function(e) {
+						if (e.index == 1) {
+							Ti.Platform.openURL(L('meme_bookmarklet_url'));
+						}
+					});
+									
+				}
+				if (e.index == 3) {
+					popover.height = height_big; 
 					settingsTableView.animate({left: -341, duration: 200});
-					aboutWindow.animate({left: 0, duration: 200});				
+					navGroup.show();				
 				}
 			});
 			
 			popover.show({
-				view:btn_Username,
-				animated:true,
+				view: btn_Username,
+				animated: true
 			});
 
 		});
@@ -401,20 +781,28 @@ var showHeader = function (successCallback) {
 		// = post button =
 		// ===============
 		
-		var btn_start_posting = Ti.UI.createButton({
-			backgroundImage: 	L('path_btn_start_posting_background_image'), 
-			height: 			79, //55
-			width: 				407, //395
-			left: 				623,
-			top: 				-13,
+		var btn_create_post = Ti.UI.createButton({
+			backgroundImage: 	L('path_create_post_background_image'), 
+			height: 			79,
+			width: 				419, 
+			left: 				617,
+			top: 				-12,
 			zIndex: 			5
 		});
-		headerView.add(btn_start_posting);
+		headerView.add(btn_create_post);
 		
 		// Opens the New Post Window
-		btn_start_posting.addEventListener('click', function()
+		btn_create_post.addEventListener('click', function()
 		{
-			newPost();
+			
+			clearTimeout(clickTimeoutStartPosting);
+
+			clickTimeoutStartPosting = setTimeout(function() {	
+				if (Ti.App.newpostIsOpen == false) {
+					newPost();
+				}
+			},500);
+			
 		});
 
 	} else {
@@ -435,14 +823,18 @@ var showDashboard = function() {
 	// ===========================
 	// = CREATING DASHBOARD VIEW =
 	// ===========================
+	
+	if (winDashboard) {
+		winDashboard.close();
+	}
 
 	winDashboard = Ti.UI.createWindow({
 		url: 'dashboard.js',
 		name: 'Dashboard',
 		backgroundColor: 'transparent',
 		left: 0,
-		top: 56,
-		height: 692,
+		top: 59,
+		height: 689,
 		width: 1024,
 		navBarHidden: true,
 		win1: win1,
@@ -451,9 +843,6 @@ var showDashboard = function() {
 	
 	// scrollView.add(winDashboard);
 	winDashboard.open();
-	
-	//Removes the TableView so it can start fresh
-    Ti.App.fireEvent('remove_tableview');
 	
 	// Builds the LoggedIn Header or the SignIn one
 	if (Ti.App.oAuthAdapter.isLoggedIn()) {
@@ -467,42 +856,32 @@ var showDashboard = function() {
 
 var signInButtonClick = function(continuation) {
 	// Sign In Button Listener
-	btn_signin.addEventListener("click",continuation);
+	btn_signin.addEventListener("click", function() {
+		
+		clearTimeout(clickTimeoutSignIn);
+
+		clickTimeoutSignIn = setTimeout(function() {	
+			continuation();
+		},500);		
+		
+	});
 };
 
 var startApplication = function() {
-	//getHighlights(highlightView);
 	showHeader(function() {
 		showDashboard();
 	});
 	
-	if (! Ti.App.oAuthAdapter.isLoggedIn()) {   	
+	if (! Ti.App.oAuthAdapter.isLoggedIn()) {  
+		
+		// Resets the Draft when logging in first time. 
+		if (Ti.App.Properties.hasProperty('draft_post')) {
+			Ti.App.Properties.removeProperty('draft_post');	
+		}
+		
+		//Start the oAuth Process
 		Ti.App.oAuthAdapter.attachLogin(signInButtonClick, startApplication);
 	}
-}
-
-// ==========================
-// = CREATE THE POST WINDOW =
-// ==========================
-// 
-// tempPostLabel.animate({zIndex: 0, top : 120 + img.size.height});
-// 
-var a = Titanium.UI.createAnimation();
-a.duration = 200;
-a.top = 0;
-
-var newPost = function() {
-	Ti.UI.createWindow({
-		url: 'newpost.js',
-		title: 'New Post',
-		backgroundColor: 'white',
-		left: 0,
-		top: -749,
-		height: 748,
-		width: 1024,
-		zIndex: 3,
-		navBarHidden: true
-	}).open(a);
 };
 	
 //  CREATE CUSTOM LOADING INDICATOR
@@ -610,6 +989,8 @@ Ti.App.addEventListener('openLinkOnSafari', function(data) {
 	alert.addEventListener('click', function(e) {
 		if (e.index == 0){
 			Ti.Platform.openURL(data.url);
+			//Analytics Request
+			doYwaRequest(analytics.OPEN_SAFARI);
 		}
 	});
 	
@@ -691,18 +1072,53 @@ var displayErrorMessage = function(title, message, relativeTop, pFontSize) {
 		//Closes Permalink if Open
 		Ti.App.fireEvent('close_permalink');
 		
+		//Closes DASHBOARD
+		Ti.App.fireEvent('close_dashboard');
+		
 		errorWin.close({opacity:0,duration:200});
 		
 		startApplication();
 	});
-}
+};
 
 // =====================
 // = YQL ERROR MESSAGE =
 // =====================
 Ti.App.addEventListener('yqlerror', function(e) {
-	Ti.API.error('App crashed (cannot connect to YQL). Query: ' + e.query);
-	displayErrorMessage(L('yql_error'), L('error_message_problem'), 80, 36);
+	//Analytics Request
+	doYwaRequest(analytics.YQL_ERROR);
+	
+	//Closes the Keyboard if open
+	Ti.App.fireEvent('hide_keyboard');
+	
+	Ti.API.error('App crashed (cannot connect to YQL). Error info: ' + JSON.stringify(e));
+	
+	//Alert to Error
+	var alertError = Titanium.UI.createAlertDialog({
+		title: L('yql_error'),
+		message: L('error_message_problem'),
+		buttonNames: [L('btn_alert_CANCEL'),L('btn_error_refresh_title')],
+		cancel: 0
+	});	
+	alertError.show();
+	
+	alertError.addEventListener('click',function(e)	{
+		if (e.index == 1){
+			//Closes NewPost if Open
+			Ti.App.fireEvent('close_newpost');
+
+			//Closes Permalink if Open
+			Ti.App.fireEvent('close_permalink');
+
+			//Closes DASHBOARD
+			Ti.App.fireEvent('close_dashboard');
+
+			startApplication();
+				
+		}	
+	});
+	
+	// displayErrorMessage(L('yql_error'), L('error_message_problem'), 80, 36);
 });
 
 // ==================================
@@ -711,27 +1127,18 @@ Ti.App.addEventListener('yqlerror', function(e) {
 if (!Titanium.Network.online) {
 	displayErrorMessage(L('network_error'), L('network_error_message'), 45, 30);
 } else {
-	// if (Titanium.Network.networkTypeName == 'MOBILE') {
-	// 	displayErrorMessage('Wi-Fi Required', 'Meme is a very data intensive application and needs a Wi-Fi connection to work properly. Please, connect to Wi-Fi and try again.', 58, 25);
-	// } else {
 		startApplication();
-	// }
 };
 
 // =====================
 // = Permalink opening =
 // =====================
-var permalinkIsOpened = false; // controls multiple Permalinks Opened
-
-// Avoiding multiple Permalinks Opening
-Ti.App.addEventListener('permalinkIsOpenedFalse', function(e) {
-	permalinkIsOpened = false;
-});
 
 Ti.App.addEventListener('openPermalink', function(e) {
 	// permalink should open only when click was on the blackBox
 	// otherwise there will be no guid and pubid data and the app will crash
 	if (e.guid && e.pubId) {
+		
 		// Sets the Permalink Animation startup settings
 		var t = Ti.UI.create2DMatrix();
 		t = t.scale(0);
@@ -754,34 +1161,126 @@ Ti.App.addEventListener('openPermalink', function(e) {
 		// Creating the Open Permalink Transition
 		// create first transform to go beyond normal size
 		var t1 = Titanium.UI.create2DMatrix();
-		t1 = t1.scale(1.1);
+		t1 = t1.scale(1.0);
 
 		var a = Titanium.UI.createAnimation();
 		a.transform = t1;
 		a.duration = 200;
 
-		// when this animation completes, scale to normal size
-		a.addEventListener('complete', function()
-		{
-			var t2 = Titanium.UI.create2DMatrix();
-			t2 = t2.scale(1.0);
-			winPermalink.animate({transform:t2, duration:200});
-		});
+		if (Ti.App.permalinkIsOpened == false){
 
-		if (permalinkIsOpened == false){
-
-			Ti.App.fireEvent('show_indicator', {
-				message: L('loading_message'),
-				color: "#AB0899",
-				size: 200
-			});
-			permalinkIsOpened = true;
+			// Ti.App.fireEvent('show_indicator', {
+			// 	message: L('loading_message'),
+			// 	color: "#AB0899",
+			// 	size: 200
+			// });
+			Ti.App.permalinkIsOpened = true;
 			winPermalink.open(a);
 		}
 
-		setTimeout(function()
-		{
-			Ti.App.fireEvent('hide_indicator');
-		},10000);
+		// setTimeout(function()
+		// {
+		// 	Ti.App.fireEvent('hide_indicator');
+		// },5000);
 	}
+});
+
+
+// =========================
+// = OPEN INTERNAL BROWSER =
+// =========================
+
+Ti.App.addEventListener('openBrowser', function(e) {
+
+	var winBrowser = Ti.UI.createWindow({
+	    url: 				'browser.js',
+	    name: 				'Internal Browser',
+	    backgroundImage: 	'images/bg_black_transparent.png',
+		backgroundLeftCap: 	10,
+		backgroundTopCap: 	10,
+		left: 				0,
+		top: 				0,
+		height: 			'100%',
+		width: 				'100%',
+		navBarHidden: 		true,
+		zIndex: 			7,
+		opacity: 			0,
+		pUrl: 				e.url
+	});
+
+
+	var a = Titanium.UI.createAnimation();
+	a.duration = 300;
+	a.opacity = 1;
+
+	if (Ti.App.browserIsOpened == false){
+		Ti.App.browserIsOpened = true;
+		winBrowser.open(a);
+	}
+
+});
+
+// =================================
+// = LISTENERS FOR THE BOOKMARKLET =
+// =================================
+
+// Listeners to retrieve Data from the Custom Handler (memeipad)
+var book_previous; 
+
+Ti.App.addEventListener('resumed', function (e){
+	//Analytics Request
+	doYwaRequest(analytics.APP_STARTED);
+	
+	if (Ti.App.oAuthAdapter.isLoggedIn()) {
+	
+		if (Ti.App.getArguments().url) {
+			// Retrieves the data from the Bookmarklet
+			var bookmarkletLink = Ti.App.getArguments().url.split("memeapp:")[1];
+			Ti.API.info("Arguments URL: BookmarkletLink [" + bookmarkletLink + "], Previous [" + book_previous + "]");
+			if (bookmarkletLink != book_previous) {
+			
+				if (Ti.App.newpostIsOpen == false) {
+					newPost(bookmarkletLink);
+					book_previous = bookmarkletLink;
+				
+				} else {
+					//Alert if the NewPost Screen is open
+					var alertPaste = Titanium.UI.createAlertDialog({
+						title: L('meme_paste_alert_title'),
+						message: String.format(L("meme_paste_alert_message"), bookmarkletLink),
+						buttonNames: [L('btn_alert_CANCEL'),L('btn_alert_YES')],
+						cancel: 0
+					});	
+					alertPaste.show();
+
+					alertPaste.addEventListener('click',function(e)	{
+						if (e.index == 1){
+							Ti.App.fireEvent("bookmarklet_link", {link: bookmarkletLink});
+							book_previous = bookmarkletLink;
+						}	
+					});
+				}
+			}
+		}
+	} else {
+		// Not Logged In
+		Ti.API.debug("Not LoggedIn, not going to paste this Link on New Post");
+	}
+});
+
+Ti.App.addEventListener('pause', function (e){
+	// Ti.API.info("App Arguments on Pause: " + JSON.stringify(Ti.App.getArguments()));
+});
+
+
+// ==========================
+// = SHAKE TO CLEAN GESTURE =
+// ==========================
+
+// THIS ALLOWS USERS TO CLEAN UP THE NEW POST SCREEN SHAKING THE DEVICE
+Ti.Gesture.addEventListener('shake',function(e)
+{
+	Ti.API.debug("Shake Gesture captured, cleaning up the New Post Forms");
+	Ti.App.fireEvent('shake_clean');
+	
 });
