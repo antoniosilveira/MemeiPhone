@@ -23,22 +23,6 @@ var win1 = Titanium.UI.createWindow({
 	]
 });
 
-// var highlightView = Titanium.UI.createScrollableView({
-// 	views: 					[],
-// 	top: 					51,
-// 	left: 					0,
-// 	width: 					1024,
-// 	height: 				273,
-// 	backgroundColor: 		'black',
-// 	showPagingControl: 		true,
-// 	pagingControlHeight: 	24,
-// 	pagingControlColor: 	'black',
-// 	// maxZoomScale: 			2.0,
-// 	currentPage: 			0,
-// 	zIndex: 				1
-// });
-// win1.add(highlightView);
-
 var appNavBarView = Ti.UI.createView({
 	backgroundImage: 		'images/bg_app_navbar.png',
 	backgroundColor: 		'black',

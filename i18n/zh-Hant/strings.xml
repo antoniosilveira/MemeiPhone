@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<!-- TRADITIONAL CHINESE -->
+	<!-- app.js -->
+	<string name="app_name">meme for ipad</string>  <!-- Limit of 13 characters -->
+	<!-- HEADER -->
+	<string name="path_logo_header">images/logo_meme_white.png</string>
+	<string name="path_btn_signin_background_image">images/btn_signin_top.png</string>
+	<string name="path_btn_signin_title">登入</string>
+	<string name="path_btn_signup_background_image">images/btn_signup_zh.png</string>
+	<string name="path_btn_back">images/btn_back.png</string>
+	<string name="btn_signup_alert">創建你的賬號</string>
+	<string name="btn_signup_message">我們會在Safari中打開註冊頁</string>
+	<string name="btn_signup_url">http://meme.yahoo.com/confirm</string>
+	<string name="path_create_post_background_image">images/btn_create_post_zh.png</string>
+	<!-- ABOUT -->
+	<string name="btn_signout_title">登出</string>
+	<string name="btn_back_title">返回</string>
+	<string name="path_btn_signout_background_image">images/btn_signout.png</string>
+	<string name="followers"> 追隨者 </string>
+	<string name="following">     追隨 </string>
+	<string name="about_ATOS">附加服務條款</string>
+	<string name="about_UTOS">服務條款</string>
+	<string name="about_privacy">隱私權政策</string>
+	<string name="about_guidelines">使用規範</string>
+	<string name="about_feedback">建議事項</string>
+	<string name="url_atos_html">http://meme.yahoo.com/help/atos/?.lang=%s</string>
+	<string name="url_utos_html">http://meme.yahoo.com/help/utos/?.lang=%s</string>
+	<string name="url_privacy_html">http://meme.yahoo.com/help/privacy/?.lang=%s</string>
+	<string name="url_guidelines_html">http://meme.yahoo.com/help/guidelines/</string>
+	<string name="meme_short_domain">me.me/</string>
+	<string name="aboutGitLabel_text">Meme for iPad on GitHub:\nhttp://memeapp.net/source</string>
+	<string name="memeapp_source_url">http://memeapp.net/source</string>
+	<string name="meme_about_text">關於</string>
+	<string name="mail_message_subject_feedback">Meme for iPad - Feedback (ver. %s)</string>
+	<string name="feedback_mail_address">memeipad@yahoo.com</string>
+	<string name="meme_settings_text">設置</string>
+	<string name="meme_install_bookmarklet_text">Install Safari Bookmarklet</string>
+	<string name="meme_bookmarklet_url">http://memeapp.net/bookmarklet/</string>
+	<string name="meme_bookmarklet_alert_title">Install Bookmarklet</string>
+	<string name="meme_bookmarklet_alert_message">You will be redirected to Safari to complete the installation of the Bookmarklet. Follow the instructions that appear on that page.</string>
+	<string name="about_version">v. </string>
+	<string name="meme_paste_alert_message">Do you want to add the content from the following Link in your Post?\n\n%s</string>
+	<string name="meme_paste_alert_title">注意！</string>
+	<!-- GENERIC -->
+	<string name="open_link_title">打開鏈接</string>
+	<string name="success_alert_title">成功</string>
+	<string name="error_alert_title">錯誤</string>
+	<string name="btn_alert_OK">好</string>
+	<string name="btn_alert_YES">是</string>
+	<string name="btn_alert_NO">否</string>
+	<string name="btn_alert_CANCEL">取消</string>
+	<string name="btn_alert_INSTALL">安裝</string>
+	<string name="open_link_message">>我們會在Safari中打開註冊頁</string>
+	<string name="btn_error_refresh_title">刷新</string>
+	<string name="yql_error"> 錯誤</string>
+	<string name="error_message_problem">對不起，好像出現了問題...</string>
+	<string name="network_error">網路錯誤</string>
+	<string name="network_error_message">你需要上網才能在iPad上使用Meme。請檢查網路連接。</string>
+	<string name="loading_message">載入中...</string>
+	<string name="memeapp_url">http://me.me/ipad/</string>
+	<string name="btn_done_title">完成</string>
+	<!-- /app.js -->
+	<!-- dashboard.js-->
+	<string name="pull_to_reload_text">拉一下，重新載入</string>
+	<string name="last_updated_text">最後修改: </string>
+	<string name="pull_down_to_refresh_text">向下拉，刷新...</string>
+	<string name="release_to_refresh_text">放開，刷新...</string>
+	<string name="reloading_message">重新載入中...</string>
+	<string name="welcome_message">歡迎來到meme!</string>
+	<string name="welcome_message2">智能的发帖方式</string>
+	<string name="welcome_description">雅虎的Meme是一個新型博客平臺：優雅、智能而且簡單。\n你可以開始追隨一些我們推薦的博客，或是自己寫一篇博客，只要點擊\"新建帖子\"按鍵</string>
+	<string name="go_dashboard_title">現在你已經追隨了一些博客，看看你的主頁</string>
+	<string name="recommended_label_title">推薦的用戶和內容</string>
+	<!-- app_hightlight.js -->
+	<string name="featured_content_text">特色內容</string>
+	<!-- newpost.js -->
+	<string name="searchTextField_hint_text">把你的YouTube或Vimeo鏈接黏貼進來，或者搜索你需要的的內容</string>
+	<string name="popover_flashlight_title">建議內容</string>
+	<string name="path_btn_post_top_background_image">images/btn_post_top.png</string>
+	<string name="btn_post_top_title">發表</string>
+	<string name="editTitleField_hint_text">加標題</string>
+	<string name="tempPostLabel_text">在這裡編輯帖子</string>
+	<string name="disclaimer_copyright_guidelines">請勿侵犯著作權和發佈色情內容. 查看社群使用規範了解更多資訊.</string>
+	<string name="disclaimer_yahoo_updates">你的帖子會通過Yahoo! Updates分享給他人</string>
+	<string name="guidelines_url">http://meme.yahoo.com/help/guidelines/</string>
+	<string name="settings_url">http://meme.yahoo.com/settings</string>
+	<string name="oops_alert_title">抱歉...</string>
+	<string name="post_message_empty">在發表之前寫些東西吧。</string>
+	<string name="preparing_to_post_message">準備發表...</string>
+	<string name="remove_alert_title">删除</string>
+	<string name="remove_alert_message">你确定要把这个媒体从帖子中删除?</string>
+	<string name="publishing_post_meme">在Meme上發表你的帖子</string>
+	<string name="prepare_uploading_file">準備上傳文件</string>
+	<string name="uploading_file">上傳文件...</string>
+	<string name="post_success_message">你的帖子已经成功發表!</string> 
+	<string name="post_error_message">你的帖子不能发表。</string> 
+	<string name="post_error_7meg_message">你的帖子不能发表。請检查图片大小是否小于7MB.</string>
+	<string name="flashlight_alert_empty_title">探照灯</string>
+	<string name="flashlight_alert_empty_message">探照灯关键字为空，只要输入任何内容我们就会提供建议</string>
+	<string name="flashlight_no_results">没有找到结果。</string>
+	<string name="add_photo_button_title">添加圖片</string>
+	<string name="alert_clear_shake_title">Clear content</string>
+	<string name="alert_clear_shake_message">Are you sure you want to clear all content in this screen?</string>
+	<!-- /newpost.js -->
+	<!-- commons.js -->
+	<string name="time_just_now">一會兒</string>
+	<string name="time_1_minute">1分鐘</string>
+	<string name="time_minutes">幾分鐘</string>
+	<string name="time_1_hour">1小時</string>
+	<string name="time_hours">幾小時</string>
+	<string name="time_1_day">1天</string>
+	<string name="time_days">幾天</string>
+	<string name="time_1_week">1星期</string>
+	<string name="time_weeks">幾星期</string>
+	<string name="time_1_month">1個月</string>
+	<string name="time_months">幾個月</string>
+	<string name="time_1_year">1年</string>
+	<string name="time_years">幾年</string>
+	<string name="time_1_century">1世紀</string>
+	<string name="time_centuries"> 幾世紀</string>
+	<string name="time_ago"> 之前</string>
+	<!-- /commons.js -->
+	<!-- permalink.js -->
+	<string name="posted"> 發表 </string> 
+	<string name="path_btn_send_commentbackground_image">images/btn_send_comment.png</string>
+	<string name="btn_send_comment_title">回應</string>
+	<string name="repostCommentField_hint_text">添加你的回應...</string> 
+	<string name="delete_alert_title">刪除帖子</string>  
+	<string name="delete_alert_message">你確定要刪除這個帖子?</string>
+	<string name="report_abuse_alert_title">舉報</string>  
+	<string name="report_abuse_alert_message">我們會在Safari中打開舉報頁。</string>
+	<string name="path_btn_follow_background_image">images/bg_btn_follow_zh.png</string>
+	<string name="path_btn_following_background_image">images/bg_btn_following_zh.png</string>
+	<string name="copy_link_text">複製鏈接</string>
+	<string name="mail_post_text">郵寄這篇帖子</string>
+	<string name="share_with_twitter">在iPad的Twitter上分享</string>
+	<string name="share_with_twitter_message">這將打開iPad上的Twitter（如果安裝過</string>
+	<!-- /permalink.js -->
+	<!-- Share with Mail -->
+	<string name="mail_message_body_source">>來源: </string>
+	<string name="mail_message_signature">從iPad的Meme上發送的</string>
+	<string name="mail_message_subject_default">分享一篇有趣的帖子</string>
+	<string name="mail_web_link">郵寄鏈接</string>
+	<string name="mail_web_link_text">分享鏈接: </string>
+	<!-- /Share with Mail -->
+	<!-- EXTRAS -->
+	<string name="format_test">我的名字是%s</string>
+</resources>

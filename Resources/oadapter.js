@@ -10,6 +10,16 @@
 Ti.include('lib/sha1.js');
 Ti.include('lib/oauth.js');
 Ti.include('lib/secrets.js');
+Ti.include('lib/analytics.js');
+
+// Sets the iPad Language to use in the Login Page
+var loginLanguage = function(){
+	if (Ti.Locale.currentLanguage == "pt") {
+		return "br";
+	} else {
+		return Ti.Locale.currentLanguage;
+	}
+}();
 
 var authorizationUI = function() {
 	var authWindow, oauthWebView, signingIn;
@@ -20,7 +30,7 @@ var authorizationUI = function() {
 
 		btn_signin.enabled = true;
         // if the window doesn't exist, exit
-        if (authWindow == null) return;
+        if (authWindow == null) { return; }
         // remove the UI
         try
         {
@@ -35,7 +45,9 @@ var authorizationUI = function() {
 
 		oauthWindow  = null;
 		oauthWebView = null;
-		gCallback    = null;
+		
+		//Analytics Request
+		doYwaRequest(analytics.SIGN_IN);
     };
 
 	// looks for the Oauth Verifier everytime the webview loads
@@ -52,7 +64,7 @@ var authorizationUI = function() {
 			var result = (/<span id="shortCode">(\w+)<\/span>/g).exec(htmlSource);
 			if (result && result[1]) {
 			    var pin = result[1];
-				Ti.API.debug('Found oAuth Verifier Code: ' + pin);
+				Ti.API.info('Found oAuth Verifier Code: ' + pin);
 	            destroyUI();
 				return(pCallback(pin));
 			}			
@@ -63,8 +75,6 @@ var authorizationUI = function() {
 		if (signingIn != true) {
 			
 			btn_signin.enabled = false;
-			
-			gCallback  = pCallback;
 			
 			authWindow = Ti.UI.createWindow({
 				navBarHidden: true
@@ -97,30 +107,46 @@ var authorizationUI = function() {
 	
 			// Activity indicator AJAX
 			var actInd = Ti.UI.createActivityIndicator({
-				top: 250,
+				top: 270,
+				backgroundColor: "black",
+				borderRadius: 4,
 				height: 50,
-				width: 10,
+				width: 50,
 				zIndex: 90,
-				style:Ti.UI.iPhone.ActivityIndicatorStyle.DARK
+				style:Ti.UI.iPhone.ActivityIndicatorStyle.PLAIN,
+				visible: false
 			});
-			authWebView.add(actInd);
+			
 	
 			//Close button
 			var btn_close = Titanium.UI.createButton({
 				backgroundImage:'images/btn_close_gray.png',
-				width: 			22,
-				height: 		22,
-				top: 			10,
-				right: 			10,
+				width: 			29,
+				height: 		29,
+				top: 			5,
+				right: 			5,
 				zIndex: 		10,
 				visible: 		true
 			});
 			authView.add(btn_close);
 			
+			authView.add(authWebView);
+			
 	        authWindow.open();
+	
+			authWebView.addEventListener("beforeload", function(e) {
+				// show the ajax 
+				authWebView.add(actInd);
+				actInd.show();
+			});
 		
-	        authWebView.addEventListener('load', lookupVerifier(pCallback));
-	        authView.add(authWebView);
+	        authWebView.addEventListener('load', function(e) {
+				// hides the ajax 
+				actInd.hide();
+				Ti.API.info("pCallback on load event: " + pCallback);
+				lookupVerifier(pCallback)(e);
+			});
+	        
 	
 			// Creating the Open Transition
 			// create first transform to go beyond normal size
@@ -150,7 +176,7 @@ var authorizationUI = function() {
     };
 
 	return(showUI);
-}
+};
 
 // ====================================
 // = create an OAuthAdapter instance =
@@ -170,10 +196,10 @@ var OAuthAdapter = function(pService, authorize) {
 	var oauthRequest = function(pUrl, pParameters, accessor) {
 		return(OAuth.getParameterMap(serviceRequest(pUrl, pParameters, accessor)));
 	};
-
+	
 	var serviceRequest = function(pUrl, pParameters, accessor) {
 		pParameters.push( ["oauth_consumer_key", consumerKey ] );
-		pParameters.push( ["oauth_signature_method", "HMAC-SHA1"] );
+		pParameters.push( ["oauth_signature_method", "HMAC-SHA1"] ); 
 		
 		var message = { action: pUrl,
 					    method: "POST",
@@ -212,7 +238,7 @@ var OAuthAdapter = function(pService, authorize) {
 	
     var requestToken = function() {
 		var accessor       = { consumerSecret: consumerSecret };
-		var oauth_response = oauthRequest(get_request_token_url, [ [ "oauth_callback", "oob" ] ], accessor);
+		var oauth_response = oauthRequest(get_request_token_url, [ [ "oauth_callback", "oob" ], ["xoauth_lang_pref", loginLanguage] ], accessor);
 		return(oauth_response);
     };
 
@@ -281,12 +307,12 @@ var OAuthAdapter = function(pService, authorize) {
 	};
 
 	var query = function(pQuery) {
-		Ti.API.debug("Function Query Called");
+		Ti.API.debug("[oadapter] function query called");
 		var token = maybeRefreshToken(loadToken());
 		var parameters = [ ["format", "json"],
 		 				   ["diagnostics", "false"],
 		 				   ["q", pQuery],
-						   ["oauth_token", token.oauth_token],
+						   ["oauth_token", token.oauth_token], 
 						   ["env", "http://datatables.org/alltables.env"]
 						 ];
 		return doQuery(yql_base_url, parameters, accessorFromToken(token));
@@ -335,7 +361,7 @@ var OAuthAdapter = function(pService, authorize) {
 			return true;
 		}
 		return false;
-	}
+	};
 	
 	// returns proper YQL (2 or 3 legged)
 	var getYql = function() {
@@ -343,7 +369,7 @@ var OAuthAdapter = function(pService, authorize) {
 			return { query: query };
 		}
 		return { query: query2legg };
-	}
+	};
 	
 	// will check if access tokens are stored in the config file
     var attachLogin = function(attachFunction, callback) {
@@ -360,10 +386,11 @@ var OAuthAdapter = function(pService, authorize) {
     };
 	
 	// Logs out from Yahoo! deleting the config file
-    var logout = function(pService) {
+    var logout = function(pService, callback) {
 		Ti.API.debug('Deleting access token [' + pService + '].');
 		var file = tokenFilename();
-		file.deleteFile();
+		if (file) { file.deleteFile(); }
+		callback();
 	};
 	
 	var getUserGuid = function() {
@@ -372,7 +399,7 @@ var OAuthAdapter = function(pService, authorize) {
 			return token.token.xoauth_yahoo_guid;
 		}
 		return null;
-	}
+	};
 	
 	return({
 		attachLogin: attachLogin,

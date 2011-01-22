@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<!-- PORTUGUESE -->
+	<!-- app.js -->
+	<string name="app_name">meme para ipad</string> <!-- Limit of 13 characters -->
+	<!-- HEADER -->
+	<string name="path_logo_header">images/logo_meme_white_br.png</string>
+	<string name="path_btn_signin_background_image">images/btn_signin_top.png</string>
+	<string name="path_btn_signin_title">entrar</string>
+	<string name="path_btn_signup_background_image">images/btn_signup_br.png</string>
+	<string name="path_btn_back">images/btn_back.png</string>
+	<string name="btn_signup_alert">Crie sua conta</string>
+	<string name="btn_signup_message">A página de criação de conta será aberta no Safari</string>
+	<string name="btn_signup_url">http://meme.yahoo.com/confirm</string>
+	<string name="path_create_post_background_image">images/btn_create_post_br.png</string>
+	<!-- ABOUT -->
+	<string name="btn_signout_title">sair</string>
+	<string name="btn_back_title">voltar</string>
+	<string name="path_btn_signout_background_image">images/btn_signout.png</string>
+	<string name="followers">seguidores </string>
+	<string name="following">    seguindo </string>
+	<string name="about_ATOS">Termos Adicionais</string>
+	<string name="about_UTOS">Yahoo! Termos de Serviço</string>
+	<string name="about_privacy">Privacidade</string>
+	<string name="about_guidelines">Regras</string>
+	<string name="about_feedback">Mande sugestões</string>
+	<string name="url_atos_html">http://meme.yahoo.com/help/atos/?.lang=%s</string>
+	<string name="url_utos_html">http://meme.yahoo.com/help/utos/?.lang=%s</string>
+	<string name="url_privacy_html">http://meme.yahoo.com/help/privacy/?.lang=%s</string>
+	<string name="url_guidelines_html">http://meme.yahoo.com/help/guidelines/</string>
+	<string name="meme_short_domain">me.me/</string>
+	<string name="aboutGitLabel_text">Meme para iPad no GitHub:\nhttp://memeapp.net/source</string>
+	<string name="memeapp_source_url">http://memeapp.net/source</string>
+	<string name="meme_about_text">Sobre</string>
+	<string name="mail_message_subject_feedback">Meme para iPad - Sugestão (ver. %s)</string>
+	<string name="feedback_mail_address">memeipad@yahoo.com</string>
+	<string name="meme_settings_text">Configurações</string>
+	<string name="meme_install_bookmarklet_text">Instalar Bookmarklet no Safari</string>
+	<string name="meme_bookmarklet_url">http://memeapp.net/bookmarklet/</string>
+	<string name="meme_bookmarklet_alert_title">Instalar Bookmarklet</string>
+	<string name="meme_bookmarklet_alert_message">Você será redirecionado para o Safari para completar a instalação do Bookmarklet. Siga as instruções na página.</string>
+	<string name="about_version">versão: </string>
+	<string name="meme_paste_alert_message">Você deseja adicionar o conteúdo do link abaixo no seu Post?\n\n%s</string>
+	<string name="meme_paste_alert_title">Atenção!</string>
+	<!-- GENERIC -->
+	<string name="open_link_title">Abrir Link</string>
+	<string name="success_alert_title">Sucesso</string>
+	<string name="error_alert_title">Erro</string>
+	<string name="btn_alert_OK">OK</string>
+	<string name="btn_alert_YES">Sim</string>
+	<string name="btn_alert_NO">Não</string>
+	<string name="btn_alert_CANCEL">Cancelar</string>
+	<string name="btn_alert_INSTALL">Instalar</string>
+	<string name="open_link_message">Este link será aberto no Safari</string>
+	<string name="btn_error_refresh_title">recarregar</string>
+	<string name="yql_error">Erro</string>
+	<string name="error_message_problem">Ops, parece que tivemos um problema...</string>
+	<string name="network_error">Erro de Rede</string>
+	<string name="network_error_message">Você precisa estar online para poder usar o Meme para iPad. Por favor, verifique sua conexão de rede e tente novamente.</string>
+	<string name="loading_message">Carregando...</string>
+	<string name="memeapp_url">http://me.me/ipad/</string>
+	<string name="btn_done_title">ok</string>
+	<!-- /app.js -->
+	<!-- dashboard.js-->
+	<string name="pull_to_reload_text">Puxe para recarregar</string>
+	<string name="last_updated_text">Última atualização: </string>
+	<string name="pull_down_to_refresh_text">Puxe para recarregar...</string>
+	<string name="release_to_refresh_text">Solte para recarregar...</string>
+	<string name="reloading_message">Recarregando...</string>
+	<string name="welcome_message">bem vindo ao meme!</string>
+	<string name="welcome_message2">o jeito inteligente de postar</string>
+	<string name="welcome_description">Meme do Yahoo! é um novo tipo de pltaforma de blog elegante, inteligente e simples.\nVocê pode começar seguindo algus dos blogs recomendados ou criando um novo post, clique no botão \"criar post\"</string>
+	<string name="go_dashboard_title">Agora que você esta seguindo alguns blogs, dê uma olhada no seu feed</string>
+	<string name="recommended_label_title">CONTEÚDO E USUÄRIOS RECOMENDADO</string>
+	<!-- app_hightlight.js -->
+	<string name="featured_content_text">DESTAQUE</string>
+	<!-- newpost.js -->
+	<string name="searchTextField_hint_text">Cole links do YouTube ou Vimeo, ou faça uma busca para ilustrar seu post</string>
+	<string name="popover_flashlight_title">Sugestão de Conteúdo</string>
+	<string name="path_btn_post_top_background_image">images/btn_post_top.png</string>
+	<string name="btn_post_top_title">postar</string>
+	<string name="editTitleField_hint_text">adicione um título</string>
+	<string name="tempPostLabel_text">escreva aqui seu post</string>
+	<string name="disclaimer_copyright_guidelines">Não viole direitos autorais e/ou envie conteúdo adulto. Na dúvida, veja as Regras da Comunidade.</string>
+	<string name="disclaimer_yahoo_updates">Seu post será compartilhado via Yahoo! Atualizações.</string>
+	<string name="guidelines_url">http://meme.yahoo.com/help/guidelines/</string>
+	<string name="settings_url">http://profiles.yahoo.com/settings/updates</string>
+	<string name="oops_alert_title">Oops...</string>
+	<string name="post_message_empty">Seu post esta vazio, escreva alguma coisa antes de postar</string>
+	<string name="preparing_to_post_message">Preparando para postar...</string>
+	<string name="remove_alert_title">Remover</string>
+	<string name="remove_alert_message">Você tem certeza que deseja retirar esta mídia do seu post?</string>
+	<string name="publishing_post_meme">Publicando seu post no Meme</string>
+	<string name="prepare_uploading_file">Preparando para subir arquivo</string>
+	<string name="uploading_file">Enviando arquivo...</string>
+	<string name="post_success_message">Seu post foi publicado com sucesso!</string> 
+	<string name="post_error_message">Seu post não pode ser publicado</string> 
+	<string name="post_error_7meg_message">Seu post não pode ser publicado, Por favor verifique o tamanho da imagem, ela deve ter menos de 7MB.</string>
+	<string name="flashlight_alert_empty_title">Flashlight</string>
+	<string name="flashlight_alert_empty_message">O campo Flashlight esta vazio, digite alguma coisa para buscar sugestões de conteúdo</string>
+	<string name="flashlight_no_results">Nenhum resultado foi encontrado.</string>
+	<string name="add_photo_button_title">incluir foto</string>
+	<string name="alert_clear_shake_title">Apagar Conteúdo</string>
+	<string name="alert_clear_shake_message">Tem certeza que você deseja pagar todo o conteúdo desta tela?</string>
+	<!-- /newpost.js -->
+	<!-- commons.js -->
+	<string name="time_just_now">poucos segundos</string>
+	<string name="time_1_minute">1 minuto</string>
+	<string name="time_minutes">minutos</string>
+	<string name="time_1_hour">1 hora</string>
+	<string name="time_hours">horas</string>
+	<string name="time_1_day">1 dia</string>
+	<string name="time_days">dias</string>
+	<string name="time_1_week">1 semana</string>
+	<string name="time_weeks">semanas</string>
+	<string name="time_1_month">1 mês</string>
+	<string name="time_months">meses</string>
+	<string name="time_1_year">1 ano</string>
+	<string name="time_years">anos</string>
+	<string name="time_1_century">1 século</string>
+	<string name="time_centuries"> Séculos</string>
+	<string name="time_ago"></string>
+	<!-- /commons.js -->
+	<!-- permalink.js -->
+	<string name="posted"> postado há </string> 
+	<string name="path_btn_send_commentbackground_image">images/btn_send_comment.png</string>
+	<string name="btn_send_comment_title">comentar</string>
+	<string name="repostCommentField_hint_text">adicione seu comentário</string> 
+	<string name="delete_alert_title">Apagar Post</string>  
+	<string name="delete_alert_message">Você tem certeza de que deseja apagar este Post?</string>
+	<string name="report_abuse_alert_title">Denúncia de Abuso</string>  
+	<string name="report_abuse_alert_message">A página de Denúncia de Abuso será aberta no Safari.</string>
+	<string name="path_btn_follow_background_image">images/bg_btn_follow_pt.png</string>
+	<string name="path_btn_following_background_image">images/bg_btn_following_pt.png</string>
+	<string name="copy_link_text">Copiar Link</string>
+	<string name="mail_post_text">Enviar este Post por e-mail</string>
+	<string name="share_with_twitter">Compartilhar com Twitter for iPad</string>
+	<string name="share_with_twitter_message">Isso abrirá o Twitter for IPad (se estiver instalado)</string>
+	<!-- /permalink.js -->
+	<!-- Share with Mail -->
+	<string name="mail_message_body_source">Fonte: </string>
+	<string name="mail_message_signature">Enviado com Meme for iPad</string>
+	<string name="mail_message_subject_default">Compartilhando um post interessante</string>
+	<string name="mail_web_link">Enviar link por e-mail</string>
+	<string name="mail_web_link_text">Compartilhando Link: </string>
+	<!-- /Share with Mail -->
+	<!-- EXTRAS -->
+	<string name="format_test">My name is %s</string>
+</resources>
