@@ -68,8 +68,8 @@ var authorizationUI = function() {
 	            url: pUrl,
 				top: 40,
 				zIndex: 99,
-				scalesPageToFit: false,
-				autoDetect:[Ti.UI.AUTODETECT_NONE] // does not detects Phone numbers and links them automatically
+				scalesPageToFit: true,
+				autoDetect: [ Ti.UI.AUTODETECT_NONE ] // does not detects Phone numbers and links them automatically
 	        });
 		
 			// Force Landscape mode only		
@@ -83,8 +83,8 @@ var authorizationUI = function() {
 	            border: 5,
 	            backgroundColor: 'white',
 	            borderColor: '#333',
-	            borderRadius: 2,
-	            borderWidth: 2,
+	            borderRadius: 5,
+	            borderWidth: 5,
 	            zIndex: -1,
 	            transform: t
 	        });
@@ -131,7 +131,6 @@ var authorizationUI = function() {
 				Ti.API.info("pCallback on load event: " + pCallback);
 				lookupVerifier(pCallback)(e);
 			});
-	        
 	
 			// Creating the Open Transition
 			// create first transform to go beyond normal size
