@@ -5,18 +5,20 @@ meme.ui.createHomeWindow = function() {
 	});
 	
 	var tryNowButton = Titanium.UI.createButton({
-		backgroundImage: 'images/home_button.png',
-		top: 			200,
-		width: 			400, 
-		height: 		100,  
-		title: 			'try it now',
-		color: 			'white',
-		textAlign: 		'center',
-		font: 			{ fontSize: 34, fontFamily: 'Gotham Rounded', fontWeight: 'Bold' },
-		opacity: 		1,
-		visible: 		true
+		image: 'images/home_button_tryitnow.png',
+		top: 260,
+		width: 320, 
+		height: 110
 	});
 	homeWindow.add(tryNowButton);
+	
+	var signInButton = Titanium.UI.createButton({
+		image: 'images/home_button_signin.png',
+		top: 370,
+		width: 320, 
+		height: 110
+	});
+	homeWindow.add(signInButton);
 	
 	return homeWindow;
 };
