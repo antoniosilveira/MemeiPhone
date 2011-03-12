@@ -1,0 +1,37 @@
+This project is an iPhone app for Yahoo! Meme, a light blogging platform from Yahoo! that is currently available in several languages including English, Portuguese, Spanish, Bahasa Indonesia and Traditional Chinese.
+
+This app has the objective to offer a native looking way to navigate and consume content from user's dashboard on Meme.
+
+Development powered by Titanium Mobile framework that allows development for iOS platform using Javascript instead of ObjC.
+
+h2. Requirements
+
+- iOS 4.2 SDK
+- Titanium Developer SDK 1.2.1
+- Titanium Mobile SDK 1.6
+
+h2. Features
+
+- oAuth 1.1 Authentication
+- Navigate on Meme's dashboard
+- Create new posts with Flashlight suggested content and live preview of links
+- Repost any Post from within the App
+
+h2. Legal
+
+h3. Meme from Yahoo! 
+
+Yahoo!, Meme from Yahoo! and associated marks and logos are 
+trademarks of Yahoo! Inc.
+
+Meme from Yahoo! Terms of Service: http://meme.yahoo.com/help/utos/
+Meme from Yahoo! Additional Terms of Service: http://meme.yahoo.com/help/atos/
+Meme from Yahoo! Guidelines: http://meme.yahoo.com/help/guidelines/
+
+h3. Titanium and Appcelerator
+
+Appcelerator, Appcelerator Titanium and associated marks and logos are trademarks of Appcelerator, Inc. 
+
+Titanium is Copyright (c) 2009-2010 by Appcelerator, Inc. All Rights Reserved.
+
+Titanium is licensed under the Apache Public License (Version 2). Please see the LICENSE file for the full license.

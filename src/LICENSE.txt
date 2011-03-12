@@ -1,0 +1,3 @@
+Meme for iPhone is a native client that allows users to access their content on Meme from Yahoo! light blogging platform and to create content/posting content using all advanced features you find on the Web version, including Flashlight suggested content and live preview of YouTube and Vimeo video links.
+
+The current Terms Of Service (TOS) for Meme from Yahoo! are available at http://meme.yahoo.com/help/utos/

@@ -1,5 +1,13 @@
 tmp
 secrets.js
-build/iphone/*
-build/android/*
+src/build/iphone/*
 .DS_Store
+*.pyc
+.svn
+*.otf
+src/Resources/en.lproj/Localizable.strings
+src/Resources/es.lproj/Localizable.strings
+src/Resources/id.lproj/Localizable.strings
+src/Resources/pt.lproj/Localizable.strings
+src/Resources/zh-Hant.lproj/Localizable.strings
+src/Resources/test/enabled.js
