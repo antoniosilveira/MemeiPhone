@@ -8,6 +8,8 @@ var meme = {};
 })();
 
 Ti.include(
-	'/meme/ui/ui.js',
-	'/meme/api/api.js'
+	'/meme/config/config.js',
+	'/meme/api/api.js',
+	'/meme/auth/auth.js',
+	'/meme/ui/ui.js'
 );
