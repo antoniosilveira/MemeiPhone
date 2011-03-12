@@ -39,11 +39,11 @@ svn-verification:
 	fi
 
 project-name-verification:
-	@if [ "${PROJECT_NAME}" != "MemeiPad" ] && [ "${PROJECT_NAME}" != "MimiPad" ]; then\
+	@if [ "${PROJECT_NAME}" != "MemeiPhone" ] && [ "${PROJECT_NAME}" != "MimiPhone" ]; then\
 		echo "[ERROR] PROJECT_NAME env variable is required for this make target";\
 		echo "Please use one of the following:";\
-		echo "- \"PROJECT_NAME=MemeiPad ... make [target]\"";\
-		echo "- \"PROJECT_NAME=MimiPad ... make [target]\"";\
+		echo "- \"PROJECT_NAME=MemeiPhone ... make [target]\"";\
+		echo "- \"PROJECT_NAME=MimiPhone ... make [target]\"";\
 		exit 1;\
 	fi
 
@@ -147,7 +147,7 @@ mim: check-no-changes-on-git clean
 	@mv -v ${PROJECT_ROOT}/src/tiapp_mim.xml ${PROJECT_ROOT}/src/tiapp.xml
 	@echo "Replace CFBundleName..."
 	@mv ${PROJECT_ROOT}/src/Resources/id.lproj/InfoPlist.strings ${PROJECT_ROOT}/src/Resources/id.lproj/InfoPlist.strings.old
-	@cat ${PROJECT_ROOT}/src/Resources/id.lproj/InfoPlist.strings.old | sed -e "s/MemeiPad/MimiPad/g" > ${PROJECT_ROOT}/src/Resources/id.lproj/InfoPlist.strings
+	@cat ${PROJECT_ROOT}/src/Resources/id.lproj/InfoPlist.strings.old | sed -e "s/MemeiPhone/MimiPhone/g" > ${PROJECT_ROOT}/src/Resources/id.lproj/InfoPlist.strings
 	@rm -rf ${PROJECT_ROOT}/src/Resources/id.lproj/InfoPlist.strings.old
 	@echo "\"Berhasil\" :)"
 	@echo "* Don't forget to run the application before publishing it."
