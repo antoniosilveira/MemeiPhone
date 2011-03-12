@@ -1,1 +1,5 @@
-meme.api = {};
+(function(){
+	
+	meme.api = {};
+
+})();
