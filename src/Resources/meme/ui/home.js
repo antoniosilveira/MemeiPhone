@@ -17,7 +17,7 @@
 			homeWindow.add(newPostButton);
 			
 			var logoutButton = Titanium.UI.createButton({
-				image: 'images/home_button_tryitnow.png',
+				image: 'images/home_button_logout.png',
 				top: 370,
 				width: 320, 
 				height: 110
