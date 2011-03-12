@@ -1,0 +1,1 @@
+Ti.API.info('application loaded successfully :)');

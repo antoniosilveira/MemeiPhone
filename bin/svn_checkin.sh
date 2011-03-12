@@ -2,7 +2,7 @@
 
 # This script checks in necessary files on SVN work dir.
 
-SVN_DIR=${SVN_DIR:-../tmp/MemeiPad_trunk/}
+SVN_DIR=${SVN_DIR:-../tmp/MemeiPhone_trunk/}
 
 for file in `svn st ${SVN_DIR} | awk -F" " '{print $1 "|" $2}'`; do
 	fstatus=`echo $file | cut -d"|" -f1`

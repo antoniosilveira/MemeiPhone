@@ -7,7 +7,7 @@ TI_DIR="/Library/Application\ Support/Titanium"
 TI_ASSETS_DIR="${TI_DIR}/mobilesdk/osx/${TI_SDK_VERSION}"
 TI_IPHONE_DIR="${TI_ASSETS_DIR}/iphone"
 TI_BUILD="${TI_IPHONE_DIR}/builder.py"
-APP_DEVICE="ipad"
+APP_DEVICE="iphone"
 
 # Get APP parameters from current tiapp.xml
 APP_ID=`cat src/tiapp.xml | grep "<id>" | sed -e "s/<\/*id>//g"`
