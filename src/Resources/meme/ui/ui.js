@@ -30,10 +30,6 @@
 		});
 	};
 	
-	meme.ui.attachLogin = function(buttonClick, callback) {
-		meme.auth.attachLogin(buttonClick, callback);
-	};
-	
 })();
 
 Ti.include(

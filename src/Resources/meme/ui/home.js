@@ -84,7 +84,7 @@
 					}, 500);
 				});
 			};
-			meme.ui.attachLogin(signInButtonClick, meme.ui.refreshHomeWindow);	
+			meme.auth.attachLogin(signInButtonClick, meme.ui.refreshHomeWindow);	
 		}
 		return elements;
 	};
