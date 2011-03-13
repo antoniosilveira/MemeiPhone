@@ -32,5 +32,6 @@
 })();
 
 Ti.include(
-	'/meme/ui/home.js'
+	'/meme/ui/home.js',
+	'/meme/ui/post.js'
 );

@@ -3,7 +3,6 @@
 	meme.auth = {};
 	
 	meme.auth.attachLogin = function(buttonClick, callback) {
-		meme.auth.oadapter = OAuthAdapter('meme', authorizationUI());
 		meme.auth.oadapter.attachLogin(buttonClick, callback);
 	};
 

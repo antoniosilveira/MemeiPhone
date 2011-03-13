@@ -1,5 +1,7 @@
 (function(){
-	var homeWindow = null;
+	
+	var homeWindow = null,
+		homeWindowElements = [];
 	
 	meme.ui.openHomeWindow = function() {
 		homeWindow = Titanium.UI.createWindow({
@@ -7,6 +9,31 @@
 			orientationModes: [Ti.UI.PORTRAIT]
 		});
 		
+		homeWindowElements = createHomeWindowElements();
+		homeWindow.open();
+		
+		meme.ui.refreshHomeWindow();
+	};
+	
+	meme.ui.refreshHomeWindow = function() {
+		// TODO: add ajax :)
+		setTimeout(function() {
+			// remove elements
+			for (index in homeWindowElements) {
+				homeWindow.remove(homeWindowElements[index]);
+			}
+			// create new ones
+			homeWindowElements = createHomeWindowElements();
+			for (index in homeWindowElements) {
+				homeWindow.add(homeWindowElements[index]);
+			}
+		}, 250);
+	};
+	
+	var createHomeWindowElements = function() {
+		// TODO: store loggedin and loggedout buttons
+		// so we don't have to re-create them all the time
+		var elements = [];
 		if (meme.auth.oadapter && meme.auth.oadapter.isLoggedIn()) {
 			var newPostButton = Titanium.UI.createButton({
 				image: 'images/home_button_newpost.png',
@@ -14,7 +41,8 @@
 				width: 320, 
 				height: 110
 			});
-			homeWindow.add(newPostButton);
+			newPostButton.addEventListener('click', meme.ui.openPostView);
+			elements.push(newPostButton);
 			
 			var logoutButton = Titanium.UI.createButton({
 				image: 'images/home_button_logout.png',
@@ -27,7 +55,7 @@
 					meme.ui.refreshHomeWindow();
 				});
 			});
-			homeWindow.add(logoutButton);
+			elements.push(logoutButton);
 			
 		} else {
 			var tryNowButton = Titanium.UI.createButton({
@@ -37,7 +65,7 @@
 				height: 110
 			});
 			tryNowButton.addEventListener('click', meme.ui.createAccount);
-			homeWindow.add(tryNowButton);
+			elements.push(tryNowButton);
 
 			var signInButton = Titanium.UI.createButton({
 				image: 'images/home_button_signin.png',
@@ -45,7 +73,7 @@
 				width: 320, 
 				height: 110
 			});
-			homeWindow.add(signInButton);
+			elements.push(signInButton);
 
 			var signInButtonClick = function(continuation) {
 				var clickTimeoutSignIn = 0;
@@ -58,17 +86,7 @@
 			};
 			meme.ui.attachLogin(signInButtonClick, meme.ui.refreshHomeWindow);	
 		}
-		
-		homeWindow.open();
-	};
-	
-	meme.ui.refreshHomeWindow = function() {
-		// TODO: add ajax :)
-		setTimeout(function() {
-			homeWindow.close();
-			homeWindow = null;
-			meme.ui.openHomeWindow();
-		}, 500);
+		return elements;
 	};
 	
 })();
