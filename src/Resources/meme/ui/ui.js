@@ -2,19 +2,24 @@
 	
 	meme.ui = {};
 	
-	meme.ui.openLinkOnSafari = function(data) {
+	meme.ui.alert = function(data) {
 		var alert = Titanium.UI.createAlertDialog({
 			title: data.title,
 			message: data.message,
 			buttonNames: [ 'Ok', 'Cancel' ],
 			cancel: 1
 		});
-		alert.addEventListener('click', function(e) {
+		alert.addEventListener('click', data.onClick);
+		alert.show();
+	}
+	
+	meme.ui.openLinkOnSafari = function(data) {
+		data.onClick = function(e) {
 			if (e.index == 0){
 				Ti.Platform.openURL(data.url);
 			}
-		});
-		alert.show();
+		}
+		meme.ui.alert(data);
 	}
 	
 	meme.ui.createAccount = function() {
