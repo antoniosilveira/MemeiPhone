@@ -41,7 +41,7 @@
 				width: 320, 
 				height: 110
 			});
-			newPostButton.addEventListener('click', meme.ui.openPostView);
+			newPostButton.addEventListener('click', meme.ui.openPostWindow);
 			elements.push(newPostButton);
 			
 			var logoutButton = Titanium.UI.createButton({
