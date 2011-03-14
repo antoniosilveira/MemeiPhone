@@ -78,6 +78,9 @@
 		};
 		
 		getText = function() {
+			if (textField.value == undefined) {
+				return '';
+			}
 			return textField.value;
 		};
 		
@@ -153,27 +156,7 @@
 			height: 44
 		});
 		postButton.addEventListener('click', function(e) {
-			closeKeyboard();
-			moveButtonBarDown();
-			
-			showProgress('Posting on Meme');
-			var content = '';
-			if (getTitle() != ''){
-				content += '<strong>' + getTitle() + '</strong><p>\n</p>';
-			}
-			content += getText();
-			meme.api.createTextPost(content);
-			updateProgress(1);
-			hideProgress();
-			
-			meme.ui.alert({
-				title: 'Success',
-				message: 'Posted on Meme successfully!',
-				buttonNames: [ 'Ok' ],
-				onClick: function() {
-					postWindow.close();
-				}
-			});
+			createPost();
 		});
 		buttonBar.add(postButton);
 		
@@ -258,6 +241,41 @@
 		updateProgress = function(value) {
 			progressBar.value = value;
 		};
+	};
+	
+	var createPost = function() {
+		closeKeyboard();
+		moveButtonBarDown();
+		
+		Ti.API.info('title is [' + getTitle() + '] and text is [' + getText() + ']');
+		
+		if ((getTitle() == '') && (getText() == '')) {
+			meme.ui.alert({
+				title: 'Oops...',
+				message: 'What about writing something before posting?',
+				buttonNames: [ 'Ok' ]
+			});
+		} else {
+			showProgress('Posting on Meme');
+			var content = '';
+			if (getTitle() != '') {
+				content += '<strong>' + getTitle() + '</strong><p>\n</p>';
+			}
+			content += getText();
+			updateProgress(0.5);
+			meme.api.createTextPost(content);
+			updateProgress(1);
+			hideProgress();
+
+			meme.ui.alert({
+				title: 'Success',
+				message: 'Posted on Meme successfully!',
+				buttonNames: [ 'Ok' ],
+				onClick: function() {
+					postWindow.close();
+				}
+			});
+		}
 	};
 	
 })();
