@@ -16,7 +16,7 @@
 		createPostWindowActivityIndicator();
 		
 		postWindow.open();
-	}
+	};
 	
 	var getTitle, getText, setTextFieldHeight, closeKeyboard;
 	var createPostWindowFields = function() {
