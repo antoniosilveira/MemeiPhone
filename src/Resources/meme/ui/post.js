@@ -114,6 +114,13 @@
 			width: 69, 
 			height: 44
 		});
+		pictureButton.addEventListener('click', function(e) {
+			Ti.Media.openPhotoGallery({
+				saveToPhotoGallery: true, 
+				showControls: true, 
+				mediaTypes: [ Ti.Media.MEDIA_TYPE_PHOTO ]
+			});
+		});
 		buttonBar.add(pictureButton);
 		
 		var postButton = Ti.UI.createButton({
