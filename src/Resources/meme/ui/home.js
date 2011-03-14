@@ -17,7 +17,6 @@
 	};
 	
 	meme.ui.refreshHomeWindow = function() {
-		// TODO: add ajax :)
 		setTimeout(function() {
 			var showView = loggedOutView, hideView = loggedInView;
 			if (meme.auth.oadapter && meme.auth.oadapter.isLoggedIn()) {
@@ -29,10 +28,7 @@
 				left: -320
 			});
 			animation.addEventListener('complete', function() {
-				showView.animate({
-					duration: 125,
-					left: 0
-				});
+				showView.animate({ duration: 125, left: 0 });
 			});
 			hideView.animate(animation);
 		}, 250);
