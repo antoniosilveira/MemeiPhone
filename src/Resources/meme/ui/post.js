@@ -5,7 +5,7 @@
 	meme.ui.openPostWindow = function() {
 		postWindow = Ti.UI.createWindow({
 			backgroundColor: 'white',
-			left: 0,
+			left: 320,
 			top: 0,
 			height: 480,
 			width: 320
@@ -15,7 +15,10 @@
 		createPostWindowButtons();
 		createPostWindowActivityIndicator();
 		
-		postWindow.open();
+		postWindow.open(Ti.UI.createAnimation({
+			duration: 250,
+			left: 0 
+		}));
 	};
 	
 	var getTitle, getText, setTextFieldHeight, closeKeyboard;
@@ -31,8 +34,7 @@
 			left: 10,
 			borderStyle: Ti.UI.INPUT_BORDERSTYLE_NONE,
 			keyboardType: Ti.UI.KEYBOARD_DEFAULT,
-			returnKeyType:Titanium.UI.RETURNKEY_DONE,
-			clearButtonMode: Ti.UI.INPUT_BUTTONMODE_ONFOCUS
+			returnKeyType: Titanium.UI.RETURNKEY_DONE
 		});
 		titleField.addEventListener('focus', function(e) {
 			moveButtonBarUp();
@@ -90,6 +92,23 @@
 	
 	var moveButtonBarUp, moveButtonBarDown;
 	var createPostWindowButtons = function() {
+		var closeButton = Titanium.UI.createButton({
+			backgroundImage: 'images/btn_close_gray.png',
+			width: 29,
+			height: 29,
+			top: 5,
+			right: 5,
+			zIndex: 10,
+			visible: true
+		});
+		closeButton.addEventListener('click', function(e) {
+			postWindow.close(Ti.UI.createAnimation({
+				duration: 250,
+				left: 320 
+			}));
+		});
+		postWindow.add(closeButton);
+		
 		var buttonBar = Ti.UI.createView({
 			bottom: 0,
 			left: 0,
@@ -104,6 +123,9 @@
 			left: 0,
 			width: 145, 
 			height: 44
+		});
+		flashlightButton.addEventListener('click', function(e) {
+			meme.ui.alert({ title: 'TODO', message: 'Not implemented' });
 		});
 		buttonBar.add(flashlightButton);
 	

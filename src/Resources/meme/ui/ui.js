@@ -13,7 +13,9 @@
 			buttonNames: buttonNames,
 			cancel: 1
 		});
-		alert.addEventListener('click', data.onClick);
+		if (data.onClick) {
+			alert.addEventListener('click', data.onClick);	
+		}
 		alert.show();
 	};
 	
