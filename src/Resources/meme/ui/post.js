@@ -250,8 +250,6 @@
 		closeKeyboard();
 		moveButtonBarDown();
 		
-		Ti.API.info('title is [' + getTitle() + '] and text is [' + getText() + ']');
-		
 		if ((getTitle() == '') && (getText() == '')) {
 			meme.ui.alert({
 				title: 'Oops...',
