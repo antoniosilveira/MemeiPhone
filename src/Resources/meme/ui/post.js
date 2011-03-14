@@ -18,7 +18,7 @@
 		postWindow.open();
 	}
 	
-	var getTitle, getText;
+	var getTitle, getText, setTextFieldHeight, closeKeyboard;
 	var createPostWindowFields = function() {
 		var titleField = Ti.UI.createTextField({
 			hintText: 'add title',
@@ -31,7 +31,14 @@
 			left: 10,
 			borderStyle: Ti.UI.INPUT_BORDERSTYLE_NONE,
 			keyboardType: Ti.UI.KEYBOARD_DEFAULT,
+			returnKeyType:Titanium.UI.RETURNKEY_DONE,
 			clearButtonMode: Ti.UI.INPUT_BUTTONMODE_ONFOCUS
+		});
+		titleField.addEventListener('focus', function(e) {
+			moveButtonBarUp();
+		});
+		titleField.addEventListener('blur', function(e) {
+			moveButtonBarDown();
 		});
 		postWindow.add(titleField);
 		
@@ -54,7 +61,13 @@
 			textAlign: 'left',
 			keyboardType: Ti.UI.KEYBOARD_DEFAULT,
 			clearButtonMode: Ti.UI.INPUT_BUTTONMODE_ONFOCUS,
-			//suppressReturn: false
+			suppressReturn: false
+		});
+		textField.addEventListener('focus', function(e) {
+			moveButtonBarUp();
+		});
+		textField.addEventListener('blur', function(e) {
+			moveButtonBarDown();
 		});
 		postWindow.add(textField);
 		
@@ -65,35 +78,55 @@
 		getText = function() {
 			return textField.value;
 		};
+		
+		setTextFieldHeight = function(height) {
+			textField.height = height;
+		};
+		
+		closeKeyboard = function() {
+			textField.blur();
+		};
 	};
 	
+	var moveButtonBarUp, moveButtonBarDown;
 	var createPostWindowButtons = function() {
+		var buttonBar = Ti.UI.createView({
+			bottom: 0,
+			left: 0,
+			width: 320,
+			height: 44
+		});
+		postWindow.add(buttonBar);
+		
 		var flashlightButton = Ti.UI.createButton({
 			image: 'images/post_button_flashlight.png',
-			top: 436,
+			top: 0,
 			left: 0,
 			width: 145, 
 			height: 44
 		});
-		postWindow.add(flashlightButton);
+		buttonBar.add(flashlightButton);
 	
 		var pictureButton = Ti.UI.createButton({
 			image: 'images/post_button_picture.png',
-			top: 436,
+			top: 0,
 			left: 145,
 			width: 69, 
 			height: 44
 		});
-		postWindow.add(pictureButton);
+		buttonBar.add(pictureButton);
 		
 		var postButton = Ti.UI.createButton({
 			image: 'images/post_button_submit.png',
-			top: 436,
+			top: 0,
 			left: 214,
 			width: 106, 
 			height: 44
 		});
 		postButton.addEventListener('click', function(e) {
+			closeKeyboard();
+			moveButtonBarDown();
+			
 			showProgress('Posting on Meme');
 			var content = '';
 			if (getTitle() != ''){
@@ -113,7 +146,17 @@
 				}
 			});
 		});
-		postWindow.add(postButton);
+		buttonBar.add(postButton);
+		
+		moveButtonBarUp = function() {
+			buttonBar.animate({ bottom: 216, duration: 250 });
+			setTextFieldHeight(162);
+		};
+		
+		moveButtonBarDown = function() {
+			buttonBar.animate({ bottom: 0, duration: 250 });
+			setTextFieldHeight(378);
+		};
 	};
 	
 	var showProgress, hideProgress, updateProgress;
