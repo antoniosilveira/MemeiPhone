@@ -59,7 +59,7 @@
 			left: 14,
 			borderStyle: Ti.UI.INPUT_BORDERSTYLE_NONE,
 			keyboardType: Ti.UI.KEYBOARD_DEFAULT,
-			returnKeyType: Titanium.UI.RETURNKEY_DONE,
+			returnKeyType: Titanium.UI.RETURNKEY_SEARCH,
 			clearButtonMode: Titanium.UI.INPUT_BUTTONMODE_ONFOCUS
 		});
 		flashlightField.add(searchField);
