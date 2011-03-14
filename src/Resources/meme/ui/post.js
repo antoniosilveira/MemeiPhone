@@ -194,7 +194,9 @@
 		progressView.add(activityIndicator);
 
 		var progressBar = Ti.UI.createProgressBar({
-			width: 150,
+			//will be 150px when cancel button is there
+			//width: 150,
+			width: 200,
 			height: 60,
 			left: 55,
 			top: 5,
@@ -222,7 +224,8 @@
 			font: { fontSize: 12, fontFamily: 'Helvetica', fontWeight: 'bold' },
 			style: Ti.UI.iPhone.SystemButtonStyle.PLAIN
 		});
-		progressView.add(cancelPostButton);
+		//temporarily removed - will be used only when we implement photo upload
+		//progressView.add(cancelPostButton);
 		
 		showProgress = function(message) {
 			progressView.show();
@@ -257,16 +260,18 @@
 			});
 		} else {
 			showProgress('Posting on Meme');
+			
 			var content = '';
 			if (getTitle() != '') {
 				content += '<strong>' + getTitle() + '</strong><p>\n</p>';
 			}
 			content += getText();
+			
 			updateProgress(0.5);
 			meme.api.createTextPost(content);
+			
 			updateProgress(1);
 			hideProgress();
-
 			meme.ui.alert({
 				title: 'Success',
 				message: 'Posted on Meme successfully!',
