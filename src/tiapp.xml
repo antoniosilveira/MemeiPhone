@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ti:app xmlns:ti="http://ti.appcelerator.org">
-<id>com.yahoo.meme.iphone</id>
+<id>com.guilhermechapiewski.MemeiPhone</id>
 <name>MemeiPhone</name>
 <version>1.0.0</version>
 <publisher>Yahoo! Inc.</publisher>
