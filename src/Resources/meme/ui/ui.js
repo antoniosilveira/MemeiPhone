@@ -3,10 +3,14 @@
 	meme.ui = {};
 	
 	meme.ui.alert = function(data) {
+		var buttonNames = [ 'Ok', 'Cancel' ];
+		if (data.buttonNames) {
+			buttonNames = data.buttonNames;
+		}
 		var alert = Titanium.UI.createAlertDialog({
 			title: data.title,
 			message: data.message,
-			buttonNames: [ 'Ok', 'Cancel' ],
+			buttonNames: buttonNames,
 			cancel: 1
 		});
 		alert.addEventListener('click', data.onClick);

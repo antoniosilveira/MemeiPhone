@@ -1,7 +1,9 @@
 (function(){
 	
+	var postWindow = null;
+	
 	meme.ui.openPostWindow = function() {
-		var postWindow = Ti.UI.createWindow({
+		postWindow = Ti.UI.createWindow({
 			backgroundColor: 'white',
 			left: 0,
 			top: 0,
@@ -9,6 +11,15 @@
 			width: 320
 		});
 		
+		createPostWindowFields();
+		createPostWindowButtons();
+		createPostWindowActivityIndicator();
+		
+		postWindow.open();
+	}
+	
+	var getTitle, getText;
+	var createPostWindowFields = function() {
 		var titleField = Ti.UI.createTextField({
 			hintText: 'add title',
 			textAlign: 'left',
@@ -41,13 +52,22 @@
 			top: 57,
 			font: { fontSize: 16, fontFamily: 'Helvetica', fontWeight: 'regular' },
 			textAlign: 'left',
-			appearance: Ti.UI.KEYBOARD_APPEARANCE_ALERT,	
 			keyboardType: Ti.UI.KEYBOARD_DEFAULT,
 			clearButtonMode: Ti.UI.INPUT_BUTTONMODE_ONFOCUS,
 			//suppressReturn: false
 		});
 		postWindow.add(textField);
 		
+		getTitle = function() {
+			return titleField.value;
+		};
+		
+		getText = function() {
+			return textField.value;
+		};
+	};
+	
+	var createPostWindowButtons = function() {
 		var flashlightButton = Ti.UI.createButton({
 			image: 'images/post_button_flashlight.png',
 			top: 436,
@@ -74,17 +94,98 @@
 			height: 44
 		});
 		postButton.addEventListener('click', function(e) {
+			showProgress('Posting on Meme');
 			var content = '';
-			if (titleField.value != ''){
-				content += '<strong>' + titleField.value + '</strong><p>\n</p>';
+			if (getTitle() != ''){
+				content += '<strong>' + getTitle() + '</strong><p>\n</p>';
 			}
-			content += textField.value;
+			content += getText();
 			meme.api.createTextPost(content);
-			postWindow.close();
+			updateProgress(1);
+			hideProgress();
+			
+			meme.ui.alert({
+				title: 'Success',
+				message: 'Posted on Meme successfully!',
+				buttonNames: [ 'Ok' ],
+				onClick: function() {
+					postWindow.close();
+				}
+			});
 		});
 		postWindow.add(postButton);
+	};
+	
+	var showProgress, hideProgress, updateProgress;
+	var createPostWindowActivityIndicator = function() {
+		var progressView = Ti.UI.createView({
+			top: 180,
+			width: 300,
+			height: 80,
+			borderRadius: 5,
+			backgroundColor: 'black',
+			visible: false,
+			zIndex: 99
+		});
+		postWindow.add(progressView);
 		
-		postWindow.open();
-	}
+		var activityIndicator = Ti.UI.createActivityIndicator({
+			top: 15, 
+			left: 25, 
+			height: 50, 
+			width: 10, 
+			style: Ti.UI.iPhone.ActivityIndicatorStyle.PLAIN
+		});
+		progressView.add(activityIndicator);
+
+		var progressBar = Ti.UI.createProgressBar({
+			width: 150,
+			height: 60,
+			left: 55,
+			top: 5,
+			min: 0,
+			max: 1,
+			value: 0,
+			style: Titanium.UI.iPhone.ProgressBarStyle.BAR,
+			message: 'Posting on Meme',
+			font: { fontSize: 16, fontWeight: 'bold' },
+			color: 'white'
+		});
+		progressView.add(progressBar);
+		
+		var cancelPostButton = Ti.UI.createButton({
+			backgroundImage: 'images/btn_back.png',
+			backgroundLeftCap: 20,
+			backgroundRightCap: 20,
+			left: 210,
+			top: 13,
+			height: 52,
+			width: 90,
+		    title: 'Cancel',
+			color: 'white',
+			textAlign: 'center',
+			font: { fontSize: 12, fontFamily: 'Helvetica', fontWeight: 'bold' },
+			style: Ti.UI.iPhone.SystemButtonStyle.PLAIN
+		});
+		progressView.add(cancelPostButton);
+		
+		showProgress = function(message) {
+			progressView.show();
+			activityIndicator.show();
+			progressBar.show();
+			progressBar.message = message;	
+		};
+
+		hideProgress = function(message) {
+			progressView.hide();
+			activityIndicator.hide();
+			progressBar.hide();
+			progressBar.message = '';
+		};
+		
+		updateProgress = function(value) {
+			progressBar.value = value;
+		};
+	};
 	
 })();
