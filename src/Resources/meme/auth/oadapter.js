@@ -319,7 +319,8 @@
 			var MAX_RETRIES = 3;
 			var MODIFY_QUERY = /^insert|delete/i;
 			var yql_query = parameters[2][1];
-		
+			
+			Ti.API.info('yql query is: ' + yql_query);
 			if (MODIFY_QUERY.test(yql_query.trim())) {
 				MAX_RETRIES = 1;
 			}

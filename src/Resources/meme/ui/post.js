@@ -74,7 +74,13 @@
 			height: 44
 		});
 		postButton.addEventListener('click', function(e) {
-			postWindow.close();	
+			var content = '';
+			if (titleField.value != ''){
+				content += '<strong>' + titleField.value + '</strong><p>\n</p>';
+			}
+			content += textField.value;
+			meme.api.createTextPost(content);
+			postWindow.close();
 		});
 		postWindow.add(postButton);
 		
