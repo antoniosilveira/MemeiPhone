@@ -8,8 +8,8 @@
 			orientationModes: [Ti.UI.PORTRAIT]
 		});
 		
-		createLoggedInButtons();
-		createloggedOutButtons();
+		createLoggedInView();
+		createloggedOutView();
 		
 		homeWindow.open();
 		
@@ -34,7 +34,7 @@
 		}, 250);
 	};
 	
-	var createLoggedInButtons = function() {
+	var createLoggedInView = function() {
 		loggedInView = Ti.UI.createView({
 			top: 260,
 			left: -320,
@@ -68,7 +68,7 @@
 		loggedInView.add(logoutButton);
 	};
 	
-	var createloggedOutButtons = function() {
+	var createloggedOutView = function() {
 		loggedOutView = Ti.UI.createView({
 			top: 260,
 			left: -320,
