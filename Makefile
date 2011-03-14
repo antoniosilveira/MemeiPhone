@@ -22,6 +22,7 @@ test:
 	@echo "var testsEnabled = true;" > ${PROJECT_ROOT}/src/Resources/test/enabled.js
 	@make launch-titanium
 run:
+	@mkdir -p ${PROJECT_ROOT}/src/Resources/test/
 	@echo "" > ${PROJECT_ROOT}/src/Resources/test/enabled.js
 	@make launch-titanium
 
