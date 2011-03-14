@@ -127,9 +127,7 @@
 			width: 145, 
 			height: 44
 		});
-		flashlightButton.addEventListener('click', function(e) {
-			meme.ui.alert({ title: 'TODO', message: 'Not implemented' });
-		});
+		flashlightButton.addEventListener('click', meme.ui.openFlashlightWindow);
 		buttonBar.add(flashlightButton);
 	
 		var pictureButton = Ti.UI.createButton({

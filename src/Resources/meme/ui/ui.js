@@ -39,6 +39,7 @@
 })();
 
 Ti.include(
+	'/meme/ui/flashlight.js',
 	'/meme/ui/home.js',
 	'/meme/ui/post.js'
 );
