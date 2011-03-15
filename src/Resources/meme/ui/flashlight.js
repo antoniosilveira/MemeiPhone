@@ -1,6 +1,6 @@
 (function(){
 	
-	var flashlightWindow;
+	var flashlightWindow, flashlightButtons;
 	
 	meme.ui.openFlashlightWindow = function() {
 		flashlightWindow = Ti.UI.createWindow({
@@ -74,22 +74,22 @@
 		});
 		flashlightWindow.add(tabbedBar);
 		
-		var buttons = { photo: null, video: null, web: null, twitter: null };
+		flashlightButtons = { photo: null, video: null, web: null, twitter: null };
 		var i = 0;
-		for (key in buttons) {
-			buttons[key] = Titanium.UI.createButton({
+		for (key in flashlightButtons) {
+			flashlightButtons[key] = Titanium.UI.createButton({
 				tabIndex: i,
-				image: 'images/flashlight_tab' + (i+1) + '.png',
+				image: 'images/flashlight_tab' + (i + 1) + '.png',
 				width: 80,
 				height: 60,
 				top: 0,
 				left: 0 + (80 * i),
 				visible: true
 			});
-			buttons[key].addEventListener('click', function(e) {
+			flashlightButtons[key].addEventListener('click', function(e) {
 				changeFlashlightTab(e);
 			});
-			tabbedBar.add(buttons[key]);
+			tabbedBar.add(flashlightButtons[key]);
 			i++;
 		}
 	};
