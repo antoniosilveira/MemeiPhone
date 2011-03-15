@@ -74,45 +74,28 @@
 		});
 		flashlightWindow.add(tabbedBar);
 		
-		var barButtonPhoto = Titanium.UI.createButton({
-			image: 'images/flashlight_tab1.png',
-			width: 80,
-			height: 60,
-			top: 0,
-			left: 0,
-			visible: true
-		});
-		tabbedBar.add(barButtonPhoto);
-		
-		var barButtonVideo = Titanium.UI.createButton({
-			image: 'images/flashlight_tab2.png',
-			width: 80,
-			height: 60,
-			top: 0,
-			left: 80,
-			visible: true
-		});
-		tabbedBar.add(barButtonVideo);
-		
-		var barButtonText = Titanium.UI.createButton({
-			image: 'images/flashlight_tab3.png',
-			width: 80,
-			height: 60,
-			top: 0,
-			left: 160,
-			visible: true
-		});
-		tabbedBar.add(barButtonText);
-		
-		var barButtonTweet = Titanium.UI.createButton({
-			image: 'images/flashlight_tab4.png',
-			width: 80,
-			height: 60,
-			top: 0,
-			left: 240,
-			visible: true
-		});
-		tabbedBar.add(barButtonTweet);
+		var buttons = { photo: null, video: null, web: null, twitter: null };
+		var i = 0;
+		for (key in buttons) {
+			buttons[key] = Titanium.UI.createButton({
+				tabIndex: i,
+				image: 'images/flashlight_tab' + (i+1) + '.png',
+				width: 80,
+				height: 60,
+				top: 0,
+				left: 0 + (80 * i),
+				visible: true
+			});
+			buttons[key].addEventListener('click', function(e) {
+				changeFlashlightTab(e);
+			});
+			tabbedBar.add(buttons[key]);
+			i++;
+		}
+	};
+	
+	var changeFlashlightTab = function(e) {
+		Ti.API.debug('clicked: ' + JSON.stringify(e.source.tabIndex));
 	};
 	
 })();
