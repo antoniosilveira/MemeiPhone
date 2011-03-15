@@ -66,11 +66,10 @@
 	};
 	
 	var createFlashlightWindowFooter = function() {
-		var tabbedBar = Ti.UI.createTabbedBar({
+		var tabbedBar = Ti.UI.createView({
 			bottom: 0,
 			height: 60,
-			width: 320,
-			style: Titanium.UI.iPhone.SystemButtonStyle.BAR
+			width: 320
 		});
 		flashlightWindow.add(tabbedBar);
 		
