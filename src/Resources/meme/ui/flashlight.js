@@ -78,6 +78,7 @@
 		for (key in flashlightButtons) {
 			flashlightButtons[key] = Titanium.UI.createButton({
 				tabIndex: i,
+				tabType: key,
 				image: 'images/flashlight_tab' + (i + 1) + '.png',
 				width: 80,
 				height: 60,
@@ -95,6 +96,7 @@
 	
 	var changeFlashlightTab = function(e) {
 		Ti.API.debug('clicked: ' + JSON.stringify(e.source.tabIndex));
+		Ti.API.debug('clicked type: ' + JSON.stringify(e.source.tabType));
 	};
 	
 })();
