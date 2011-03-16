@@ -194,14 +194,14 @@
 			});
 			row.add(image);
 
-			var img_play_btn = Titanium.UI.createImageView({
+			var imgPlayButton = Titanium.UI.createImageView({
 	            image: 'images/play.png',
 	            top: 20,
 	            left: 30,
 	            width: 37,
 	            height: 37
 	        });
-	        row.add(img_play_btn);
+	        row.add(imgPlayButton);
 
 			row.add(Ti.UI.createView({
 				height: 78,
@@ -266,6 +266,68 @@
 		}
 	};
 	
+	var createFlashlightWindowResultRowTwitter = function(data) {
+		if (data) {
+			var screenName = data.from_user;
+			var avatarUrl = data.profile_image_url;
+			var statusId = data.id_str;
+
+			var row = Ti.UI.createTableViewRow({
+				height: 78
+			});
+
+			var avatar = Ti.UI.createImageView({
+				image: avatarUrl,
+				backgroundColor: 'black',
+				height: 48,
+				width: 48,
+				top: 10,
+				left: 10,
+				defaultImage: 'images/default_img_avatar.png'
+			});
+			row.add(avatar);
+
+			var username = Ti.UI.createLabel({
+				text: '@' + screenName,
+				color: '#863486',
+				width: 250,
+				height: 15,
+				top: 8,
+				left: 67,
+				textAlign: 'left',
+				font: { fontSize: 12, fontFamily: 'Helvetica', fontWeight: 'bold' }
+			});
+			row.add(username);
+
+			var tweet = Ti.UI.createLabel({
+				text: data.text,
+				color: '#333',
+				height: 52,
+				width: 262,
+				top: 23,
+				left: 67,
+				textAlign: 'left',
+				font: { fontSize: 11, fontFamily: 'Helvetica', fontWeight: 'regular' }
+			});
+			row.add(tweet);
+			
+			row.add(Ti.UI.createView({
+				height: 78,
+				width: 310,
+				zIndex: 2,
+				username: '@' + screenName,
+				tweet: data.text,
+				timestamp: data.created_at.substr(0,25),
+				app: data.source,
+				avatar: avatarUrl,
+				link: 'http://twitter.com/#!/' + screenName + '/status/' + statusId + '/',
+				type: 'twitter'
+			}));
+			
+			return row;
+		}
+	};
+	
 	var handleFlashlightSearch = function(e) {
 		Ti.API.debug(JSON.stringify(e));
 		Ti.API.debug(JSON.stringify(e.source.tabType));
@@ -281,6 +343,9 @@
 			} else if (e.source.tabType == 'web') {
 				apiQuery = meme.api.flashlightWeb;
 				createRow = createFlashlightWindowResultRowWeb;
+			} else if (e.source.tabType == 'twitter') {
+				apiQuery = meme.api.flashlightTwitter;
+				createRow = createFlashlightWindowResultRowTwitter;
 			} else {
 				apiQuery = meme.api.flashlightPhoto;
 				createRow = createFlashlightWindowResultRowPhoto;

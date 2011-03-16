@@ -54,6 +54,22 @@
 		return items;
 	};
 	
+	meme.api.flashlightTwitter = function(query) {
+		var params = {
+			//cacheKey: 'flashlight:tweets:' + query,
+			yqlQuery: 'SELECT * FROM twitter.search WHERE q="' + query + '"'
+		};
+		var items;
+		var successCallback = function(results) {
+			items = results.results;
+		};
+		var errorCallback = function() {
+			ìtems = null;
+		};
+		cachedYqlQuery(params, successCallback, errorCallback);
+		return items;
+	};
+	
 	var cachedYqlQuery = function(params, successCallback, errorCallback) {
 		// default cache time is 15 minutes
 		var cacheSeconds = 900;
