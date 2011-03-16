@@ -20,7 +20,7 @@
 		}));
 		
 		setTimeout(function() {
-			//searchFieldFocus();
+			searchFieldFocus();
 		}, 250);
 	};
 	
@@ -90,6 +90,7 @@
 		flashlightTableView.setData(rows);
 	};
 	
+	var showArrow;
 	var createFlashlightWindowFooter = function() {
 		var footerView = Ti.UI.createView({
 			bottom: 0,
@@ -117,6 +118,22 @@
 			footerView.add(flashlightButtons[key]);
 			i++;
 		}
+		
+		var arrow = Ti.UI.createView({
+			backgroundImage: 'images/bg_flashlight_bar_arrow.png',
+			width: 25,
+			height: 10,
+			bottom: 56,
+			left: -25,
+			zIndex: 3,
+			visible: false
+		});
+		flashlightWindow.add(arrow);
+		
+		showArrow = function(left) {
+			arrow.show();
+			arrow.animate({ left: left });
+		};
 	};
 	
 	var createFlashlightWindowResultRowPhoto = function(data) {
@@ -367,6 +384,7 @@
 		Ti.API.debug(JSON.stringify(e.source.tabType));
 		
 		if (getSearchText()) {
+			// define query and row method to call
 			var apiQuery, createRow;
 			if (e.source.tabType == 'photo') {
 				apiQuery = meme.api.flashlightPhoto;
@@ -386,11 +404,16 @@
 				e.source.tabType = 'photo';
 			}
 			
+			// enable right button
 			for (key in flashlightButtons) {
 				flashlightButtons[key].backgroundImage = 'images/flashlight_tab_' + key + '_off.png';
 			}
 			flashlightButtons[e.source.tabType].backgroundImage = 'images/flashlight_tab_' + e.source.tabType + '_on.png';
 			
+			// define arrow position
+			showArrow(2 + flashlightButtons[e.source.tabType].left);
+			
+			// go!
 			var results = apiQuery(getSearchText());
 			var rows = [];
 			for (var i=0; i<results.length; i++) {
