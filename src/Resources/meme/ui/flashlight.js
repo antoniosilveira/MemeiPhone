@@ -114,7 +114,7 @@
 			});
 			
 			var title = Ti.UI.createLabel({
-				text: data.title,
+				text: meme.util.stripHtmlEntities(data.title),
 				width: 310,
 				height:15,
 				top: 10,
@@ -127,7 +127,7 @@
 			
 			if (data.abstract != null) {
 				var abstract = Ti.UI.createLabel({
-					text: data.abstract,
+					text: meme.util.stripHtmlEntities(data.abstract),
 					color: '#333',
 					height: 50,
 					width: 310,
@@ -143,8 +143,8 @@
 				height: 78,
 				width: 320,
 				zIndex: 2,
-				title: data.title,
-				abstract: data.abstract,
+				title: meme.util.stripHtmlEntities(data.title),
+				abstract: meme.util.stripHtmlEntities(data.abstract),
 				url: data.url,
 				type: 'text'
 			}));
