@@ -18,9 +18,13 @@
 			duration: 250,
 			top: 0 
 		}));
+		
+		setTimeout(function() {
+			searchFieldFocus();
+		}, 250);
 	};
 	
-	var getSearchText;
+	var getSearchText, searchFieldFocus;
 	var createFlashlightWindowHeader = function() {
 		var flashlightButton = Titanium.UI.createButton({
 			image: 'images/flashlight_button.png',
@@ -69,6 +73,10 @@
 		getSearchText = function() {
 			return searchField.value;
 		};
+		
+		searchFieldFocus = function() {
+			searchField.focus();
+		}
 	};
 	
 	var createFlashlightWindowResults = function(rows) {
@@ -114,6 +122,12 @@
 			var row = Ti.UI.createTableViewRow({
 				height:78
 			});
+			row.addEventListener('click', function(e) {
+				flashlightWindow.close(Ti.UI.createAnimation({
+					duration: 250,
+					top: 480 
+				}));
+			});
 			
 			var thumb = 'http://farm' + data.farm + '.static.flickr.com/' + data.server + '/' + data.id + '_' + data.secret + '_t_d.jpg';
 			var fullPhoto = 'http://farm' + data.farm + '.static.flickr.com/' + data.server + '/' + data.id + '_' + data.secret + '.jpg';
@@ -158,6 +172,12 @@
 
 			var row = Ti.UI.createTableViewRow({
 				height: 78
+			});
+			row.addEventListener('click', function(e) {
+				flashlightWindow.close(Ti.UI.createAnimation({
+					duration: 250,
+					top: 480 
+				}));
 			});
 
 			var title = Ti.UI.createLabel({
@@ -225,6 +245,12 @@
 			var row = Ti.UI.createTableViewRow({
 				height: 78
 			});
+			row.addEventListener('click', function(e) {
+				flashlightWindow.close(Ti.UI.createAnimation({
+					duration: 250,
+					top: 480 
+				}));
+			});
 			
 			var title = Ti.UI.createLabel({
 				text: meme.util.stripHtmlEntities(data.title),
@@ -274,6 +300,12 @@
 
 			var row = Ti.UI.createTableViewRow({
 				height: 78
+			});
+			row.addEventListener('click', function(e) {
+				flashlightWindow.close(Ti.UI.createAnimation({
+					duration: 250,
+					top: 480 
+				}));
 			});
 
 			var avatar = Ti.UI.createImageView({
