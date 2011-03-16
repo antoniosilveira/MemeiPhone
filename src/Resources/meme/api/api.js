@@ -22,6 +22,22 @@
 		return photos;
 	};
 	
+	meme.api.flashlightVideo = function(query) {
+		var params = {
+			//cacheKey: 'flashlight:videos:' + query,
+			yqlQuery: 'SELECT * FROM youtube.search WHERE query="' + query + '"'
+		};
+		var videos;
+		var successCallback = function(results) {
+			videos = results.video;
+		};
+		var errorCallback = function() {
+			videos = null;
+		};
+		cachedYqlQuery(params, successCallback, errorCallback);
+		return videos;
+	};
+	
 	meme.api.flashlightWeb = function(query) {
 		var params = {
 			//cacheKey: 'flashlight:web:' + query,

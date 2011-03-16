@@ -151,6 +151,85 @@
 		}
 	};
 	
+	var createFlashlightWindowResultRowVideo = function(data) {
+		
+		if (data) {
+			var thumb = data.thumbnails.thumbnail[0].content;
+			var thumbFull = data.thumbnails.thumbnail[4].content;
+
+			var row = Ti.UI.createTableViewRow({
+				height: 78
+			});
+
+			var title = Ti.UI.createLabel({
+				text: data.title,
+				color: '#863486',
+				height:	42,
+				width: 192,
+				top: 10,
+				left: 110,
+				textAlign: 'left',
+				font: { fontSize: 12, fontFamily: 'Helvetica', fontWeight: 'regular' }
+			});
+		
+			//duration time preparation
+			var secondsToHms = function (d) {
+				d = Number(d);
+				var h = Math.floor(d / 3600);
+				var m = Math.floor(d % 3600 / 60);
+				var s = Math.floor(d % 3600 % 60);
+				return ((h > 0 ? h + ":" : "") + (m > 0 ? (h > 0 && m < 10 ? "0" : "") + m + ":" : "0:") + (s < 10 ? "0" : "") + s);
+			};
+		
+			var duration = Ti.UI.createLabel({
+				text: secondsToHms(data.duration),
+				color: '#666',
+				height: 10,
+				width: 50,
+				top: 60,
+				left: 110,
+				textAlign: 'left',
+				font: { fontSize: 11, fontFamily: 'Helvetica', fontWeight: 'regular' }
+			});
+
+			var image = Ti.UI.createImageView({
+				image: thumb,
+				backgroundColor: 'black',
+				height: 75,
+				width: 100,
+				left: 2,
+				defaultImage: 'images/default_img.png'
+			});
+
+			var img_play_btn = Titanium.UI.createImageView({
+	            image: 'images/play.png',
+	            top: 20,
+	            left: 30,
+	            width: 37,
+	            height: 37
+	        });
+
+			row.add(image);
+	        row.add(img_play_btn);
+			row.add(title);
+			row.add(duration);
+			row.add(Ti.UI.createView({
+				height: 78,
+				width: 310,
+				zIndex: 2,
+				title: data.title,
+				content: data.content,
+				image: thumbFull,
+				videoId: data.id,
+				videoLink: data.url,
+				type: 'video'
+			}));
+
+			return row;
+		}
+		
+	};
+	
 	var createFlashlightWindowResultRowWeb = function(data) {
 		if (data) {
 			var row = Ti.UI.createTableViewRow({
@@ -206,6 +285,9 @@
 			if (e.source.tabType == 'photo') {
 				apiQuery = meme.api.flashlightPhoto;
 				createRow = createFlashlightWindowResultRowPhoto;
+			} else if (e.source.tabType == 'video') {
+				apiQuery = meme.api.flashlightVideo;
+				createRow = createFlashlightWindowResultRowVideo;
 			} else if (e.source.tabType == 'web') {
 				apiQuery = meme.api.flashlightWeb;
 				createRow = createFlashlightWindowResultRowWeb;
