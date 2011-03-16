@@ -12,7 +12,6 @@
 		});
 		
 		createFlashlightWindowHeader();
-		createFlashlightWindowResults();
 		createFlashlightWindowFooter();
 		
 		flashlightWindow.open(Ti.UI.createAnimation({
@@ -21,6 +20,7 @@
 		}));
 	};
 	
+	var getSearchText;
 	var createFlashlightWindowHeader = function() {
 		var flashlightButton = Titanium.UI.createButton({
 			image: 'images/flashlight_button.png',
@@ -63,9 +63,13 @@
 			clearButtonMode: Titanium.UI.INPUT_BUTTONMODE_ONFOCUS
 		});
 		flashlightField.add(searchField);
+		
+		getSearchText = function() {
+			return searchField.value;
+		};
 	};
 	
-	var createFlashlightWindowResults = function() {
+	var createFlashlightWindowResults = function(rows) {
 		var flashlightTableView = Ti.UI.createTableView({
 			top: 43, 
 			height: 377,
@@ -73,13 +77,7 @@
 			separatorColor: 'gray'
 		});
 		flashlightWindow.add(flashlightTableView);
-		
-		var row = Ti.UI.createTableViewRow({
-			height: 78,
-			backgroundColor: 'blue'
-		});
-		
-		flashlightTableView.setData([row]);
+		flashlightTableView.setData(rows);
 	};
 	
 	var createFlashlightWindowFooter = function() {
@@ -109,9 +107,66 @@
 		}
 	};
 	
+	var createFlashlightWindowResultRowWeb = function(data) {
+		if (data) {
+			var row = Ti.UI.createTableViewRow({
+				height: 78
+			});
+			
+			var title = Ti.UI.createLabel({
+				text: data.title,
+				width: 310,
+				height:15,
+				top: 10,
+				left:10,
+				color: '#863486',
+				textAlign: 'left',
+				font: { fontSize: 12, fontFamily: 'Helvetica', fontWeight: 'bold' }
+			});
+			row.add(title);
+			
+			if (data.abstract != null) {
+				var abstract = Ti.UI.createLabel({
+					text: data.abstract,
+					color: '#333',
+					height: 50,
+					width: 310,
+					top: 25,
+					left: 10,
+					textAlign: 'left',
+					font: { fontSize: 12, fontFamily: 'Helvetica', fontWeight: 'regular' }
+				});
+				row.add(abstract);
+			}
+
+			row.add(Ti.UI.createView({
+				height: 78,
+				width: 320,
+				zIndex: 2,
+				title: data.title,
+				abstract: data.abstract,
+				url: data.url,
+				type: 'text'
+			}));
+
+			return row;
+		}
+	};
+	
 	var onFlashlightTabClick = function(e) {
 		Ti.API.debug('clicked: ' + JSON.stringify(e.source.tabIndex));
 		Ti.API.debug('clicked type: ' + JSON.stringify(e.source.tabType));
+
+		if (getSearchText()) {
+			var results = meme.api.flashlightWeb(getSearchText());
+
+			var rows = [];
+			for (var i=0; i<results.length; i++) {
+				rows.push(createFlashlightWindowResultRowWeb(results[i]));
+			}
+
+			createFlashlightWindowResults(rows);
+		}
 	};
 	
 })();
