@@ -104,7 +104,7 @@
 			flashlightButtons[key] = Titanium.UI.createButton({
 				tabIndex: i,
 				tabType: key,
-				image: 'images/flashlight_tab' + (i + 1) + '.png',
+				image: 'images/flashlight_tab_' + key + '_off.png',
 				width: 80,
 				height: 60,
 				top: 0,
