@@ -66,12 +66,12 @@
 	};
 	
 	var createFlashlightWindowFooter = function() {
-		var tabbedBar = Ti.UI.createView({
+		var footerView = Ti.UI.createView({
 			bottom: 0,
 			height: 60,
 			width: 320
 		});
-		flashlightWindow.add(tabbedBar);
+		flashlightWindow.add(footerView);
 		
 		flashlightButtons = { photo: null, video: null, web: null, twitter: null };
 		var i = 0;
@@ -86,15 +86,13 @@
 				left: 0 + (80 * i),
 				visible: true
 			});
-			flashlightButtons[key].addEventListener('click', function(e) {
-				changeFlashlightTab(e);
-			});
-			tabbedBar.add(flashlightButtons[key]);
+			flashlightButtons[key].addEventListener('click', onFlashlightTabClick);
+			footerView.add(flashlightButtons[key]);
 			i++;
 		}
 	};
 	
-	var changeFlashlightTab = function(e) {
+	var onFlashlightTabClick = function(e) {
 		Ti.API.debug('clicked: ' + JSON.stringify(e.source.tabIndex));
 		Ti.API.debug('clicked type: ' + JSON.stringify(e.source.tabType));
 	};
