@@ -64,6 +64,8 @@
 		});
 		flashlightField.add(searchField);
 		
+		searchField.addEventListener('return', handleFlashlightSearch);
+		
 		getSearchText = function() {
 			return searchField.value;
 		};
@@ -101,7 +103,7 @@
 				left: 0 + (80 * i),
 				visible: true
 			});
-			flashlightButtons[key].addEventListener('click', onFlashlightTabClick);
+			flashlightButtons[key].addEventListener('click', handleFlashlightSearch);
 			footerView.add(flashlightButtons[key]);
 			i++;
 		}
@@ -153,18 +155,18 @@
 		}
 	};
 	
-	var onFlashlightTabClick = function(e) {
+	var handleFlashlightSearch = function(e) {
 		Ti.API.debug('clicked: ' + JSON.stringify(e.source.tabIndex));
 		Ti.API.debug('clicked type: ' + JSON.stringify(e.source.tabType));
-
+		
 		if (getSearchText()) {
 			var results = meme.api.flashlightWeb(getSearchText());
-
+			
 			var rows = [];
 			for (var i=0; i<results.length; i++) {
 				rows.push(createFlashlightWindowResultRowWeb(results[i]));
 			}
-
+			
 			createFlashlightWindowResults(rows);
 		}
 	};
