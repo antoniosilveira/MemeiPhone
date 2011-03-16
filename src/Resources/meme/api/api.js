@@ -6,6 +6,22 @@
 		return createPost('text', content);
 	};
 	
+	meme.api.flashlightPhoto = function(query) {
+		var params = {
+			//cacheKey: 'flashlight:photos:' + query,
+			yqlQuery: 'SELECT * FROM flickr.photos.search WHERE text="' + query + '" AND license="4"'
+		};
+		var photos;
+		var successCallback = function(results) {
+			photos = results.photo;
+		};
+		var errorCallback = function() {
+			photos = null;
+		};
+		cachedYqlQuery(params, successCallback, errorCallback);
+		return photos;
+	};
+	
 	meme.api.flashlightWeb = function(query) {
 		var params = {
 			//cacheKey: 'flashlight:web:' + query,

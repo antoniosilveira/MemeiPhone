@@ -109,6 +109,48 @@
 		}
 	};
 	
+	var createFlashlightWindowResultRowPhoto = function(data) {
+		if (data) {
+			var row = Ti.UI.createTableViewRow({
+				height:78
+			});
+			
+			var thumb = 'http://farm' + data.farm + '.static.flickr.com/' + data.server + '/' + data.id + '_' + data.secret + '_t_d.jpg';
+			var fullPhoto = 'http://farm' + data.farm + '.static.flickr.com/' + data.server + '/' + data.id + '_' + data.secret + '.jpg';
+			var title = Ti.UI.createLabel({
+				text: data.title,
+				color: '#863486',
+				height: 55,
+				width: 200,
+				left: 110,
+				textAlign: 'left',
+				font: { fontSize: 12, fontFamily: 'Helvetica', fontWeight: 'regular' }
+			});
+			row.add(title);
+			
+			var image = Ti.UI.createImageView({
+				image: thumb,
+				backgroundColor: 'black',
+				height: 75,
+				width: 100,
+				left: 2,
+				defaultImage: 'images/default_img.png'
+			});
+			row.add(image);
+
+			row.add(Ti.UI.createView({
+				height: 78,
+				width: 310,
+				zIndex: 2,
+				title: data.title,
+				fullPhoto: fullPhoto,
+				type: 'photo'
+			}));
+			
+			return row;
+		}
+	};
+	
 	var createFlashlightWindowResultRowWeb = function(data) {
 		if (data) {
 			var row = Ti.UI.createTableViewRow({
@@ -156,17 +198,27 @@
 	};
 	
 	var handleFlashlightSearch = function(e) {
-		Ti.API.debug('clicked: ' + JSON.stringify(e.source.tabIndex));
-		Ti.API.debug('clicked type: ' + JSON.stringify(e.source.tabType));
+		Ti.API.debug(JSON.stringify(e));
+		Ti.API.debug(JSON.stringify(e.source.tabType));
 		
 		if (getSearchText()) {
-			var results = meme.api.flashlightWeb(getSearchText());
-			
-			var rows = [];
-			for (var i=0; i<results.length; i++) {
-				rows.push(createFlashlightWindowResultRowWeb(results[i]));
+			var apiQuery, createRow;
+			if (e.source.tabType == 'photo') {
+				apiQuery = meme.api.flashlightPhoto;
+				createRow = createFlashlightWindowResultRowPhoto;
+			} else if (e.source.tabType == 'web') {
+				apiQuery = meme.api.flashlightWeb;
+				createRow = createFlashlightWindowResultRowWeb;
+			} else {
+				apiQuery = meme.api.flashlightPhoto;
+				createRow = createFlashlightWindowResultRowPhoto;
 			}
 			
+			var results = apiQuery(getSearchText());
+			var rows = [];
+			for (var i=0; i<results.length; i++) {
+				rows.push(createRow(results[i]));
+			}
 			createFlashlightWindowResults(rows);
 		}
 	};
