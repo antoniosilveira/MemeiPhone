@@ -12,7 +12,7 @@
 		});
 		
 		createFlashlightWindowHeader();
-		//createFlashlightWindowResults();
+		createFlashlightWindowResults();
 		createFlashlightWindowFooter();
 		
 		flashlightWindow.open(Ti.UI.createAnimation({
@@ -63,6 +63,23 @@
 			clearButtonMode: Titanium.UI.INPUT_BUTTONMODE_ONFOCUS
 		});
 		flashlightField.add(searchField);
+	};
+	
+	var createFlashlightWindowResults = function() {
+		var flashlightTableView = Ti.UI.createTableView({
+			top: 43, 
+			height: 377,
+			width: 320, 
+			separatorColor: 'gray'
+		});
+		flashlightWindow.add(flashlightTableView);
+		
+		var row = Ti.UI.createTableViewRow({
+			height: 78,
+			backgroundColor: 'blue'
+		});
+		
+		flashlightTableView.setData([row]);
 	};
 	
 	var createFlashlightWindowFooter = function() {
