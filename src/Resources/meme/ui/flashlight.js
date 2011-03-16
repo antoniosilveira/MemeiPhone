@@ -121,10 +121,10 @@
 		
 		var arrow = Ti.UI.createView({
 			backgroundImage: 'images/bg_flashlight_bar_arrow.png',
-			width: 25,
+			width: 17,
 			height: 10,
 			bottom: 56,
-			left: -25,
+			left: -17,
 			zIndex: 3,
 			visible: false
 		});
@@ -411,7 +411,7 @@
 			flashlightButtons[e.source.tabType].backgroundImage = 'images/flashlight_tab_' + e.source.tabType + '_on.png';
 			
 			// define arrow position
-			showArrow(2 + flashlightButtons[e.source.tabType].left);
+			showArrow(6 + flashlightButtons[e.source.tabType].left);
 			
 			// go!
 			var results = apiQuery(getSearchText());
