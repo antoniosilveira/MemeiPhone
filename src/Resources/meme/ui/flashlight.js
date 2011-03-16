@@ -383,7 +383,13 @@
 			} else {
 				apiQuery = meme.api.flashlightPhoto;
 				createRow = createFlashlightWindowResultRowPhoto;
+				e.source.tabType = 'photo';
 			}
+			
+			for (key in flashlightButtons) {
+				flashlightButtons[key].backgroundImage = 'images/flashlight_tab_' + key + '_off.png';
+			}
+			flashlightButtons[e.source.tabType].backgroundImage = 'images/flashlight_tab_' + e.source.tabType + '_on.png';
 			
 			var results = apiQuery(getSearchText());
 			var rows = [];
