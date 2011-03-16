@@ -20,7 +20,7 @@
 		}));
 		
 		setTimeout(function() {
-			searchFieldFocus();
+			//searchFieldFocus();
 		}, 250);
 	};
 	
@@ -94,7 +94,8 @@
 		var footerView = Ti.UI.createView({
 			bottom: 0,
 			height: 60,
-			width: 320
+			width: 320,
+			backgroundImage: 'images/bg_flashlight_bar.png'
 		});
 		flashlightWindow.add(footerView);
 		
@@ -104,11 +105,12 @@
 			flashlightButtons[key] = Titanium.UI.createButton({
 				tabIndex: i,
 				tabType: key,
-				image: 'images/flashlight_tab_' + key + '_off.png',
-				width: 80,
-				height: 60,
-				top: 0,
-				left: 0 + (80 * i),
+				backgroundColor: 'transparent',
+				backgroundImage: 'images/flashlight_tab_' + key + '_off.png',
+				width: 32,
+				height: 32,
+				top: 14,
+				left: 24 + (80 * i),
 				visible: true
 			});
 			flashlightButtons[key].addEventListener('click', handleFlashlightSearch);
