@@ -35,6 +35,7 @@
 			visible: true
 		});
 		flashlightButton.addEventListener('click', function(e) {
+			searchField.blur();
 			flashlightWindow.close(Ti.UI.createAnimation({
 				duration: 250,
 				top: 480 
