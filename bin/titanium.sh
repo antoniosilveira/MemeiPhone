@@ -2,7 +2,7 @@
 
 PROJECT_ROOT=${PROJECT_ROOT:-../}
 IPHONE_SDK_VERSION="4.2"
-TI_SDK_VERSION="1.5.1"
+TI_SDK_VERSION="1.6.1"
 TI_DIR="/Library/Application\ Support/Titanium"
 TI_ASSETS_DIR="${TI_DIR}/mobilesdk/osx/${TI_SDK_VERSION}"
 TI_IPHONE_DIR="${TI_ASSETS_DIR}/iphone"
