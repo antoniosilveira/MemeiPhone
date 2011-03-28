@@ -1,0 +1,4 @@
+Flashlight
+==========
+- Loading indicator when you click on any button or when you execute a search
+- Display message when there are no results
