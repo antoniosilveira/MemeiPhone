@@ -86,6 +86,8 @@
 	
 	var showTabBar, hideTabBars;
 	var createFlashlightWindowTabBar = function() {
+		// tabs are currently implemented for photos only
+		// but I'm preparing the structure to implement for videos as well
 		flashlightTabBar = { photo: null, video: null, web: null, twitter: null };
 		
 		flashlightTabBar['photo'] = Titanium.UI.createView({
@@ -99,21 +101,27 @@
 		flashlightWindow.add(flashlightTabBar['photo']);
 		
 		var flickrPhotoTabButton = Titanium.UI.createButton({
+			tabType: 'photo',
+			tabSubType: 'flickr',
 			image: 'images/flashlight_tabbar_photo_flickr_off@2x.png',
 			width: 85,
 			height: 28,
 			top: 3,
 			left: 80
 		});
+		flickrPhotoTabButton.addEventListener('click', handleFlashlightSearch);
 		flashlightTabBar['photo'].add(flickrPhotoTabButton);
 		
 		var webPhotoTabButton = Titanium.UI.createButton({
+			tabType: 'photo',
+			tabSubType: 'web',
 			image: 'images/flashlight_tabbar_photo_web_off@2x.png',
 			width: 77,
 			height: 28,
 			top: 3,
 			left: 165
 		});
+		webPhotoTabButton.addEventListener('click', handleFlashlightSearch);
 		flashlightTabBar['photo'].add(webPhotoTabButton);
 		
 		showTabBar = function(key) {
@@ -170,7 +178,6 @@
 		var i = 0;
 		for (key in flashlightButtons) {
 			flashlightButtons[key] = Titanium.UI.createButton({
-				tabIndex: i,
 				tabType: key,
 				backgroundColor: 'transparent',
 				backgroundImage: 'images/flashlight_tab_' + key + '_off.png',
@@ -448,6 +455,7 @@
 	var handleFlashlightSearch = function(e) {
 		Ti.API.debug(JSON.stringify(e));
 		Ti.API.debug(JSON.stringify(e.source.tabType));
+		Ti.API.debug(JSON.stringify(e.source.tabSubType));
 		
 		if (getSearchText()) {
 			var apiQuery, createRow, tabBarAnimation;
