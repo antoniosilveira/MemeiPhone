@@ -1,6 +1,6 @@
 (function(){
 	
-	var flashlightWindow, flashlightButtons;
+	var flashlightWindow, flashlightTabBar, flashlightButtons, flashlightTableView;
 	
 	meme.ui.openFlashlightWindow = function() {
 		flashlightWindow = Ti.UI.createWindow({
@@ -12,6 +12,8 @@
 		});
 		
 		createFlashlightWindowHeader();
+		createFlashlightWindowTabBar();
+		createFlashlightWindowResults();
 		createFlashlightWindowFooter();
 		
 		flashlightWindow.open(Ti.UI.createAnimation({
@@ -32,7 +34,8 @@
 			height: 43,
 			top: 0,
 			left: 0,
-			visible: true
+			visible: true,
+			zIndex: 1
 		});
 		flashlightButton.addEventListener('click', function(e) {
 			searchField.blur();
@@ -49,7 +52,8 @@
 			height: 43,
 			top: 0,
 			left: 114,
-			visible: true
+			visible: true,
+			zIndex: 1
 		});
 		flashlightWindow.add(flashlightField);
 		
@@ -80,15 +84,76 @@
 		}
 	};
 	
+	var showTabBar, hideTabBars;
+	var createFlashlightWindowTabBar = function() {
+		flashlightTabBar = { photo: null, video: null, web: null, twitter: null };
+		
+		flashlightTabBar['photo'] = Titanium.UI.createView({
+			backgroundColor: '#2A2B34',
+			top: 0,
+			left: 0,
+			width: 320,
+			height: 35,
+			zIndex: 0
+		});
+		flashlightWindow.add(flashlightTabBar['photo']);
+		
+		var flickrPhotoTabButton = Titanium.UI.createButton({
+			image: 'images/flashlight_tabbar_photo_flickr_off@2x.png',
+			width: 85,
+			height: 28,
+			top: 3,
+			left: 80
+		});
+		flashlightTabBar['photo'].add(flickrPhotoTabButton);
+		
+		var webPhotoTabButton = Titanium.UI.createButton({
+			image: 'images/flashlight_tabbar_photo_web_off@2x.png',
+			width: 77,
+			height: 28,
+			top: 3,
+			left: 165
+		});
+		flashlightTabBar['photo'].add(webPhotoTabButton);
+		
+		showTabBar = function(key) {
+			flashlightTabBar[key].animate({ top: 43 });
+		};
+		
+		hideTabBars = function() {
+			for (key in flashlightTabBar) {
+				if (flashlightTabBar[key]) {
+					flashlightTabBar[key].animate({ top: 0 });
+				}
+			}
+		};
+	};
+	
+	var setResultsWindowMax, setResultsWindowMin, setFlashlightRows;
 	var createFlashlightWindowResults = function(rows) {
-		var flashlightTableView = Ti.UI.createTableView({
+		flashlightTableView = Ti.UI.createTableView({
 			top: 43, 
 			height: 377,
 			width: 320, 
-			separatorColor: 'gray'
+			separatorColor: 'gray',
+			visible: false
 		});
 		flashlightWindow.add(flashlightTableView);
-		flashlightTableView.setData(rows);
+		
+		setResultsWindowMax = function() {
+			Ti.API.debug('maximized result window');
+			flashlightTableView.animate({ top: 43, height: 377 });
+		};
+		
+		setResultsWindowMin = function() {
+			Ti.API.debug('minimized result window');
+			flashlightTableView.animate({ top: 78, height: 342 });
+		};
+		
+		setFlashlightRows = function(rows) {
+			flashlightTableView.setData(rows);
+			flashlightTableView.show();
+		}
 	};
 	
 	var showArrow;
@@ -385,24 +450,41 @@
 		Ti.API.debug(JSON.stringify(e.source.tabType));
 		
 		if (getSearchText()) {
-			// define query and row method to call
-			var apiQuery, createRow;
+			var apiQuery, createRow, tabBarAnimation;
+			
+			if (!e.source.tabType) {
+				e.source.tabType = 'photo';
+			}
+			
 			if (e.source.tabType == 'photo') {
 				apiQuery = meme.api.flashlightPhoto;
 				createRow = createFlashlightWindowResultRowPhoto;
+				tabBarAnimation = function() {
+					setResultsWindowMin();
+					hideTabBars();
+					showTabBar(e.source.tabType);
+				};
 			} else if (e.source.tabType == 'video') {
 				apiQuery = meme.api.flashlightVideo;
 				createRow = createFlashlightWindowResultRowVideo;
+				tabBarAnimation = function() {
+					setResultsWindowMax();
+					hideTabBars();
+				};
 			} else if (e.source.tabType == 'web') {
 				apiQuery = meme.api.flashlightWeb;
 				createRow = createFlashlightWindowResultRowWeb;
+				tabBarAnimation = function() {
+					setResultsWindowMax();
+					hideTabBars();
+				};
 			} else if (e.source.tabType == 'twitter') {
 				apiQuery = meme.api.flashlightTwitter;
 				createRow = createFlashlightWindowResultRowTwitter;
-			} else {
-				apiQuery = meme.api.flashlightPhoto;
-				createRow = createFlashlightWindowResultRowPhoto;
-				e.source.tabType = 'photo';
+				tabBarAnimation = function() {
+					setResultsWindowMax();
+					hideTabBars();
+				};
 			}
 			
 			// enable right button
@@ -420,7 +502,8 @@
 			for (var i=0; i<results.length; i++) {
 				rows.push(createRow(results[i]));
 			}
-			createFlashlightWindowResults(rows);
+			setFlashlightRows(rows);
+			tabBarAnimation();
 		}
 	};
 	
