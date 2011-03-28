@@ -23,6 +23,15 @@
 	
 	var getTitle, getText, setTextFieldHeight, closeKeyboard;
 	var createPostWindowFields = function() {
+		var topRoundedBackground = Titanium.UI.createView({
+			backgroundImage: 'images/bg_edit_top_rounded.png',
+			top: 0,
+			left: 0,
+			width: 320,
+			height: 25
+		});
+		postWindow.add(topRoundedBackground);
+		
 		var titleField = Ti.UI.createTextField({
 			hintText: 'add title',
 			textAlign: 'left',
