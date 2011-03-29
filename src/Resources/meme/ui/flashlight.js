@@ -209,7 +209,7 @@
 		};
 	};
 	
-	var createFlashlightWindowResultRowPhoto = function(data) {
+	var createFlashlightWindowResultRowFlickrPhoto = function(data) {
 		if (data) {
 			var row = Ti.UI.createTableViewRow({
 				height:78
@@ -250,6 +250,52 @@
 				zIndex: 2,
 				title: data.title,
 				fullPhoto: fullPhoto,
+				type: 'photo'
+			}));
+			
+			return row;
+		}
+	};
+	
+	var createFlashlightWindowResultRowWebPhoto = function(data) {
+		if (data) {
+			var row = Ti.UI.createTableViewRow({
+				height:78
+			});
+			row.addEventListener('click', function(e) {
+				flashlightWindow.close(Ti.UI.createAnimation({
+					duration: 250,
+					top: 480 
+				}));
+			});
+			
+			var title = Ti.UI.createLabel({
+				text: meme.util.stripHtmlEntities(data.abstract),
+				color: '#863486',
+				height: 55,
+				width: 200,
+				left: 110,
+				textAlign: 'left',
+				font: { fontSize: 12, fontFamily: 'Helvetica', fontWeight: 'regular' }
+			});
+			row.add(title);
+			
+			var image = Ti.UI.createImageView({
+				image: data.thumbnail_url,
+				backgroundColor: 'black',
+				height: 75,
+				width: 100,
+				left: 2,
+				defaultImage: 'images/default_img.png'
+			});
+			row.add(image);
+
+			row.add(Ti.UI.createView({
+				height: 78,
+				width: 310,
+				zIndex: 2,
+				title: meme.util.stripHtmlEntities(data.abstract),
+				fullPhoto: data.url,
 				type: 'photo'
 			}));
 			
@@ -460,13 +506,24 @@
 		if (getSearchText()) {
 			var apiQuery, createRow, tabBarAnimation;
 			
+			// settings defaults
 			if (!e.source.tabType) {
 				e.source.tabType = 'photo';
 			}
 			
+			if (!e.source.tabSubType) {
+				e.source.tabSubType = 'flickr';
+			}
+			
+			// check who triggered the event and configure actions
 			if (e.source.tabType == 'photo') {
-				apiQuery = meme.api.flashlightPhoto;
-				createRow = createFlashlightWindowResultRowPhoto;
+				if (e.source.tabSubType == 'flickr') {
+					apiQuery = meme.api.flashlightFlickrPhoto;
+					createRow = createFlashlightWindowResultRowFlickrPhoto;
+				} else if (e.source.tabSubType == 'web') {
+					apiQuery = meme.api.flashlightWebPhoto;
+					createRow = createFlashlightWindowResultRowWebPhoto;
+				}
 				tabBarAnimation = function() {
 					setResultsWindowMin();
 					hideTabBars();

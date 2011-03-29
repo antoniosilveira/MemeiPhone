@@ -6,14 +6,30 @@
 		return createPost('text', content);
 	};
 	
-	meme.api.flashlightPhoto = function(query) {
+	meme.api.flashlightFlickrPhoto = function(query) {
 		var params = {
-			//cacheKey: 'flashlight:photos:' + query,
+			//cacheKey: 'flashlight:flickrphotos:' + query,
 			yqlQuery: 'SELECT * FROM flickr.photos.search WHERE text="' + query + '" AND license="4"'
 		};
 		var photos;
 		var successCallback = function(results) {
 			photos = results.photo;
+		};
+		var errorCallback = function() {
+			photos = null;
+		};
+		cachedYqlQuery(params, successCallback, errorCallback);
+		return photos;
+	};
+	
+	meme.api.flashlightWebPhoto = function(query) {
+		var params = {
+			//cacheKey: 'flashlight:webphotos:' + query,
+			yqlQuery: 'SELECT * FROM search.images WHERE query="' + query + ' -url:flickr.com" and filter="yes"'
+		};
+		var photos;
+		var successCallback = function(results) {
+			photos = results.result;
 		};
 		var errorCallback = function() {
 			photos = null;

@@ -2,3 +2,6 @@ Flashlight
 ==========
 - Loading indicator when you click on any button or when you execute a search
 - Display message when there are no results
+- Flickr and Web photos tabbar buttons should be on/off accordingly
+- When typing search text, do not capitalize words
+- Infinite scroll (?)
