@@ -85,7 +85,7 @@
 		}
 	};
 	
-	var showTabBar, hideTabBars;
+	var showTabBar, hideTabBar;
 	var createFlashlightWindowTabBar = function() {
 		flashlightTabBar = Titanium.UI.createView({
 			backgroundColor: '#2A2B34',
@@ -159,7 +159,7 @@
 			flashlightTabBar.animate({ top: 43 });
 		};
 		
-		hideTabBars = function() {
+		hideTabBar = function() {
 			if (flashlightTabBar) {
 				flashlightTabBar.animate({ top: 0 });
 			}
@@ -555,7 +555,7 @@
 				}
 				tabBarAnimation = function() {
 					setResultsWindowMin();
-					hideTabBars();
+					hideTabBar();
 					showTabBar(e.source.tabType, e.source.tabSubType);
 				};
 			} else if (e.source.tabType == 'video') {
@@ -563,21 +563,21 @@
 				createRow = createFlashlightWindowResultRowVideo;
 				tabBarAnimation = function() {
 					setResultsWindowMax();
-					hideTabBars();
+					hideTabBar();
 				};
 			} else if (e.source.tabType == 'web') {
 				apiQuery = meme.api.flashlightWeb;
 				createRow = createFlashlightWindowResultRowWeb;
 				tabBarAnimation = function() {
 					setResultsWindowMax();
-					hideTabBars();
+					hideTabBar();
 				};
 			} else if (e.source.tabType == 'twitter') {
 				apiQuery = meme.api.flashlightTwitter;
 				createRow = createFlashlightWindowResultRowTwitter;
 				tabBarAnimation = function() {
 					setResultsWindowMax();
-					hideTabBars();
+					hideTabBar();
 				};
 			}
 			
