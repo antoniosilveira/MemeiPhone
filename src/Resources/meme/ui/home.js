@@ -51,7 +51,7 @@
 	
 	var createLoggedInView = function() {
 		loggedInView = Ti.UI.createView({
-			top: 260,
+			top: 240,
 			left: -320,
 			width: 320, 
 			height: 220
@@ -85,7 +85,7 @@
 	
 	var createloggedOutView = function() {
 		loggedOutView = Ti.UI.createView({
-			top: 260,
+			top: 240,
 			left: -320,
 			width: 320, 
 			height: 220

@@ -7,7 +7,7 @@
 			backgroundColor: 'white',
 			left: 320,
 			top: 0,
-			height: 480,
+			height: 460,
 			width: 320
 		});
 		
@@ -64,7 +64,7 @@
 		
 		var textField = Ti.UI.createTextArea({
 			hintText: 'write your post here',
-			height: 378,
+			height: 358,
 			width: 320,
 			left: 0,
 			top: 57,

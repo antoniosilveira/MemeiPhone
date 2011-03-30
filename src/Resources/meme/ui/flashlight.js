@@ -169,7 +169,7 @@
 	var createFlashlightWindowResults = function(rows) {
 		var flashlightTableView = Ti.UI.createTableView({
 			top: 43, 
-			height: 377,
+			height: 357,
 			width: 320, 
 			separatorColor: 'gray',
 			visible: false
@@ -178,12 +178,12 @@
 		
 		setResultsWindowMax = function() {
 			Ti.API.debug('maximized result window');
-			flashlightTableView.animate({ top: 43, height: 377 });
+			flashlightTableView.animate({ top: 43, height: 357 });
 		};
 		
 		setResultsWindowMin = function() {
 			Ti.API.debug('minimized result window');
-			flashlightTableView.animate({ top: 78, height: 342 });
+			flashlightTableView.animate({ top: 78, height: 322 });
 		};
 		
 		setFlashlightRows = function(rows) {
@@ -195,7 +195,7 @@
 	var showArrow, buttonBarAnimation;
 	var createFlashlightWindowFooter = function() {
 		var footerView = Ti.UI.createView({
-			bottom: 0,
+			bottom: 20,
 			height: 60,
 			width: 320,
 			backgroundImage: 'images/old/bg_flashlight_bar.png'
@@ -224,7 +224,7 @@
 			backgroundImage: 'images/old/bg_flashlight_bar_arrow.png',
 			width: 17,
 			height: 10,
-			bottom: 56,
+			bottom: 76,
 			left: -17,
 			zIndex: 3,
 			visible: false

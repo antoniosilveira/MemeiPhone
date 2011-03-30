@@ -81,7 +81,7 @@
 		            top: 5,
 					left: 5,
 		            width: 310,
-		            height: 470,
+		            height: 450,
 		            border: 5,
 		            backgroundColor: 'white',
 		            borderColor: '#333',
@@ -103,8 +103,7 @@
 					style:Ti.UI.iPhone.ActivityIndicatorStyle.PLAIN,
 					visible: false
 				});
-			
-	
+				
 				//Close button
 				var btn_close = Titanium.UI.createButton({
 					backgroundImage:'images/old/btn_close_gray.png',
