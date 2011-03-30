@@ -4,7 +4,7 @@
 	
 	meme.ui.openHomeWindow = function() {
 		homeWindow = Titanium.UI.createWindow({
-		    backgroundImage: 'images/home.png',
+		    backgroundImage: 'images/old/home.png',
 			orientationModes: [Ti.UI.PORTRAIT]
 		});
 		
@@ -44,7 +44,7 @@
 		homeWindow.add(loggedInView);
 		
 		var newPostButton = Titanium.UI.createButton({
-			image: 'images/home_button_newpost.png',
+			image: 'images/old/home_button_newpost.png',
 			left: 0,
 			top: 0,
 			width: 320, 
@@ -54,7 +54,7 @@
 		loggedInView.add(newPostButton);
 		
 		var logoutButton = Titanium.UI.createButton({
-			image: 'images/home_button_logout.png',
+			image: 'images/old/home_button_logout.png',
 			left: 0,
 			top: 110,
 			width: 320, 
@@ -78,7 +78,7 @@
 		homeWindow.add(loggedOutView);
 		
 		var tryNowButton = Titanium.UI.createButton({
-			image: 'images/home_button_tryitnow.png',
+			image: 'images/old/home_button_tryitnow.png',
 			left: 0,
 			top: 0,
 			width: 320, 
@@ -88,7 +88,7 @@
 		loggedOutView.add(tryNowButton);
 
 		var signInButton = Titanium.UI.createButton({
-			image: 'images/home_button_signin.png',
+			image: 'images/old/home_button_signin.png',
 			left: 0,
 			top: 110,
 			width: 320, 

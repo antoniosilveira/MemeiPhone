@@ -24,7 +24,7 @@
 	var getTitle, getText, setTextFieldHeight, closeKeyboard;
 	var createPostWindowFields = function() {
 		var topRoundedBackground = Titanium.UI.createView({
-			backgroundImage: 'images/bg_edit_top_rounded.png',
+			backgroundImage: 'images/old/bg_edit_top_rounded.png',
 			top: 0,
 			left: 0,
 			width: 320,
@@ -54,7 +54,7 @@
 		postWindow.add(titleField);
 		
 		var dottedLineView = Titanium.UI.createView({
-			backgroundImage: 'images/dotted_line.png',
+			backgroundImage: 'images/old/dotted_line.png',
 			top: 55,
 			left: 0,
 			width: 320,
@@ -105,7 +105,7 @@
 	var moveButtonBarUp, moveButtonBarDown;
 	var createPostWindowButtons = function() {
 		var closeButton = Titanium.UI.createButton({
-			backgroundImage: 'images/btn_close_gray.png',
+			backgroundImage: 'images/old/btn_close_gray.png',
 			width: 29,
 			height: 29,
 			top: 5,
@@ -130,7 +130,7 @@
 		postWindow.add(buttonBar);
 		
 		var flashlightButton = Ti.UI.createButton({
-			image: 'images/post_button_flashlight.png',
+			image: 'images/old/post_button_flashlight.png',
 			top: 0,
 			left: 0,
 			width: 145, 
@@ -140,7 +140,7 @@
 		buttonBar.add(flashlightButton);
 	
 		var pictureButton = Ti.UI.createButton({
-			image: 'images/post_button_picture.png',
+			image: 'images/old/post_button_picture.png',
 			top: 0,
 			left: 145,
 			width: 69, 
@@ -156,7 +156,7 @@
 		buttonBar.add(pictureButton);
 		
 		var postButton = Ti.UI.createButton({
-			image: 'images/post_button_submit.png',
+			image: 'images/old/post_button_submit.png',
 			top: 0,
 			left: 214,
 			width: 106, 
@@ -218,7 +218,7 @@
 		progressView.add(progressBar);
 		
 		var cancelPostButton = Ti.UI.createButton({
-			backgroundImage: 'images/btn_back.png',
+			backgroundImage: 'images/old/btn_back.png',
 			backgroundLeftCap: 20,
 			backgroundRightCap: 20,
 			left: 210,

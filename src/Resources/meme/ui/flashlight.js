@@ -29,7 +29,7 @@
 	var getSearchText, searchFieldFocus;
 	var createFlashlightWindowHeader = function() {
 		var flashlightButton = Titanium.UI.createButton({
-			image: 'images/flashlight_button.png',
+			image: 'images/old/flashlight_button.png',
 			width: 114,
 			height: 43,
 			top: 0,
@@ -47,7 +47,7 @@
 		flashlightWindow.add(flashlightButton);
 		
 		var flashlightField = Titanium.UI.createView({
-			backgroundImage: 'images/flashlight_field.png',
+			backgroundImage: 'images/old/flashlight_field.png',
 			width: 206,
 			height: 43,
 			top: 0,
@@ -117,7 +117,7 @@
 				flashlightTabBarButtons[key][subKey] = Titanium.UI.createButton({
 					tabType: key,
 					tabSubType: subKey,
-					image: 'images/flashlight_tabbar_' + key + '_' + subKey + '_off@2x.png',
+					image: 'images/old/flashlight_tabbar_' + key + '_' + subKey + '_off@2x.png',
 					width: flashlightTabBarButtonLocations[key][subKey].width,
 					height: 28,
 					top: 3,
@@ -136,7 +136,7 @@
 					Ti.API.debug('remove button [' + key + '][' + subKey + ']');
 					
 					// turn off before removing
-					flashlightTabBarButtons[key][subKey].image = 'images/flashlight_tabbar_' + key + '_' + subKey + '_off@2x.png';
+					flashlightTabBarButtons[key][subKey].image = 'images/old/flashlight_tabbar_' + key + '_' + subKey + '_off@2x.png';
 					
 					// then remove
 					flashlightTabBar.remove(flashlightTabBarButtons[key][subKey]);
@@ -149,7 +149,7 @@
 				
 				// turn button on if necessary
 				if (button == enableButton) {
-					flashlightTabBarButtons[showKey][button].image = 'images/flashlight_tabbar_' + showKey + '_' + button + '_on@2x.png';
+					flashlightTabBarButtons[showKey][button].image = 'images/old/flashlight_tabbar_' + showKey + '_' + button + '_on@2x.png';
 				}
 				
 				// add to tab bar
@@ -198,7 +198,7 @@
 			bottom: 0,
 			height: 60,
 			width: 320,
-			backgroundImage: 'images/bg_flashlight_bar.png'
+			backgroundImage: 'images/old/bg_flashlight_bar.png'
 		});
 		flashlightWindow.add(footerView);
 		
@@ -208,7 +208,7 @@
 			flashlightButtons[key] = Titanium.UI.createButton({
 				tabType: key,
 				backgroundColor: 'transparent',
-				backgroundImage: 'images/flashlight_tab_' + key + '_off.png',
+				backgroundImage: 'images/old/flashlight_tab_' + key + '_off.png',
 				width: 32,
 				height: 32,
 				top: 14,
@@ -221,7 +221,7 @@
 		}
 		
 		var arrow = Ti.UI.createView({
-			backgroundImage: 'images/bg_flashlight_bar_arrow.png',
+			backgroundImage: 'images/old/bg_flashlight_bar_arrow.png',
 			width: 17,
 			height: 10,
 			bottom: 56,
@@ -239,9 +239,9 @@
 		buttonBarAnimation = function(type) {
 			// enable right button
 			for (var key in flashlightButtons) {
-				flashlightButtons[key].backgroundImage = 'images/flashlight_tab_' + key + '_off.png';
+				flashlightButtons[key].backgroundImage = 'images/old/flashlight_tab_' + key + '_off.png';
 			}
-			flashlightButtons[type].backgroundImage = 'images/flashlight_tab_' + type + '_on.png';
+			flashlightButtons[type].backgroundImage = 'images/old/flashlight_tab_' + type + '_on.png';
 			
 			// define arrow position
 			showArrow(6 + flashlightButtons[type].left);
@@ -274,7 +274,7 @@
 				height: 75,
 				width: 100,
 				left: 2,
-				defaultImage: 'images/default_img.png'
+				defaultImage: 'images/old/default_img.png'
 			});
 			row.add(image);
 
@@ -315,7 +315,7 @@
 				height: 75,
 				width: 100,
 				left: 2,
-				defaultImage: 'images/default_img.png'
+				defaultImage: 'images/old/default_img.png'
 			});
 			row.add(image);
 
@@ -372,12 +372,12 @@
 				height: 75,
 				width: 100,
 				left: 2,
-				defaultImage: 'images/default_img.png'
+				defaultImage: 'images/old/default_img.png'
 			});
 			row.add(image);
 
 			var imgPlayButton = Titanium.UI.createImageView({
-	            image: 'images/play.png',
+	            image: 'images/old/play.png',
 	            top: 20,
 	            left: 30,
 	            width: 37,
@@ -467,7 +467,7 @@
 				width: 48,
 				top: 10,
 				left: 10,
-				defaultImage: 'images/default_img_avatar.png'
+				defaultImage: 'images/old/default_img_avatar.png'
 			});
 			row.add(avatar);
 
