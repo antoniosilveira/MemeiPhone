@@ -279,13 +279,13 @@
 			meme.ui.alert({
 				title: 'Success',
 				message: 'Posted on Meme successfully!',
-				buttonNames: ['Ok', 'View Post', 'Copy URL'],
+				buttonNames: ['View Post', 'Copy URL', 'Ok'],
 				onClick: function(e) {
-					if (e.index == 1) {
+					if (e.index == 0) {
 						meme.ui.openLinkOnSafari({
 							url: response.status.post.url
 						});
-					} else if (e.index == 2) {
+					} else if (e.index == 1) {
 						Ti.UI.Clipboard.setText(response.status.post.url);
 						meme.ui.alert({
 							title: 'Success',
