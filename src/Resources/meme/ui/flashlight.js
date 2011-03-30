@@ -1,6 +1,6 @@
 (function(){
 	
-	var flashlightWindow, flashlightButtons;
+	var flashlightWindow;
 	
 	meme.ui.openFlashlightWindow = function() {
 		flashlightWindow = Ti.UI.createWindow({
@@ -192,7 +192,7 @@
 		}
 	};
 	
-	var showArrow;
+	var showArrow, buttonBarAnimation;
 	var createFlashlightWindowFooter = function() {
 		var footerView = Ti.UI.createView({
 			bottom: 0,
@@ -202,7 +202,7 @@
 		});
 		flashlightWindow.add(footerView);
 		
-		flashlightButtons = { photo: null, video: null, web: null, twitter: null };
+		var flashlightButtons = { photo: null, video: null, web: null, twitter: null };
 		var i = 0;
 		for (var key in flashlightButtons) {
 			flashlightButtons[key] = Titanium.UI.createButton({
@@ -234,6 +234,17 @@
 		showArrow = function(left) {
 			arrow.show();
 			arrow.animate({ left: left });
+		};
+		
+		buttonBarAnimation = function(type) {
+			// enable right button
+			for (var key in flashlightButtons) {
+				flashlightButtons[key].backgroundImage = 'images/flashlight_tab_' + key + '_off.png';
+			}
+			flashlightButtons[type].backgroundImage = 'images/flashlight_tab_' + type + '_on.png';
+			
+			// define arrow position
+			showArrow(6 + flashlightButtons[type].left);
 		};
 	};
 	
@@ -555,14 +566,7 @@
 				};
 			}
 			
-			// enable right button
-			for (var key in flashlightButtons) {
-				flashlightButtons[key].backgroundImage = 'images/flashlight_tab_' + key + '_off.png';
-			}
-			flashlightButtons[e.source.tabType].backgroundImage = 'images/flashlight_tab_' + e.source.tabType + '_on.png';
-			
-			// define arrow position
-			showArrow(6 + flashlightButtons[e.source.tabType].left);
+			buttonBarAnimation(e.source.tabType);
 			
 			// go!
 			var results = apiQuery(getSearchText());
