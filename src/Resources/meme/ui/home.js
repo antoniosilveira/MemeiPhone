@@ -28,10 +28,10 @@
 			
 			var animation = Ti.UI.createAnimation({
 				duration: 125,
-				left: -320
+				top: 460
 			});
 			animation.addEventListener('complete', function() {
-				showView.animate({ duration: 125, left: 0 });
+				showView.animate({ duration: 125, top: 240 });
 			});
 			hideView.animate(animation);
 		}, 250);
@@ -51,8 +51,8 @@
 	
 	var createLoggedInView = function() {
 		loggedInView = Ti.UI.createView({
-			top: 240,
-			left: -320,
+			top: 460,
+			left: 0,
 			width: 320, 
 			height: 220
 		});
@@ -85,8 +85,8 @@
 	
 	var createloggedOutView = function() {
 		loggedOutView = Ti.UI.createView({
-			top: 240,
-			left: -320,
+			top: 460,
+			left: 0,
 			width: 320, 
 			height: 220
 		});
