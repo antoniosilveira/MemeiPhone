@@ -1,6 +1,7 @@
 (function(){
 	
-	var flashlightWindow, flashlightTabBar, flashlightButtons, flashlightTableView;
+	var flashlightWindow, flashlightTabBar, flashlightTabBarButtons, 
+		flashlightButtons, flashlightTableView;
 	
 	meme.ui.openFlashlightWindow = function() {
 		flashlightWindow = Ti.UI.createWindow({
@@ -86,11 +87,7 @@
 	
 	var showTabBar, hideTabBars;
 	var createFlashlightWindowTabBar = function() {
-		// tabs are currently implemented for photos only
-		// but I'm preparing the structure to implement for videos as well
-		flashlightTabBar = { photo: null, video: null, web: null, twitter: null };
-		
-		flashlightTabBar['photo'] = Titanium.UI.createView({
+		flashlightTabBar = Titanium.UI.createView({
 			backgroundColor: '#2A2B34',
 			top: 0,
 			left: 0,
@@ -98,41 +95,73 @@
 			height: 35,
 			zIndex: 0
 		});
-		flashlightWindow.add(flashlightTabBar['photo']);
+		flashlightWindow.add(flashlightTabBar);
 		
-		var flickrPhotoTabButton = Titanium.UI.createButton({
-			tabType: 'photo',
-			tabSubType: 'flickr',
-			image: 'images/flashlight_tabbar_photo_flickr_off@2x.png',
-			width: 85,
-			height: 28,
-			top: 3,
-			left: 80
-		});
-		flickrPhotoTabButton.addEventListener('click', handleFlashlightSearch);
-		flashlightTabBar['photo'].add(flickrPhotoTabButton);
+		// tabs are currently implemented for photos only
+		// but I'm preparing the structure to implement for videos as well
+		var flashlightTabBarButtonLocations = { 
+			photo: { 
+				flickr: { width: 85, left: 80 }, 
+				web: { width: 77, left: 165 }
+			}
+		};
 		
-		var webPhotoTabButton = Titanium.UI.createButton({
-			tabType: 'photo',
-			tabSubType: 'web',
-			image: 'images/flashlight_tabbar_photo_web_off@2x.png',
-			width: 77,
-			height: 28,
-			top: 3,
-			left: 165
-		});
-		webPhotoTabButton.addEventListener('click', handleFlashlightSearch);
-		flashlightTabBar['photo'].add(webPhotoTabButton);
+		flashlightTabBarButtons = { 
+			photo: { flickr: null, web: null }, 
+			video: {}, 
+			web: {}, 
+			twitter: {}
+		};
 		
-		showTabBar = function(key) {
-			flashlightTabBar[key].animate({ top: 43 });
+		for (var key in flashlightTabBarButtons) {
+			for (var subKey in flashlightTabBarButtons[key]) {
+				flashlightTabBarButtons[key][subKey] = Titanium.UI.createButton({
+					tabType: key,
+					tabSubType: subKey,
+					image: 'images/flashlight_tabbar_' + key + '_' + subKey + '_off@2x.png',
+					width: flashlightTabBarButtonLocations[key][subKey].width,
+					height: 28,
+					top: 3,
+					left: flashlightTabBarButtonLocations[key][subKey].left
+				});
+				flashlightTabBarButtons[key][subKey].addEventListener('click', handleFlashlightSearch);
+			}
+		}
+		
+		showTabBar = function(showKey, enableButton) {
+			Ti.API.debug('show tabBar for key [' + showKey + ']');
+			
+			// remove all buttons first
+			for (var key in flashlightTabBarButtons) {
+				for (var subKey in flashlightTabBarButtons[key]) {
+					Ti.API.debug('remove button [' + key + '][' + subKey + ']');
+					
+					// turn off before removing
+					flashlightTabBarButtons[key][subKey].image = 'images/flashlight_tabbar_' + key + '_' + subKey + '_off@2x.png';
+					
+					// then remove
+					flashlightTabBar.remove(flashlightTabBarButtons[key][subKey]);
+				}
+			}
+			
+			// then add the right ones
+			for (var button in flashlightTabBarButtons[showKey]) {
+				Ti.API.debug('add button [' + showKey + '][' + button + ']');
+				
+				// turn button on if necessary
+				if (button == enableButton) {
+					flashlightTabBarButtons[showKey][button].image = 'images/flashlight_tabbar_' + showKey + '_' + button + '_on@2x.png';
+				}
+				
+				// add to tab bar
+				flashlightTabBar.add(flashlightTabBarButtons[showKey][button]);
+			}
+			flashlightTabBar.animate({ top: 43 });
 		};
 		
 		hideTabBars = function() {
-			for (key in flashlightTabBar) {
-				if (flashlightTabBar[key]) {
-					flashlightTabBar[key].animate({ top: 0 });
-				}
+			if (flashlightTabBar) {
+				flashlightTabBar.animate({ top: 0 });
 			}
 		};
 	};
@@ -176,7 +205,7 @@
 		
 		flashlightButtons = { photo: null, video: null, web: null, twitter: null };
 		var i = 0;
-		for (key in flashlightButtons) {
+		for (var key in flashlightButtons) {
 			flashlightButtons[key] = Titanium.UI.createButton({
 				tabType: key,
 				backgroundColor: 'transparent',
@@ -527,7 +556,7 @@
 				tabBarAnimation = function() {
 					setResultsWindowMin();
 					hideTabBars();
-					showTabBar(e.source.tabType);
+					showTabBar(e.source.tabType, e.source.tabSubType);
 				};
 			} else if (e.source.tabType == 'video') {
 				apiQuery = meme.api.flashlightVideo;
@@ -553,7 +582,7 @@
 			}
 			
 			// enable right button
-			for (key in flashlightButtons) {
+			for (var key in flashlightButtons) {
 				flashlightButtons[key].backgroundImage = 'images/flashlight_tab_' + key + '_off.png';
 			}
 			flashlightButtons[e.source.tabType].backgroundImage = 'images/flashlight_tab_' + e.source.tabType + '_on.png';
