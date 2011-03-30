@@ -1,7 +1,6 @@
 (function(){
 	
-	var flashlightWindow, flashlightTabBar, flashlightTabBarButtons, 
-		flashlightButtons, flashlightTableView;
+	var flashlightWindow, flashlightButtons;
 	
 	meme.ui.openFlashlightWindow = function() {
 		flashlightWindow = Ti.UI.createWindow({
@@ -87,7 +86,7 @@
 	
 	var showTabBar, hideTabBar;
 	var createFlashlightWindowTabBar = function() {
-		flashlightTabBar = Titanium.UI.createView({
+		var flashlightTabBar = Titanium.UI.createView({
 			backgroundColor: '#2A2B34',
 			top: 0,
 			left: 0,
@@ -106,7 +105,7 @@
 			}
 		};
 		
-		flashlightTabBarButtons = { 
+		var flashlightTabBarButtons = { 
 			photo: { flickr: null, web: null }, 
 			video: {}, 
 			web: {}, 
@@ -168,7 +167,7 @@
 	
 	var setResultsWindowMax, setResultsWindowMin, setFlashlightRows;
 	var createFlashlightWindowResults = function(rows) {
-		flashlightTableView = Ti.UI.createTableView({
+		var flashlightTableView = Ti.UI.createTableView({
 			top: 43, 
 			height: 377,
 			width: 320, 
