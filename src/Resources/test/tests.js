@@ -20,7 +20,7 @@
 		testWindow.add(testsWebView);
 		
 		var testResults = '';
-		var testResultsBegin = '<html><head><style type="text/css">body{font-size:14px;font-family:helvetica;}</style></head><body>';
+		var testResultsBegin = '<html><head><style type="text/css">body{font-size:12px;font-family:helvetica;}</style></head><body>';
 		var testResultsEnd = '</body></html>';
 		var updateTestResults = function(message) {
 			if (message.indexOf('Running') == 0) {

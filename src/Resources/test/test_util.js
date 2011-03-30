@@ -12,5 +12,20 @@ var UtilTestSuite = {
 	testStripHtmlEntitiesWithNullHtml: function() {
 		var result = meme.util.stripHtmlEntities(null);
 		assertNull(result);
+	},
+	
+	testSecondsToHmsWithManyHours: function() {
+		var hms = meme.util.secondsToHms(51072);
+		assertEqual(hms, '14:11:12');
+	},
+	
+	testSecondsToHmsWithFewMinutes: function() {
+		var hms = meme.util.secondsToHms(123);
+		assertEqual(hms, '2:03');
+	},
+	
+	testSecondsToHmsWithNullSeconds: function() {
+		var hms = meme.util.secondsToHms(null);
+		assertEqual(hms, '0:00');
 	}
 };
