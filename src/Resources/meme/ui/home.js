@@ -93,7 +93,7 @@
 		homeWindow.add(loggedOutView);
 		
 		var tryNowButton = Titanium.UI.createButton({
-			image: 'images/old/home_button_tryitnow.png',
+			image: 'images/en/home_button_tryitnow.png',
 			left: 0,
 			top: 0,
 			width: 320, 
@@ -103,7 +103,7 @@
 		loggedOutView.add(tryNowButton);
 
 		var signInButton = Titanium.UI.createButton({
-			image: 'images/old/home_button_signin.png',
+			image: 'images/en/home_button_signin.png',
 			left: 0,
 			top: 110,
 			width: 320, 
