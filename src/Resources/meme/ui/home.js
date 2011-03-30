@@ -27,17 +27,25 @@
 			}
 			
 			var animation = Ti.UI.createAnimation({
-				duration: 125,
+				duration: 250,
 				top: 460
 			});
 			animation.addEventListener('complete', function() {
-				showView.animate({ duration: 125, top: 240 });
+				showView.animate({ duration: 250, top: 240 });
 			});
 			hideView.animate(animation);
-		}, 250);
+		}, 125);
 	};
 	
 	var createHeader = function() {
+		var headerView =  Ti.UI.createView({
+			top: 0,
+			height: 460,
+			width: 320,
+			backgroundColor: 'transparent'
+		});
+		homeWindow.add(headerView);
+		
 		var logoView = Ti.UI.createView({
 			backgroundImage: 'images/en/logo_big.png',
 			top: 90,
@@ -46,7 +54,17 @@
 			height: 146,
 			visible: true
 		});
-		homeWindow.add(logoView);
+		headerView.add(logoView);
+		
+		headerView.animate({
+			duration: 500,
+			backgroundColor: '#191919'
+		});
+		
+		logoView.animate({
+			duration: 500,
+			top: 60
+		});
 	};
 	
 	var createLoggedInView = function() {
