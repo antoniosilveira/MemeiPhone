@@ -1,7 +1,5 @@
 (function(){
 	if (meme.config.tests_enabled) {
-		Ti.include('/test/lib/jsunity-0.6.js');
-		
 		var testWindow = Titanium.UI.createWindow({
 			title:'Application Tests',
 			backgroundColor: 'white',
@@ -20,33 +18,60 @@
 		testWindow.add(testsWebView);
 		
 		var testResults = '';
-		var testResultsBegin = '<html><head><style type="text/css">body{font-size:12px;font-family:helvetica;}</style></head><body>';
+		var testResultsBegin = '<html><head><style type="text/css">body{font-size:10px;font-family:helvetica;}</style></head><body>';
 		var testResultsEnd = '</body></html>';
 		var updateTestResults = function(message) {
-			if (message.indexOf('Running') == 0) {
-				testResults += '<strong>' + message + '</strong><br>';
-			} else if (message.indexOf('[FAILED]') == 0) {
-				testResults += '<font color="#FF0000">' + message + '</font><br>';
-			} else if (message.indexOf('[PASSED]') == 0) {
-				testResults += '<font color="#009900">' + message + '</font><br>';
-			} else {
-				testResults += message + '<br>';
-			}
+			testResults += message;
 			testsWebView.html = testResultsBegin + testResults + testResultsEnd;
 		};
 
-		jsUnity.log = function(message) {
-			updateTestResults(message);
-		};
-
-		jsUnity.error = function(message) {
-			Ti.API.error(message);
-		};
-
-		// Add all test suites...
+		Ti.include('/test/lib/jasmine-1.0.2.js');
+		
+		// Include all the test files
 		Ti.include('/test/test_util.js');
+		
+	    var TitaniumReporter = function() {
+	        this.started = false;
+	        this.finished = false;
+	    };
 
-		// And run...
-		jsUnity.run(UtilTestSuite);
+	    TitaniumReporter.prototype = {
+	        reportRunnerResults: function(runner) {
+	            this.finished = true;
+	            this.log('<h3>Test Runner Finished.</h3>');
+	        },
+
+	        reportRunnerStarting: function(runner) {
+	            this.started = true;
+	            this.log('<h3>Test Runner Started.</h3>');
+	        },
+
+	        reportSpecResults: function(spec) {
+				var resultText = '<font color="#FF0000">Failed.</font><br>';
+
+	            if (spec.results().passed()) {
+	                resultText = '<font color="#009900">Passed.</font><br>';
+	            }
+
+	            this.log(resultText);
+	        },
+
+	        reportSpecStarting: function(spec) {
+	            this.log('[' + spec.suite.description + '] ' + spec.description + '... ');
+	        },
+
+	        reportSuiteResults: function(suite) {
+	            var results = suite.results();
+
+	            this.log('[' + suite.description + '] ' + results.passedCount + ' of ' + results.totalCount + ' passed.<br>');
+	        },
+
+	        log: function(str) {
+	            updateTestResults(str);
+	        }
+	    };
+		
+		jasmine.getEnv().addReporter(new TitaniumReporter());
+		jasmine.getEnv().execute();
 	}
 })();
