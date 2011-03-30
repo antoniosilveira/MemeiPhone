@@ -38,7 +38,7 @@
 	    TitaniumReporter.prototype = {
 	        reportRunnerResults: function(runner) {
 	            this.finished = true;
-	            this.log('<h3>Test Runner Finished.</h3>');
+	            //this.log('<h3>Test Runner Finished.</h3>');
 	        },
 
 	        reportRunnerStarting: function(runner) {
@@ -47,23 +47,23 @@
 	        },
 
 	        reportSpecResults: function(spec) {
-				var resultText = '<font color="#FF0000">Failed.</font><br>';
-
+				var color = '#FF0000';
 	            if (spec.results().passed()) {
-	                resultText = '<font color="#009900">Passed.</font><br>';
+	                color = '#009900';
 	            }
 
-	            this.log(resultText);
+	            //this.log('[' + spec.suite.description + '] <font color="' + color + '">' + spec.description + '</font><br>');
+				this.log('• <font color="' + color + '">' + spec.description + '</font><br>');
 	        },
 
 	        reportSpecStarting: function(spec) {
-	            this.log('[' + spec.suite.description + '] ' + spec.description + '... ');
+	            //this.log('[' + spec.suite.description + '] ' + spec.description + '... ');
 	        },
 
 	        reportSuiteResults: function(suite) {
 	            var results = suite.results();
 
-	            this.log('[' + suite.description + '] ' + results.passedCount + ' of ' + results.totalCount + ' passed.<br>');
+	            this.log('<b>[' + suite.description + '] ' + results.passedCount + ' of ' + results.totalCount + ' passed.</b><br><br>');
 	        },
 
 	        log: function(str) {

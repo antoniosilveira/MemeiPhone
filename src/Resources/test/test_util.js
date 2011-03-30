@@ -1,6 +1,6 @@
-describe('util', function() {
+describe('meme.util', function() {
 	
-	describe('util.stripHtmlEntities', function() {
+	describe('meme.util.stripHtmlEntities', function() {
 		it('should strip html entities', function() {
 			var html = '<p>this is my <span class="bold">html</span> awesome\ntext!';
 			var result = meme.util.stripHtmlEntities(html);
@@ -12,7 +12,7 @@ describe('util', function() {
 		});	
 	});
 		
-	describe('util.secondsToHms', function() {
+	describe('meme.util.secondsToHms', function() {
 		it('should transform seconds to M:SS format when less than 9:59 minutes', function() {
 			expect(meme.util.secondsToHms(123)).toBe('2:03');
 		});
@@ -22,7 +22,7 @@ describe('util', function() {
 		});
 
 		it('should transform seconds to 0:00 format when null seconds', function() {
-			expect(meme.util.secondsToHms(null)).toBe('0:01');
+			expect(meme.util.secondsToHms(null)).toBe('0:00');
 		});
 
 		it('should transform seconds to HH:MM:SS format when seconds represent many hours', function() {
