@@ -5,10 +5,11 @@
 	meme.ui.openHomeWindow = function() {
 		if (!meme.config.tests_enabled) {
 			homeWindow = Titanium.UI.createWindow({
-			    backgroundImage: 'images/old/home.png',
+			    backgroundImage: 'images/bg.png',
 				orientationModes: [Ti.UI.PORTRAIT]
 			});
-		
+			
+			createHeader();
 			createLoggedInView();
 			createloggedOutView();
 		
@@ -34,6 +35,18 @@
 			});
 			hideView.animate(animation);
 		}, 250);
+	};
+	
+	var createHeader = function() {
+		var logoView = Ti.UI.createView({
+			backgroundImage: 'images/en/logo_big.png',
+			top: 90,
+			left: 32,
+			width: 263,
+			height: 146,
+			visible: true
+		});
+		homeWindow.add(logoView);
 	};
 	
 	var createLoggedInView = function() {

@@ -69,7 +69,7 @@
 		<string>auto-focus-camera</string>
 	</array>
 	<key>UIStatusBarHidden</key>
-	<true/>
+	<false/>
 	<key>UIAppFonts</key>
 	<array>
 	    <string>GothamRnd-Bold.otf</string>
