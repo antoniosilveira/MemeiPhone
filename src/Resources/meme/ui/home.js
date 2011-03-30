@@ -3,17 +3,19 @@
 	var homeWindow, loggedOutView, loggedInView;
 	
 	meme.ui.openHomeWindow = function() {
-		homeWindow = Titanium.UI.createWindow({
-		    backgroundImage: 'images/old/home.png',
-			orientationModes: [Ti.UI.PORTRAIT]
-		});
+		if (!meme.config.tests_enabled) {
+			homeWindow = Titanium.UI.createWindow({
+			    backgroundImage: 'images/old/home.png',
+				orientationModes: [Ti.UI.PORTRAIT]
+			});
 		
-		createLoggedInView();
-		createloggedOutView();
+			createLoggedInView();
+			createloggedOutView();
 		
-		homeWindow.open();
+			homeWindow.open();
 		
-		meme.ui.refreshHomeWindow();
+			meme.ui.refreshHomeWindow();
+		}
 	};
 	
 	meme.ui.refreshHomeWindow = function() {

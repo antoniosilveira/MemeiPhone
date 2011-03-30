@@ -5,10 +5,6 @@
 		var testWindow = Titanium.UI.createWindow({
 			title:'Application Tests',
 			backgroundColor: 'white',
-			left: 0,
-			top: 0,
-			height: 480,
-			width: 320,
 			navBarHidden: true,
 			zIndex: 999
 		});

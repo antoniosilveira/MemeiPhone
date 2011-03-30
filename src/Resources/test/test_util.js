@@ -7,5 +7,10 @@ var UtilTestSuite = {
 		var html = '<p>this is my <span class="bold">html</span> awesome\ntext!';
 		var result = meme.util.stripHtmlEntities(html);
 		assertEqual(result, 'this is my html awesome text!');
+	},
+	
+	testStripHtmlEntitiesWithNullHtml: function() {
+		var result = meme.util.stripHtmlEntities(null);
+		assertNull(result);
 	}
 };
