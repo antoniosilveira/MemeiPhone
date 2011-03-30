@@ -19,7 +19,7 @@ launch-titanium:
 	@PROJECT_ROOT=${PROJECT_ROOT} bash ${PROJECT_ROOT}/bin/titanium.sh
 
 test:
-	@echo "var testsEnabled = true;" > ${PROJECT_ROOT}/src/Resources/test/enabled.js
+	@echo "meme.config.tests_enabled = true;" > ${PROJECT_ROOT}/src/Resources/test/enabled.js
 	@make launch-titanium
 run:
 	@mkdir -p ${PROJECT_ROOT}/src/Resources/test/

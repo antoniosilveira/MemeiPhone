@@ -10,7 +10,10 @@
 		yql_base_url: 'http://yql.yahooapis.com/v1/yql',
 		
 		// OAuth
-		oauth_signature_method: 'HMAC-SHA1'
+		oauth_signature_method: 'HMAC-SHA1',
+		
+		// Tests are disabled by default
+		tests_enabled: false
 	};
 	
 })();

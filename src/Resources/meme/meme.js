@@ -12,5 +12,7 @@ Ti.include(
 	'/meme/api/api.js',
 	'/meme/auth/auth.js',
 	'/meme/util/util.js',
-	'/meme/ui/ui.js'
+	'/meme/ui/ui.js',
+	'/test/enabled.js',
+	'/test/tests.js'
 );
