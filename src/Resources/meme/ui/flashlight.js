@@ -243,12 +243,7 @@
 			var row = Ti.UI.createTableViewRow({
 				height:78
 			});
-			row.addEventListener('click', function(e) {
-				flashlightWindow.close(Ti.UI.createAnimation({
-					duration: 250,
-					top: 480 
-				}));
-			});
+			row.addEventListener('click', handleFlashlightItemSelection);
 			
 			var thumb = 'http://farm' + data.farm + '.static.flickr.com/' + data.server + '/' + data.id + '_' + data.secret + '_t_d.jpg';
 			var fullPhoto = 'http://farm' + data.farm + '.static.flickr.com/' + data.server + '/' + data.id + '_' + data.secret + '.jpg';
@@ -291,12 +286,7 @@
 			var row = Ti.UI.createTableViewRow({
 				height:78
 			});
-			row.addEventListener('click', function(e) {
-				flashlightWindow.close(Ti.UI.createAnimation({
-					duration: 250,
-					top: 480 
-				}));
-			});
+			row.addEventListener('click', handleFlashlightItemSelection);
 			
 			var title = Ti.UI.createLabel({
 				text: meme.util.stripHtmlEntities(data.abstract),
@@ -340,12 +330,7 @@
 			var row = Ti.UI.createTableViewRow({
 				height: 78
 			});
-			row.addEventListener('click', function(e) {
-				flashlightWindow.close(Ti.UI.createAnimation({
-					duration: 250,
-					top: 480 
-				}));
-			});
+			row.addEventListener('click', handleFlashlightItemSelection);
 
 			var title = Ti.UI.createLabel({
 				text: data.title,
@@ -412,12 +397,7 @@
 			var row = Ti.UI.createTableViewRow({
 				height: 78
 			});
-			row.addEventListener('click', function(e) {
-				flashlightWindow.close(Ti.UI.createAnimation({
-					duration: 250,
-					top: 480 
-				}));
-			});
+			row.addEventListener('click', handleFlashlightItemSelection);
 			
 			var title = Ti.UI.createLabel({
 				text: meme.util.stripHtmlEntities(data.title),
@@ -468,12 +448,7 @@
 			var row = Ti.UI.createTableViewRow({
 				height: 78
 			});
-			row.addEventListener('click', function(e) {
-				flashlightWindow.close(Ti.UI.createAnimation({
-					duration: 250,
-					top: 480 
-				}));
-			});
+			row.addEventListener('click', handleFlashlightItemSelection);
 
 			var avatar = Ti.UI.createImageView({
 				image: avatarUrl,
@@ -599,6 +574,14 @@
 			setFlashlightRows(rows);
 			tabBarAnimation();
 		}
+	};
+	
+	var handleFlashlightItemSelection = function(e) {
+		Ti.API.debug('Flashlight item clicked [' + e.source.type + ']');
+		flashlightWindow.close(Ti.UI.createAnimation({
+			duration: 250,
+			top: 480 
+		}));
 	};
 	
 })();
