@@ -86,6 +86,7 @@
 		return items;
 	};
 	
+	// Executes an API read query (select)
 	var cachedYqlQuery = function(params, successCallback, errorCallback) {
 		// default cache time is 15 minutes
 		var cacheSeconds = 900;
@@ -145,7 +146,7 @@
 		return execute(yqlQuery);
 	};
 	
-	// Executes an API query that does not expect response (insert, update, delete)
+	// Executes an API write query (insert, update, delete)
 	var execute = function(yqlQuery) {
 		var yqlResponse = getYql().query(yqlQuery);
 		var results = yqlResponse.query.results;
@@ -157,7 +158,7 @@
 		}
 		
 		if (results.status && results.status.message == 'ok') { 
-			return true;
+			return results;
 		}
 		return false;
 	};

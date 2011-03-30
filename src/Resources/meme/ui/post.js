@@ -273,15 +273,26 @@
 			content += getText();
 			
 			updateProgress(0.5);
-			meme.api.createTextPost(content);
-			
+			var response = meme.api.createTextPost(content);
 			updateProgress(1);
 			hideProgress();
 			meme.ui.alert({
 				title: 'Success',
 				message: 'Posted on Meme successfully!',
-				buttonNames: [ 'Ok' ],
-				onClick: function() {
+				buttonNames: ['Ok', 'View Post', 'Copy URL'],
+				onClick: function(e) {
+					if (e.index == 1) {
+						meme.ui.openLinkOnSafari({
+							url: response.status.post.url
+						});
+					} else if (e.index == 2) {
+						Ti.UI.Clipboard.setText(response.status.post.url);
+						meme.ui.alert({
+							title: 'Success',
+							message: 'The URL was copied to your clipboard',
+							buttonNames: ['Ok']
+						});
+					}
 					postWindow.close();
 				}
 			});

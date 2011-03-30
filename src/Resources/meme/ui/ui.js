@@ -10,8 +10,7 @@
 		var alert = Titanium.UI.createAlertDialog({
 			title: data.title,
 			message: data.message,
-			buttonNames: buttonNames,
-			cancel: 1
+			buttonNames: buttonNames
 		});
 		if (data.onClick) {
 			alert.addEventListener('click', data.onClick);	
@@ -19,7 +18,14 @@
 		alert.show();
 	};
 	
+	// must pass at least data.url, other parameters are optional
 	meme.ui.openLinkOnSafari = function(data) {
+		if (!data.title) {
+			data.title = 'Open link';
+		}
+		if (!data.message) {
+			data.message = 'We will open a page on Safari';
+		}
 		data.onClick = function(e) {
 			if (e.index == 0){
 				Ti.Platform.openURL(data.url);
