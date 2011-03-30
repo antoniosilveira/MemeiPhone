@@ -168,12 +168,20 @@
 		buttonBar.add(postButton);
 		
 		moveButtonBarUp = function() {
-			buttonBar.animate({ bottom: 216, duration: 250 });
+			buttonBar.animate({
+				bottom: 216, 
+				duration: 300, 
+				curve: Ti.UI.ANIMATION_CURVE_EASE_IN_OUT
+			});
 			setTextFieldHeight(162);
 		};
 		
 		moveButtonBarDown = function() {
-			buttonBar.animate({ bottom: 0, duration: 250 });
+			buttonBar.animate({
+				bottom: 0, 
+				duration: 300,
+				curve: Ti.UI.ANIMATION_CURVE_EASE_IN_OUT
+			});
 			setTextFieldHeight(378);
 		};
 	};
