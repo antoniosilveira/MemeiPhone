@@ -2,6 +2,18 @@ export PROJECT_ROOT=$(shell pwd)
 export TMP_DIR=$(PROJECT_ROOT)/tmp/
 export SVN_DIR=$(TMP_DIR)/$(PROJECT_NAME)_trunk/
 
+run:
+	@mkdir -p ${PROJECT_ROOT}/src/Resources/test/
+	@mkdir -p ${PROJECT_ROOT}/src/build/iphone/
+	@echo "" > ${PROJECT_ROOT}/src/Resources/test/enabled.js
+	@make launch-titanium
+
+test:
+	@mkdir -p ${PROJECT_ROOT}/src/Resources/test/
+	@mkdir -p ${PROJECT_ROOT}/src/build/iphone/
+	@echo "meme.config.tests_enabled = true;" > ${PROJECT_ROOT}/src/Resources/test/enabled.js
+	@make launch-titanium
+
 clean: clean-languages
 	@rm -rf ${PROJECT_ROOT}/src/build/iphone/*
 	@mkdir -p ${PROJECT_ROOT}/src/build/iphone/
@@ -18,14 +30,6 @@ launch-titanium:
 	@mkdir -p ${PROJECT_ROOT}/src/build/iphone/
 	@PROJECT_ROOT=${PROJECT_ROOT} bash ${PROJECT_ROOT}/bin/titanium.sh
 
-test:
-	@echo "meme.config.tests_enabled = true;" > ${PROJECT_ROOT}/src/Resources/test/enabled.js
-	@make launch-titanium
-run:
-	@mkdir -p ${PROJECT_ROOT}/src/Resources/test/
-	@echo "" > ${PROJECT_ROOT}/src/Resources/test/enabled.js
-	@make launch-titanium
-
 build-verification:
 	@if [ "`find ${PROJECT_ROOT}/src/build/iphone/ -type f | wc -l | sed 's/ //g'`" == "0" ]; then\
 		echo "[ERROR] Please execute \"make run\" and run the application on simulator before publishing, so the compiled files can be generated.";\
@@ -35,7 +39,7 @@ build-verification:
 svn-verification:
 	@if [ "${SVN_USER}" == "" ]; then\
 		echo "[ERROR] SVN_USER env variable is required for this make target";\
-		echo "Please use: \"SVN_USER=gchapie make [target]\"";\
+		echo "Please use: \"SVN_USER=username make [target]\"";\
 		exit 1;\
 	fi
 
@@ -67,6 +71,9 @@ svn-commit: svn-verification
 	@rm -rf ${SVN_DIR}
 	@echo "Done."
 
+# This target only makes sense for us at Yahoo!
+# We use it to publish the app to AppStore
+#
 # TODO: patch main.m to put correct TI_APPLICATION_RESOURCE_DIR
 publish: project-name-verification build-verification
 	@echo "Start publishing project: ${PROJECT_NAME}"
