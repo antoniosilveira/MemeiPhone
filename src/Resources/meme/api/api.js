@@ -197,13 +197,20 @@
 	// 	image: theActualMediaToUpload,
 	// 	updateProgressCallback: updateProgressFunction,
 	// 	successCallback: function() {},
-	// 	errorCallback: function() {}
+	// 	errorCallback: function() {},
+	// 	cancelCallback: function() {}, // -- optional
+	// 	cancelButton: buttonToCancelImageUpload // -- optional
 	// }
 	meme.api.uploadImage = function(options) {
 		var xhr = Titanium.Network.createHTTPClient();
 		xhr.setTimeout(300000); // timeout to upload is 5 minutes
 
-		// TODO: Listener to cancel post
+		if (options.cancelButton) {
+			cancelButton.addEventListener('click', function() {
+				xhr.abort();
+				cancelCallback();
+			});
+		}
 
 		xhr.onerror = function(e) {
 			options.errorCallback(e);
