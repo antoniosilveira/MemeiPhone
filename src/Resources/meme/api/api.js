@@ -6,6 +6,14 @@
 		return createPost('text', content);
 	};
 	
+	meme.api.createPhotoPost = function(content, caption) {
+		return createPost('photo', content, caption);
+	};
+	
+	meme.api.uploadImage = function(image) {
+		return 'http://1.bp.blogspot.com/_jLTc0yqzONY/TS0hXOg9M-I/AAAAAAAAA_M/Xv74bB1ZUDs/s1600/SAM_0889.JPG'
+	};
+	
 	meme.api.flashlightFlickrPhoto = function(query) {
 		var params = {
 			//cacheKey: 'flashlight:flickrphotos:' + query,

@@ -307,9 +307,18 @@
 			}
 			content += getText();
 			
-			updateProgress(0.5);
 			Ti.API.debug('is there media to post? [' + JSON.stringify(postMedia) + ']');
-			var response = meme.api.createTextPost(content);
+			var response = null;
+			if (postMedia) {
+				if (postMedia.type == 'photo') {
+					var imageUrl = meme.api.uploadImage(postMedia.media);
+					response = meme.api.createPhotoPost(imageUrl, content);
+				}
+			} else {
+				updateProgress(0.5);
+				response = meme.api.createTextPost(content);
+			}
+			
 			updateProgress(1);
 			hideProgress();
 			meme.ui.alert({
