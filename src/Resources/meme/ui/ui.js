@@ -3,7 +3,7 @@
 	meme.ui = {};
 	
 	meme.ui.alert = function(data) {
-		var buttonNames = [ 'Ok', 'Cancel' ];
+		var buttonNames = ['Ok', 'Cancel'];
 		if (data.buttonNames) {
 			buttonNames = data.buttonNames;
 		}

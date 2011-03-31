@@ -192,14 +192,21 @@
 		return false;
 	};
 	
-	meme.api.uploadImage = function(image, updateProgressCallback, successCallback) {
+	// Options are:
+	// {
+	// 	image: theActualMediaToUpload,
+	// 	updateProgressCallback: updateProgressFunction,
+	// 	successCallback: function() {},
+	// 	errorCallback: function() {}
+	// }
+	meme.api.uploadImage = function(options) {
 		var xhr = Titanium.Network.createHTTPClient();
 		xhr.setTimeout(300000); // timeout to upload is 5 minutes
 
 		// TODO: Listener to cancel post
 
 		xhr.onerror = function(e) {
-			// TODO: Hides the Progress bar
+			options.errorCallback(e);
 		};
 
 		xhr.onload = function(e) {
@@ -212,24 +219,25 @@
 				var uploadResult = JSON.parse(this.responseText);
 
 				if (uploadResult.status == 200) {
-					successCallback(uploadResult.imgurl);
+					options.successCallback(uploadResult.imgurl);
 				} else {
 					throw 'Upload error: ' + uploadResult.message;
 				}
 			} catch(exception) {
-				// TODO: display error message
+				Ti.API.error(exception);
+				options.errorCallback(exception);
 			}
 		};
 
 		xhr.onsendstream = function(e) {
-			updateProgressCallback(e.progress);
+			options.updateProgressCallback(e.progress);
 			Ti.API.debug('upload progress: ' + e.progress);
 		};
 
 		// Resizes image before uploading
 		// Max size accepted by Meme is 780x2500 px
-		var new_size = meme.util.getImageDownsizedSizes(780, 2500, image);
-		image = image.imageAsResized(new_size.width, new_size.height);
+		var new_size = meme.util.getImageDownsizedSizes(780, 2500, options.image);
+		var image = options.image.imageAsResized(new_size.width, new_size.height);
 
 		// Create upload signture
 		var time = parseInt(meme.util.timestamp()/1000);
