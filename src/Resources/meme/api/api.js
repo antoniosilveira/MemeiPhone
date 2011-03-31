@@ -235,7 +235,7 @@
 		};
 
 		xhr.onsendstream = function(e) {
-			options.updateProgressCallback(e.progress);
+			options.updateProgressCallback(e.progress, 'Uploading image');
 			Ti.API.debug('upload progress: ' + e.progress);
 		};
 

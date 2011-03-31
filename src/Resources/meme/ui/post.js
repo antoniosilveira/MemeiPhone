@@ -283,7 +283,11 @@
 			progressBar.message = '';
 		};
 		
-		updateProgress = function(value) {
+		// Message is optional
+		updateProgress = function(value, message) {
+			if (message) {
+				progressBar.message = message;
+			}
 			progressBar.value = value;
 		};
 	};
@@ -315,7 +319,7 @@
 						image: postMedia.media,
 						updateProgressCallback: updateProgress,
 						successCallback: function(url) {
-							updateProgress(1);
+							updateProgress(1, 'Posting on Meme');
 							response = meme.api.createPhotoPost(url, content);
 							hideProgress();
 							displayPostSuccess(response);

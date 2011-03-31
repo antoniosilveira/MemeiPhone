@@ -1,7 +1,6 @@
 Post
 ====
 - Add button to cancel upload
-- Update message on post progress bar accordingly ('Uploading', 'Posting', etc)
 
 Flashlight
 ==========
