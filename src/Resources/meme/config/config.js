@@ -9,6 +9,9 @@
 		// Endpoint for Yahoo! YQL usage
 		yql_base_url: 'http://yql.yahooapis.com/v1/yql',
 		
+		// Endpoint for upload
+		upload_url: 'http://meme.yahoo.com/api/image/',
+		
 		// OAuth
 		oauth_signature_method: 'HMAC-SHA1',
 		

@@ -10,6 +10,31 @@
 		return createPost('photo', content, caption);
 	};
 	
+	meme.api.userInfo = function(guid, thumbWidth, thumbHeight) {
+		var queryGuid, where;
+		
+		if (typeof guid == 'string') {
+			queryGuid = (guid == 'me') ? guid : '"' + guid + '"';
+			where = 'where owner_guid=' + queryGuid;
+		} else {
+			queryGuid = '"' + guid.join('","') + '"';
+			where = 'where owner_guid IN (' + queryGuid + ')';
+		}
+		
+		var params = {
+			//cacheKey: 'userInfo:' + queryGuid,
+			//cacheSeconds: 86400, // 24 hours
+			yqlQuery: 'SELECT * FROM meme.info ' + where + ' | meme.functions.thumbs(width=' + thumbWidth + ',height=' + thumbHeight + ')'
+		};
+		
+		var userInfo = null;
+		cachedYqlQuery(params, function(results) {
+			userInfo = results.meme;
+		});
+		
+		return userInfo;
+	};
+	
 	meme.api.flashlightFlickrPhoto = function(query) {
 		var params = {
 			//cacheKey: 'flashlight:flickrphotos:' + query,
@@ -208,14 +233,14 @@
 
 		// Create upload signture
 		var time = parseInt(meme.util.timestamp()/1000);
-		var signature = hex_hmac_sha1('yPVM.vcgXrYj50KG7ynt0sldjlDATLckdmn9h26YySg-', 'githubimeme' + ':' + time);
+		var signature = hex_hmac_sha1(meme.config.secrets.upload_key, meme.app.userInfo().name + ':' + time);
 		
 		// upload it!
-		xhr.open('POST', 'http://meme.yahoo.com/api/image/');
+		xhr.open('POST', meme.config.upload_url);
 		xhr.send({
 			t: time,
 			file: image,
-			m: 'githubimeme',
+			m: meme.app.userInfo().name,
 			s: signature
 		});
 	};

@@ -24,6 +24,7 @@
 			var showView = loggedOutView, hideView = loggedInView;
 			if (meme.auth.oadapter && meme.auth.oadapter.isLoggedIn()) {
 				showView = loggedInView, hideView = loggedOutView;
+				Ti.API.info('hi, welcome to meme! user is [' + meme.app.userInfo().name + ']');
 			}
 			
 			var animation = Ti.UI.createAnimation({
