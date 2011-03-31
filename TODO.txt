@@ -8,3 +8,7 @@ Flashlight
 - Display message when there are no results
 - When typing search text, do not capitalize words
 - Infinite scroll (?)
+
+API
+===
+- Add cache to API calls.
