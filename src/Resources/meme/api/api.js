@@ -10,10 +10,6 @@
 		return createPost('photo', content, caption);
 	};
 	
-	meme.api.uploadImage = function(image) {
-		return 'http://1.bp.blogspot.com/_jLTc0yqzONY/TS0hXOg9M-I/AAAAAAAAA_M/Xv74bB1ZUDs/s1600/SAM_0889.JPG'
-	};
-	
 	meme.api.flashlightFlickrPhoto = function(query) {
 		var params = {
 			//cacheKey: 'flashlight:flickrphotos:' + query,
@@ -169,6 +165,59 @@
 			return results;
 		}
 		return false;
+	};
+	
+	meme.api.uploadImage = function(image, updateProgressCallback, successCallback) {
+		var xhr = Titanium.Network.createHTTPClient();
+		xhr.setTimeout(300000); // timeout to upload is 5 minutes
+
+		// TODO: Listener to cancel post
+
+		xhr.onerror = function(e) {
+			// TODO: Hides the Progress bar
+		};
+
+		xhr.onload = function(e) {
+			// TODO: updates the Message in the Progress Bar
+			
+	 		Ti.API.info('Upload complete!');
+			Ti.API.info('api response was (http status ' + this.status + '): ' + this.responseText);
+
+			try {
+				var uploadResult = JSON.parse(this.responseText);
+
+				if (uploadResult.status == 200) {
+					successCallback(uploadResult.imgurl);
+				} else {
+					throw 'Upload error: ' + uploadResult.message;
+				}
+			} catch(exception) {
+				// TODO: display error message
+			}
+		};
+
+		xhr.onsendstream = function(e) {
+			updateProgressCallback(e.progress);
+			Ti.API.debug('upload progress: ' + e.progress);
+		};
+
+		// Resizes image before uploading
+		// Max size accepted by Meme is 780x2500 px
+		var new_size = meme.util.getImageDownsizedSizes(780, 2500, image);
+		image = image.imageAsResized(new_size.width, new_size.height);
+
+		// Create upload signture
+		var time = parseInt(meme.util.timestamp()/1000);
+		var signature = hex_hmac_sha1('yPVM.vcgXrYj50KG7ynt0sldjlDATLckdmn9h26YySg-', 'githubimeme' + ':' + time);
+		
+		// upload it!
+		xhr.open('POST', 'http://meme.yahoo.com/api/image/');
+		xhr.send({
+			t: time,
+			file: image,
+			m: 'githubimeme',
+			s: signature
+		});
 	};
 	
 })();

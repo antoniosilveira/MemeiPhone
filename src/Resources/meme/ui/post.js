@@ -311,8 +311,9 @@
 			var response = null;
 			if (postMedia) {
 				if (postMedia.type == 'photo') {
-					var imageUrl = meme.api.uploadImage(postMedia.media);
-					response = meme.api.createPhotoPost(imageUrl, content);
+					meme.api.uploadImage(postMedia.media, updateProgress, function(url) {
+						response = meme.api.createPhotoPost(url, content);
+					});
 				}
 			} else {
 				updateProgress(0.5);
