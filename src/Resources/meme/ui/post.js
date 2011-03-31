@@ -314,7 +314,7 @@
 					meme.api.uploadImage({
 						image: postMedia.media,
 						updateProgressCallback: updateProgress,
-						successCallback: function() {
+						successCallback: function(url) {
 							updateProgress(1);
 							response = meme.api.createPhotoPost(url, content);
 							hideProgress();
