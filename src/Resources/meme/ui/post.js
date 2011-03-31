@@ -1,6 +1,6 @@
 (function(){
 	
-	var postWindow = null;
+	var postWindow, postMedia;
 	
 	meme.ui.openPostWindow = function() {
 		postWindow = Ti.UI.createWindow({
@@ -19,6 +19,26 @@
 			duration: 250,
 			left: 0 
 		}));
+	};
+	
+	// Paremeters
+	// type: [image|video]
+	// url: 'url of the video/image'
+	// media: 'the actual media (photo only)'
+	meme.ui.setPostMedia = function(data) {
+		// var imageContainer = Ti.UI.createView({
+		// 	top: 50,
+		// 	left: 10,
+		// 	width: 300,
+		// 	height: 50
+		// });
+		// postWindow.add(imageContainer);
+		// 
+		// var imageView = Ti.UI.createImageView({
+		// 	image: e.media
+		// });
+		// imageContainer.add(imageView);
+		postMedia = data;
 	};
 	
 	var getTitle, getText, setTextFieldHeight, closeKeyboard;
@@ -149,9 +169,15 @@
 		});
 		pictureButton.addEventListener('click', function(e) {
 			Ti.Media.openPhotoGallery({
-				saveToPhotoGallery: true, 
 				showControls: true, 
-				mediaTypes: [ Ti.Media.MEDIA_TYPE_PHOTO ]
+				mediaTypes: [ Ti.Media.MEDIA_TYPE_PHOTO ],
+				success: function(e) {
+					Ti.API.debug('image selected from gallery [' + JSON.stringify(e) + ']');
+					meme.ui.setPostMedia({
+						type: 'photo',
+						media: e.media
+					});
+				}
 			});
 		});
 		buttonBar.add(pictureButton);
@@ -282,6 +308,7 @@
 			content += getText();
 			
 			updateProgress(0.5);
+			Ti.API.debug('is there media to post? [' + JSON.stringify(postMedia) + ']');
 			var response = meme.api.createTextPost(content);
 			updateProgress(1);
 			hideProgress();
