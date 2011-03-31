@@ -39,8 +39,8 @@
 			font: { fontSize: 20, fontFamily: 'Helvetica', fontWeight: 'bold' },
 			width: 300,
 			height: 45,
-			top: 10,
-			left: 10,
+			top: 2,
+			left: 16,
 			borderStyle: Ti.UI.INPUT_BORDERSTYLE_NONE,
 			keyboardType: Ti.UI.KEYBOARD_DEFAULT,
 			returnKeyType: Titanium.UI.RETURNKEY_DONE
@@ -55,7 +55,7 @@
 		
 		var dottedLineView = Titanium.UI.createView({
 			backgroundImage: 'images/postarea_line.png',
-			top: 55,
+			top: 46,
 			left: 0,
 			width: 320,
 			height: 1
@@ -64,10 +64,10 @@
 		
 		var textField = Ti.UI.createTextArea({
 			hintText: 'write your post here',
-			height: 358,
-			width: 320,
-			left: 0,
-			top: 57,
+			height: 368,
+			width: 304,
+			left: 8,
+			top: 47,
 			font: { fontSize: 16, fontFamily: 'Helvetica', fontWeight: 'regular' },
 			textAlign: 'left',
 			keyboardType: Ti.UI.KEYBOARD_DEFAULT,
@@ -98,6 +98,7 @@
 		};
 		
 		closeKeyboard = function() {
+			titleField.blur();
 			textField.blur();
 		};
 	};
@@ -108,8 +109,8 @@
 			backgroundImage: 'images/closeBtn.png',
 			width: 20,
 			height: 20,
-			top: 5,
-			right: 5,
+			top: 13,
+			right: 13,
 			zIndex: 10,
 			visible: true
 		});
@@ -173,7 +174,7 @@
 				duration: 300, 
 				curve: Ti.UI.ANIMATION_CURVE_EASE_IN_OUT
 			});
-			setTextFieldHeight(162);
+			setTextFieldHeight(152);
 		};
 		
 		moveButtonBarDown = function() {
@@ -182,7 +183,7 @@
 				duration: 300,
 				curve: Ti.UI.ANIMATION_CURVE_EASE_IN_OUT
 			});
-			setTextFieldHeight(378);
+			setTextFieldHeight(368);
 		};
 	};
 	
