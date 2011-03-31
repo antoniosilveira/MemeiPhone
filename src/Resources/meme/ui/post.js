@@ -24,11 +24,11 @@
 	var getTitle, getText, setTextFieldHeight, closeKeyboard;
 	var createPostWindowFields = function() {
 		var topRoundedBackground = Titanium.UI.createView({
-			backgroundImage: 'images/old/bg_edit_top_rounded.png',
+			backgroundImage: 'images/postarea_topbg.png',
 			top: 0,
 			left: 0,
 			width: 320,
-			height: 25
+			height: 45
 		});
 		postWindow.add(topRoundedBackground);
 		
@@ -54,11 +54,11 @@
 		postWindow.add(titleField);
 		
 		var dottedLineView = Titanium.UI.createView({
-			backgroundImage: 'images/old/dotted_line.png',
+			backgroundImage: 'images/postarea_line.png',
 			top: 55,
 			left: 0,
 			width: 320,
-			height: 2
+			height: 1
 		});
 		postWindow.add(dottedLineView);
 		
@@ -105,9 +105,9 @@
 	var moveButtonBarUp, moveButtonBarDown;
 	var createPostWindowButtons = function() {
 		var closeButton = Titanium.UI.createButton({
-			backgroundImage: 'images/old/btn_close_gray.png',
-			width: 29,
-			height: 29,
+			backgroundImage: 'images/closeBtn.png',
+			width: 20,
+			height: 20,
 			top: 5,
 			right: 5,
 			zIndex: 10,
@@ -125,26 +125,26 @@
 			bottom: 0,
 			left: 0,
 			width: 320,
-			height: 44
+			height: 43
 		});
 		postWindow.add(buttonBar);
 		
 		var flashlightButton = Ti.UI.createButton({
-			image: 'images/old/post_button_flashlight.png',
+			image: 'images/postbar_flashlight.png',
 			top: 0,
 			left: 0,
-			width: 145, 
-			height: 44
+			width: 146, 
+			height: 43
 		});
 		flashlightButton.addEventListener('click', meme.ui.openFlashlightWindow);
 		buttonBar.add(flashlightButton);
 	
 		var pictureButton = Ti.UI.createButton({
-			image: 'images/old/post_button_picture.png',
+			image: 'images/postbar_camera.png',
 			top: 0,
-			left: 145,
-			width: 69, 
-			height: 44
+			left: 146,
+			width: 68, 
+			height: 43
 		});
 		pictureButton.addEventListener('click', function(e) {
 			Ti.Media.openPhotoGallery({
@@ -156,11 +156,11 @@
 		buttonBar.add(pictureButton);
 		
 		var postButton = Ti.UI.createButton({
-			image: 'images/old/post_button_submit.png',
+			image: 'images/en/postbar_post.png',
 			top: 0,
 			left: 214,
 			width: 106, 
-			height: 44
+			height: 43
 		});
 		postButton.addEventListener('click', function(e) {
 			createPost();
