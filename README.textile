@@ -6,15 +6,15 @@ h2. About
 
 h2. Features
 
-- Yahoo! oAuth 1.1 Authentication
-- Create new posts on your Meme using Flashlight suggested content (photos, videos, web pages and tweets)
-- Create new posts with pictures taken with your iPhone (or pictures from your phone gallery)
+* Yahoo! oAuth 1.1 Authentication
+* Create new posts on your Meme using Flashlight suggested content (photos, videos, web pages and tweets)
+* Create new posts with pictures taken with your iPhone (or pictures from your phone gallery)
 
 h2. Requirements
 
-- iOS 4.2 SDK
-- Titanium Developer SDK 1.2.2
-- Titanium Mobile SDK 1.6.1
+* iOS 4.2 SDK
+* Titanium Developer SDK 1.2.2
+* Titanium Mobile SDK 1.6.1
 
 h2. How to
 
