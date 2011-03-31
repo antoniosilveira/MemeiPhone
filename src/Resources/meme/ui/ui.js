@@ -2,36 +2,42 @@
 	
 	meme.ui = {};
 	
-	meme.ui.alert = function(data) {
+	// Options are:
+	// {
+	// 	title: 'Title',
+	// 	message: 'Alert message',
+	// 	buttonNames: ['There', 'Are', 'Optional']
+	// }
+	meme.ui.alert = function(options) {
 		var buttonNames = ['Ok', 'Cancel'];
-		if (data.buttonNames) {
-			buttonNames = data.buttonNames;
+		if (options.buttonNames) {
+			buttonNames = options.buttonNames;
 		}
 		var alert = Titanium.UI.createAlertDialog({
-			title: data.title,
-			message: data.message,
+			title: options.title,
+			message: options.message,
 			buttonNames: buttonNames
 		});
-		if (data.onClick) {
-			alert.addEventListener('click', data.onClick);	
+		if (options.onClick) {
+			alert.addEventListener('click', options.onClick);	
 		}
 		alert.show();
 	};
 	
-	// must pass at least data.url, other parameters are optional
-	meme.ui.openLinkOnSafari = function(data) {
-		if (!data.title) {
-			data.title = 'Open link';
+	// Must pass at least options.url, other parameters are optional
+	meme.ui.openLinkOnSafari = function(options) {
+		if (!options.title) {
+			options.title = 'Open link';
 		}
-		if (!data.message) {
-			data.message = 'We will open a page on Safari';
+		if (!options.message) {
+			options.message = 'We will open a page on Safari';
 		}
-		data.onClick = function(e) {
+		options.onClick = function(e) {
 			if (e.index == 0){
-				Ti.Platform.openURL(data.url);
+				Ti.Platform.openURL(options.url);
 			}
 		};
-		meme.ui.alert(data);
+		meme.ui.alert(options);
 	};
 	
 	meme.ui.createAccount = function() {

@@ -210,9 +210,7 @@
 		};
 
 		xhr.onload = function(e) {
-			// TODO: updates the Message in the Progress Bar
-			
-	 		Ti.API.info('Upload complete!');
+			Ti.API.info('Upload complete!');
 			Ti.API.info('api response was (http status ' + this.status + '): ' + this.responseText);
 
 			try {
@@ -243,7 +241,7 @@
 		var time = parseInt(meme.util.timestamp()/1000);
 		var signature = hex_hmac_sha1(meme.config.secrets.upload_key, meme.app.userInfo().name + ':' + time);
 		
-		// upload it!
+		// Upload it!
 		xhr.open('POST', meme.config.upload_url);
 		xhr.send({
 			t: time,
