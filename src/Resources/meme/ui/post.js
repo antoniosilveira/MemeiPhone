@@ -39,6 +39,7 @@
 		// });
 		// imageContainer.add(imageView);
 		postMedia = data;
+		setAttachmentOn();
 	};
 	
 	var getTitle, getText, setTextFieldHeight, closeKeyboard;
@@ -124,7 +125,7 @@
 		};
 	};
 	
-	var moveButtonBarUp, moveButtonBarDown;
+	var moveButtonBarUp, moveButtonBarDown, setAttachmentOn;
 	var createPostWindowButtons = function() {
 		var closeButton = Titanium.UI.createButton({
 			backgroundImage: 'images/closeBtn.png',
@@ -194,6 +195,10 @@
 			createPost();
 		});
 		buttonBar.add(postButton);
+		
+		setAttachmentOn = function() {
+			pictureButton.image = 'images/postbar_camera_item.png';
+		};
 		
 		moveButtonBarUp = function() {
 			buttonBar.animate({
