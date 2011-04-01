@@ -581,6 +581,10 @@
 	
 	var handleFlashlightItemSelection = function(e) {
 		Ti.API.debug('Flashlight item clicked [' + e.source.type + ']');
+		meme.ui.alert({
+			title: 'To Do',
+			message: 'Not implemented yet :('
+		});
 		flashlightWindow.close(Ti.UI.createAnimation({
 			duration: 250,
 			top: 480 
