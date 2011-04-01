@@ -63,7 +63,8 @@
 			left: 16,
 			borderStyle: Ti.UI.INPUT_BORDERSTYLE_NONE,
 			keyboardType: Ti.UI.KEYBOARD_DEFAULT,
-			returnKeyType: Titanium.UI.RETURNKEY_DONE
+			returnKeyType: Titanium.UI.RETURNKEY_DONE,
+			autocapitalization: false
 		});
 		titleField.addEventListener('focus', function(e) {
 			moveButtonBarUp();
@@ -83,7 +84,6 @@
 		postWindow.add(dottedLineView);
 		
 		var textField = Ti.UI.createTextArea({
-			hintText: 'write your post here',
 			height: 368,
 			width: 304,
 			left: 8,
@@ -92,7 +92,8 @@
 			textAlign: 'left',
 			keyboardType: Ti.UI.KEYBOARD_DEFAULT,
 			clearButtonMode: Ti.UI.INPUT_BUTTONMODE_ONFOCUS,
-			suppressReturn: false
+			suppressReturn: false,
+			autocapitalization: false
 		});
 		textField.addEventListener('focus', function(e) {
 			moveButtonBarUp();
