@@ -13,6 +13,7 @@
 		
 		createPostWindowFields();
 		createPostWindowButtons();
+		createPostWindowAttachmentsView();
 		createPostWindowActivityIndicator();
 		
 		postWindow.open(Ti.UI.createAnimation({
@@ -89,6 +90,7 @@
 			width: 304,
 			left: 8,
 			top: 47,
+			borderColor: 'red',
 			font: { fontSize: 16, fontFamily: 'Helvetica', fontWeight: 'regular' },
 			textAlign: 'left',
 			keyboardType: Ti.UI.KEYBOARD_DEFAULT,
@@ -123,6 +125,46 @@
 			titleField.blur();
 			textField.blur();
 		};
+	};
+	
+	var showAttachments, hideAttachments;
+	var createPostWindowAttachmentsView = function() {
+		var attachmentsView = Ti.UI.createView({
+			backgroundImage: 'images/below_keyboard_bg.png',
+			width: 320,
+			height: 216,
+			bottom: -216
+		});
+		postWindow.add(attachmentsView);
+		
+		showAttachments = function() {
+			attachmentsView.animate({
+				bottom: 0, 
+				duration: 300, 
+				curve: Ti.UI.ANIMATION_CURVE_EASE_IN_OUT
+			});
+		};
+		
+		hideAttachments = function() {
+			attachmentsView.animate({
+				bottom: -216, 
+				duration: 300, 
+				curve: Ti.UI.ANIMATION_CURVE_EASE_IN_OUT
+			});
+		};
+	};
+	
+	var attachmentsOn = false;
+	var showOrHideAttachments = function() {
+		if (attachmentsOn) {
+			moveButtonBarDown();
+			hideAttachments();
+			attachmentsOn = false;
+		} else {
+			showAttachments();
+			moveButtonBarUp();
+			attachmentsOn = true;
+		}
 	};
 	
 	var moveButtonBarUp, moveButtonBarDown, setAttachmentOn;
@@ -170,17 +212,21 @@
 			height: 43
 		});
 		pictureButton.addEventListener('click', function(e) {
-			Ti.Media.openPhotoGallery({
-				showControls: true, 
-				mediaTypes: [ Ti.Media.MEDIA_TYPE_PHOTO ],
-				success: function(e) {
-					Ti.API.debug('image selected from gallery [' + JSON.stringify(e) + ']');
-					meme.ui.setPostMedia({
-						type: 'photo',
-						media: e.media
-					});
-				}
-			});
+			if (postMedia) {
+				showOrHideAttachments();
+			} else {
+				Ti.Media.openPhotoGallery({
+					showControls: true, 
+					mediaTypes: [ Ti.Media.MEDIA_TYPE_PHOTO ],
+					success: function(e) {
+						Ti.API.debug('image selected from gallery [' + JSON.stringify(e) + ']');
+						meme.ui.setPostMedia({
+							type: 'photo',
+							media: e.media
+						});
+					}
+				});
+			}
 		});
 		buttonBar.add(pictureButton);
 		
