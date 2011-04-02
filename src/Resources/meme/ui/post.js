@@ -73,6 +73,7 @@
 		});
 		titleField.addEventListener('blur', function(e) {
 			moveButtonBarDown();
+			hideAttachments();
 		});
 		postWindow.add(titleField);
 		
@@ -90,7 +91,6 @@
 			width: 304,
 			left: 8,
 			top: 47,
-			borderColor: 'red',
 			font: { fontSize: 16, fontFamily: 'Helvetica', fontWeight: 'regular' },
 			textAlign: 'left',
 			keyboardType: Ti.UI.KEYBOARD_DEFAULT,
@@ -103,6 +103,7 @@
 		});
 		textField.addEventListener('blur', function(e) {
 			moveButtonBarDown();
+			hideAttachments();
 		});
 		postWindow.add(textField);
 		
@@ -127,7 +128,7 @@
 		};
 	};
 	
-	var showAttachments, hideAttachments;
+	var showAttachments, hideAttachments, attachmentsOn = false;
 	var createPostWindowAttachmentsView = function() {
 		var attachmentsView = Ti.UI.createView({
 			backgroundImage: 'images/below_keyboard_bg.png',
@@ -137,33 +138,43 @@
 		});
 		postWindow.add(attachmentsView);
 		
+		var newPictureButton = Titanium.UI.createButton({
+			backgroundImage: 'images/btn_another_image.png',
+			width: 118,
+			height: 105,
+			top: 57,
+			left: 185
+		});
+		attachmentsView.add(newPictureButton);
+		
 		showAttachments = function() {
+			closeKeyboard();
 			attachmentsView.animate({
 				bottom: 0, 
 				duration: 300, 
 				curve: Ti.UI.ANIMATION_CURVE_EASE_IN_OUT
 			});
+			attachmentsOn = true;
 		};
 		
 		hideAttachments = function() {
+			closeKeyboard();
 			attachmentsView.animate({
 				bottom: -216, 
 				duration: 300, 
 				curve: Ti.UI.ANIMATION_CURVE_EASE_IN_OUT
 			});
+			attachmentsOn = false;
 		};
 	};
 	
-	var attachmentsOn = false;
 	var showOrHideAttachments = function() {
 		if (attachmentsOn) {
 			moveButtonBarDown();
 			hideAttachments();
-			attachmentsOn = false;
 		} else {
 			showAttachments();
 			moveButtonBarUp();
-			attachmentsOn = true;
 		}
 	};
 	
@@ -346,6 +357,7 @@
 	
 	var createPost = function() {
 		closeKeyboard();
+		hideAttachments();
 		moveButtonBarDown();
 		
 		if ((getTitle() == '') && (getText() == '')) {
