@@ -139,6 +139,9 @@
 			top: 57,
 			left: 185
 		});
+		newPictureButton.addEventListener('click', function() {
+			choosePhotoFromGallery();
+		});
 		attachmentsView.add(newPictureButton);
 		
 		var attachmentContainerView = Ti.UI.createView({
@@ -218,6 +221,20 @@
 		}
 	};
 	
+	var choosePhotoFromGallery = function() {
+		Ti.Media.openPhotoGallery({
+			showControls: true, 
+			mediaTypes: [ Ti.Media.MEDIA_TYPE_PHOTO ],
+			success: function(e) {
+				Ti.API.debug('image selected from gallery [' + JSON.stringify(e) + ']');
+				meme.ui.setPostMedia({
+					type: 'photo',
+					media: e.media
+				});
+			}
+		});	
+	};
+	
 	var moveButtonBarUp, moveButtonBarDown, setAttachmentButtonOn, setAttachmentButtonOff;
 	var createPostWindowButtons = function() {
 		var closeButton = Titanium.UI.createButton({
@@ -266,17 +283,7 @@
 			if (postMedia) {
 				showOrHideAttachments();
 			} else {
-				Ti.Media.openPhotoGallery({
-					showControls: true, 
-					mediaTypes: [ Ti.Media.MEDIA_TYPE_PHOTO ],
-					success: function(e) {
-						Ti.API.debug('image selected from gallery [' + JSON.stringify(e) + ']');
-						meme.ui.setPostMedia({
-							type: 'photo',
-							media: e.media
-						});
-					}
-				});
+				choosePhotoFromGallery();
 			}
 		});
 		buttonBar.add(pictureButton);
