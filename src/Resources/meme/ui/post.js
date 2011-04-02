@@ -27,20 +27,14 @@
 	// url: 'url of the video/image'
 	// media: 'the actual media (photo only)'
 	meme.ui.setPostMedia = function(data) {
-		// var imageContainer = Ti.UI.createView({
-		// 	top: 50,
-		// 	left: 10,
-		// 	width: 300,
-		// 	height: 50
-		// });
-		// postWindow.add(imageContainer);
-		// 
-		// var imageView = Ti.UI.createImageView({
-		// 	image: e.media
-		// });
-		// imageContainer.add(imageView);
 		postMedia = data;
-		setAttachmentOn();
+		setAttachmentButtonOn();
+		addAttachmentPreview(data);
+	};
+	
+	meme.ui.removePostMedia = function() {
+		postMedia = null;
+		setAttachmentButtonOff();
 	};
 	
 	var getTitle, getText, setTextFieldHeight, closeKeyboard;
@@ -128,7 +122,7 @@
 		};
 	};
 	
-	var showAttachments, hideAttachments, attachmentsOn = false;
+	var showAttachments, hideAttachments, addAttachmentPreview, attachmentsOn = false;
 	var createPostWindowAttachmentsView = function() {
 		var attachmentsView = Ti.UI.createView({
 			backgroundImage: 'images/below_keyboard_bg.png',
@@ -146,6 +140,52 @@
 			left: 185
 		});
 		attachmentsView.add(newPictureButton);
+		
+		var attachmentContainerView = Ti.UI.createView({
+			backgroundColor: 'white',
+			width: 137,
+			height: 92,
+			top: 63,
+			left: 23
+		});
+		attachmentsView.add(attachmentContainerView);
+		
+		var attachmentContainerSubView = Ti.UI.createView({
+			backgroundColor: 'transparent',
+			width: 129,
+			height: 84,
+			top: 4,
+			left: 4
+		});
+		attachmentContainerView.add(attachmentContainerSubView);
+		
+		var removeAttachmentButton = Titanium.UI.createButton({
+			backgroundImage: 'images/remove_image_x.png',
+			width: 31,
+			height: 31,
+			top: 49,
+			left: 142,
+			zIndex: 2
+		});
+		removeAttachmentButton.addEventListener('click', function(e) {
+			moveButtonBarDown();
+			hideAttachments();
+			meme.ui.removePostMedia();
+		});
+		attachmentsView.add(removeAttachmentButton);
+		
+		var imagePreview;
+		addAttachmentPreview = function(data) {
+			if (imagePreview) {
+				attachmentContainerSubView.remove(imagePreview);
+				imagePreview = null;
+			}
+			
+			imagePreview = Ti.UI.createImageView({
+				image: data.media
+			});
+			attachmentContainerSubView.add(imagePreview);
+		};
 		
 		showAttachments = function() {
 			closeKeyboard();
@@ -178,7 +218,7 @@
 		}
 	};
 	
-	var moveButtonBarUp, moveButtonBarDown, setAttachmentOn;
+	var moveButtonBarUp, moveButtonBarDown, setAttachmentButtonOn, setAttachmentButtonOff;
 	var createPostWindowButtons = function() {
 		var closeButton = Titanium.UI.createButton({
 			backgroundImage: 'images/closeBtn.png',
@@ -253,8 +293,12 @@
 		});
 		buttonBar.add(postButton);
 		
-		setAttachmentOn = function() {
+		setAttachmentButtonOn = function() {
 			pictureButton.image = 'images/postbar_camera_item.png';
+		};
+		
+		setAttachmentButtonOff = function() {
+			pictureButton.image = 'images/postbar_camera.png';
 		};
 		
 		moveButtonBarUp = function() {
