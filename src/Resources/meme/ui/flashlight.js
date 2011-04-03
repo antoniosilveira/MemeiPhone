@@ -16,6 +16,10 @@
 		createFlashlightWindowResults();
 		createFlashlightWindowFooter();
 		
+		flashlightWindow.addEventListener('close', function() {
+			flashlightWindow = null;
+		});
+		
 		flashlightWindow.open(Ti.UI.createAnimation({
 			duration: 250,
 			top: 0 

@@ -17,6 +17,7 @@
 		createPostWindowActivityIndicator();
 		
 		postWindow.addEventListener('close', function() {
+			postWindow = null;
 			postMedia = null;
 		});
 		
