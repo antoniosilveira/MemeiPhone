@@ -238,7 +238,11 @@
 					showControls: true,
 					mediaTypes: [ Ti.Media.MEDIA_TYPE_PHOTO ],
 					success: function(e) {
-						
+						Ti.API.debug('image selected from camera [' + JSON.stringify(e) + ']');
+						meme.ui.setPostMedia({
+							type: 'photo',
+							media: e.media
+						});
 					},
 					error: function(e) {
 						var message = 'Unexpected error: ' + e.code;
