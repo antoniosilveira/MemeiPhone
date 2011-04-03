@@ -109,7 +109,7 @@
 			items = results.results;
 		};
 		var errorCallback = function() {
-			ìtems = null;
+			items = null;
 		};
 		cachedYqlQuery(params, successCallback, errorCallback);
 		return items;
