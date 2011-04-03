@@ -16,6 +16,10 @@
 		createPostWindowAttachmentsView();
 		createPostWindowActivityIndicator();
 		
+		postWindow.addEventListener('close', function() {
+			postMedia = null;
+		});
+		
 		postWindow.open(Ti.UI.createAnimation({
 			duration: 250,
 			left: 0 
