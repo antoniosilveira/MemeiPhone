@@ -233,7 +233,25 @@
 		
 	    dialog.addEventListener('click', function(e) {
 	        if (e.index == 0) {
-	            // TODO
+	            Ti.Media.showCamera({
+					saveToPhotoGallery: true,
+					showControls: true,
+					mediaTypes: [ Ti.Media.MEDIA_TYPE_PHOTO ],
+					success: function(e) {
+						
+					},
+					error: function(e) {
+						var message = 'Unexpected error: ' + e.code;
+						if (e.code == Ti.Media.NO_CAMERA) {
+							message = 'Device does not have camera.';
+						}
+						meme.ui.alert({
+							title: 'Error',
+							message: message,
+							buttonNames: ['Ok']
+						});
+					}
+				});
 	        } else if (e.index == 1) {
 	            Ti.Media.openPhotoGallery({
 					showControls: true, 
