@@ -144,7 +144,7 @@
 			left: 185
 		});
 		newPictureButton.addEventListener('click', function() {
-			choosePhotoFromGallery();
+			choosePhotoFromCameraOrGallery();
 		});
 		attachmentsView.add(newPictureButton);
 		
@@ -225,18 +225,31 @@
 		}
 	};
 	
-	var choosePhotoFromGallery = function() {
-		Ti.Media.openPhotoGallery({
-			showControls: true, 
-			mediaTypes: [ Ti.Media.MEDIA_TYPE_PHOTO ],
-			success: function(e) {
-				Ti.API.debug('image selected from gallery [' + JSON.stringify(e) + ']');
-				meme.ui.setPostMedia({
-					type: 'photo',
-					media: e.media
+	var choosePhotoFromCameraOrGallery = function() {
+		var dialog = Titanium.UI.createOptionDialog({
+	        options: ['Take photo with camera','Choose existing', 'Cancel'],
+	        cancel: 2
+	    });
+		
+	    dialog.addEventListener('click', function(e) {
+	        if (e.index == 0) {
+	            // TODO
+	        } else if (e.index == 1) {
+	            Ti.Media.openPhotoGallery({
+					showControls: true, 
+					mediaTypes: [ Ti.Media.MEDIA_TYPE_PHOTO ],
+					success: function(e) {
+						Ti.API.debug('image selected from gallery [' + JSON.stringify(e) + ']');
+						meme.ui.setPostMedia({
+							type: 'photo',
+							media: e.media
+						});
+					}
 				});
-			}
-		});	
+	        }
+	    });
+		
+	    dialog.show();	
 	};
 	
 	var moveButtonBarUp, moveButtonBarDown, setAttachmentButtonOn, setAttachmentButtonOff;
@@ -287,7 +300,7 @@
 			if (postMedia) {
 				showOrHideAttachments();
 			} else {
-				choosePhotoFromGallery();
+				choosePhotoFromCameraOrGallery();
 			}
 		});
 		buttonBar.add(pictureButton);
