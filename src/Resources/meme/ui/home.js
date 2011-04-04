@@ -37,7 +37,7 @@
 				showView.animate({ duration: 250, top: 240 });
 			});
 			hideView.animate(animation);
-		}, 125);
+		}, 250);
 	};
 	
 	var createHeader = function() {
@@ -59,15 +59,17 @@
 		});
 		headerView.add(logoView);
 		
-		headerView.animate({
-			duration: 500,
-			backgroundColor: '#191919'
-		});
-		
-		logoView.animate({
-			duration: 500,
-			top: 60
-		});
+		setTimeout(function() {
+			headerView.animate({
+				duration: 500,
+				backgroundColor: '#191919'
+			});
+
+			logoView.animate({
+				duration: 500,
+				top: 60
+			});
+		}, 250);
 	};
 	
 	var createLoggedInView = function() {
