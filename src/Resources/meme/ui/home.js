@@ -6,7 +6,9 @@
 		if (!meme.config.tests_enabled) {
 			homeWindow = Titanium.UI.createWindow({
 			    backgroundImage: 'images/bg.png',
-				orientationModes: [Ti.UI.PORTRAIT]
+				orientationModes: [Ti.UI.PORTRAIT],
+				height: 480,
+				width: 320
 			});
 			
 			createHeader();
