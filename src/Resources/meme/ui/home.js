@@ -40,7 +40,7 @@
 				showView.animate({ duration: 250, top: 240 });
 			});
 			hideView.animate(animation);
-		}, 250);
+		}, 125);
 	};
 	
 	var createHeader = function() {
@@ -72,7 +72,7 @@
 				duration: 500,
 				top: 60
 			});
-		}, 250);
+		}, 125);
 	};
 	
 	var createLoggedInView = function() {

@@ -199,7 +199,7 @@
 	var showArrow, buttonBarAnimation;
 	var createFlashlightWindowFooter = function() {
 		var footerView = Ti.UI.createView({
-			bottom: 20,
+			bottom: 0,
 			height: 60,
 			width: 320,
 			backgroundImage: 'images/old/bg_flashlight_bar.png'
@@ -228,7 +228,7 @@
 			backgroundImage: 'images/old/bg_flashlight_bar_arrow.png',
 			width: 17,
 			height: 10,
-			bottom: 76,
+			bottom: 56,
 			left: -17,
 			zIndex: 3,
 			visible: false
@@ -255,7 +255,7 @@
 	var createFlashlightWindowResultRowFlickrPhoto = function(data) {
 		if (data) {
 			var row = Ti.UI.createTableViewRow({
-				height:78
+				height: 78
 			});
 			row.addEventListener('click', handleFlashlightItemSelection);
 			
@@ -298,7 +298,7 @@
 	var createFlashlightWindowResultRowWebPhoto = function(data) {
 		if (data) {
 			var row = Ti.UI.createTableViewRow({
-				height:78
+				height: 78
 			});
 			row.addEventListener('click', handleFlashlightItemSelection);
 			
