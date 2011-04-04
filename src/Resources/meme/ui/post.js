@@ -235,6 +235,7 @@
 	    dialog.addEventListener('click', function(e) {
 	        if (e.index == 0) {
 	            Ti.Media.showCamera({
+					allowEditing: true,
 					saveToPhotoGallery: true,
 					showControls: true,
 					mediaTypes: [ Ti.Media.MEDIA_TYPE_PHOTO ],
