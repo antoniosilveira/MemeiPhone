@@ -503,7 +503,7 @@
 		}
 	};
 	
-	var displayPostSuccess = function() {
+	var displayPostSuccess = function(response) {
 		meme.ui.alert({
 			title: 'Success',
 			message: 'Posted on Meme successfully!',
