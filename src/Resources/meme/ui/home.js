@@ -7,7 +7,7 @@
 			homeWindow = Titanium.UI.createWindow({
 			    backgroundImage: 'images/bg.png',
 				orientationModes: [Ti.UI.PORTRAIT],
-				height: 480,
+				height: 460,
 				width: 320
 			});
 			

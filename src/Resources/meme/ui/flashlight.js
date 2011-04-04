@@ -6,8 +6,8 @@
 		flashlightWindow = Ti.UI.createWindow({
 			backgroundColor: 'white',
 			left: 0,
-			top: 480,
-			height: 480,
+			top: 460,
+			height: 460,
 			width: 320
 		});
 		
@@ -45,7 +45,7 @@
 			searchField.blur();
 			flashlightWindow.close(Ti.UI.createAnimation({
 				duration: 250,
-				top: 480 
+				top: 460 
 			}));
 		});
 		flashlightWindow.add(flashlightButton);
@@ -591,7 +591,7 @@
 		});
 		flashlightWindow.close(Ti.UI.createAnimation({
 			duration: 250,
-			top: 480 
+			top: 460 
 		}));
 	};
 	
