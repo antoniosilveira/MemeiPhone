@@ -459,6 +459,15 @@
 				buttonNames: [ 'Ok' ]
 			});
 		} else {
+			var blackScreen = Ti.UI.createView({
+				backgroundColor: 'black',
+				opacity: 0.3,
+				height: 460,
+				width: 320,
+				zIndex: 2
+			});
+			postWindow.add(blackScreen);
+			
 			showProgress('Posting on Meme');
 			
 			var content = '';
