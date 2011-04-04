@@ -93,8 +93,7 @@ publish: project-name-verification build-verification
 	@echo "Copying Resources..."
 	@mkdir -p ${SVN_DIR}/Resources/
 	@cp -prf ${PROJECT_ROOT}/src/Resources/images ${SVN_DIR}/Resources/
-	@cp -prf ${PROJECT_ROOT}/src/Resources/iphone ${SVN_DIR}/Resources/
-	@cp -prf ${PROJECT_ROOT}/src/Resources/lib ${SVN_DIR}/Resources/
+	@cp -prf ${PROJECT_ROOT}/src/Resources/meme ${SVN_DIR}/Resources/
 	@cp -prf ${PROJECT_ROOT}/src/Resources/*.js ${SVN_DIR}/Resources/
 	@cp -prf ${PROJECT_ROOT}/src/Resources/*.png ${SVN_DIR}/Resources/
 	@echo "Copying Languages..."
