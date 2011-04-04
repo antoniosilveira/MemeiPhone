@@ -80,7 +80,7 @@ publish: project-name-verification build-verification
 	@make svn-checkout
 	@make languages
 	@echo "Deleting destination files..."
-	@for FILE in `find ${SVN_DIR} | grep -v .svn | grep -v ${PROJECT_NAME}.xcodeproj | grep -v Entitlements.plist | grep -v libTiCore.a | grep -v libtiverify.a`;\
+	@for FILE in `find ${SVN_DIR} | grep -v .svn | grep -v ${PROJECT_NAME}.xcodeproj | grep -v Entitlements.plist`;\
 	do\
 		if [ -f $$FILE ]; then rm -rf $$FILE; fi;\
 	done
@@ -110,7 +110,7 @@ publish: project-name-verification build-verification
 	@mkdir -p ${SVN_DIR}/build/iphone/
 	@cp -prf ${PROJECT_ROOT}/src/build/iphone/Classes ${SVN_DIR}/build/iphone/
 	@cp -prf ${PROJECT_ROOT}/src/build/iphone/headers ${SVN_DIR}/build/iphone/
-	@#cp -prf ${PROJECT_ROOT}/src/build/iphone/lib ${SVN_DIR}/build/iphone/
+	@cp -prf ${PROJECT_ROOT}/src/build/iphone/lib ${SVN_DIR}/build/iphone/
 	@cp -prf ${PROJECT_ROOT}/src/build/iphone/Resources ${SVN_DIR}/build/iphone/
 	@cp -prf ${PROJECT_ROOT}/src/build/iphone/Info.plist ${SVN_DIR}/build/iphone/
 	@#cp -prf ${PROJECT_ROOT}/src/build/iphone/main.m ${SVN_DIR}/build/iphone/
