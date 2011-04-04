@@ -101,6 +101,7 @@ publish: project-name-verification build-verification
 	@echo "Disabling tests in destination..."
 	@mkdir -p ${SVN_DIR}/Resources/test/
 	@echo "" > ${SVN_DIR}/Resources/test/enabled.js
+	@echo "" > ${SVN_DIR}/Resources/test/tests.js
 	@echo "Copying fonts..."
 	@for FONT in `find . -type f -name "GothamRnd-*.otf"`;\
 	do\
