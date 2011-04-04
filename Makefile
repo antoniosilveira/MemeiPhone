@@ -80,7 +80,7 @@ publish: project-name-verification build-verification
 	@make svn-checkout
 	@make languages
 	@echo "Deleting destination files..."
-	@for FILE in `find ${SVN_DIR} | grep -v .svn | grep -v ${PROJECT_NAME}.xcodeproj | grep -v Entitlements.plist`;\
+	@for FILE in `find ${SVN_DIR} | grep -v .svn | grep -v ${PROJECT_NAME}.xcodeproj | grep -v Entitlements.plist | grep -v libTiCore.a | grep -v libtiverify.a`;\
 	do\
 		if [ -f $$FILE ]; then rm -rf $$FILE; fi;\
 	done
