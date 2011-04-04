@@ -4,6 +4,8 @@
 	
 	meme.ui.openHomeWindow = function() {
 		if (!meme.config.tests_enabled) {
+			Ti.API.info('Home window opened, starting application...');
+			
 			homeWindow = Titanium.UI.createWindow({
 			    backgroundImage: 'images/bg.png',
 				orientationModes: [Ti.UI.PORTRAIT],
@@ -16,7 +18,8 @@
 			createloggedOutView();
 		
 			homeWindow.open();
-		
+			
+			Ti.API.debug('About to refresh home window');
 			meme.ui.refreshHomeWindow();
 		}
 	};
@@ -25,7 +28,7 @@
 		setTimeout(function() {
 			var showView = loggedOutView, hideView = loggedInView;
 			if (meme.auth.oadapter && meme.auth.oadapter.isLoggedIn()) {
-				showView = loggedInView, hideView = loggedOutView;
+				showView = loggedInView; hideView = loggedOutView;
 				Ti.API.info('hi, welcome to meme! user is [' + meme.app.userInfo().name + ']');
 			}
 			
