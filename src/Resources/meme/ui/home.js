@@ -46,8 +46,8 @@
 	var createHeader = function() {
 		var logoView = Ti.UI.createView({
 			backgroundImage: 'images/en/logo_big.png',
-			top: 72,
-			left: 32,
+			top: 57,
+			left: 28,
 			width: 263,
 			height: 146,
 			visible: true
