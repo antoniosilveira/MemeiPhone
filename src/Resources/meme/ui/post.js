@@ -159,7 +159,7 @@
 		attachmentsView.add(attachmentContainerView);
 		
 		var attachmentContainerSubView = Ti.UI.createView({
-			backgroundColor: 'transparent',
+			backgroundColor: 'black',
 			width: 129,
 			height: 84,
 			top: 4,
@@ -314,7 +314,7 @@
 		buttonBar.add(flashlightButton);
 	
 		var pictureButton = Ti.UI.createButton({
-			image: 'images/postbar_camera.png',
+			image: 'images/postbar_image.png',
 			top: 0,
 			left: 146,
 			width: 68, 
@@ -342,11 +342,11 @@
 		buttonBar.add(postButton);
 		
 		setAttachmentButtonOn = function() {
-			pictureButton.image = 'images/postbar_camera_item.png';
+			pictureButton.image = 'images/postbar_image_item.png';
 		};
 		
 		setAttachmentButtonOff = function() {
-			pictureButton.image = 'images/postbar_camera.png';
+			pictureButton.image = 'images/postbar_image.png';
 		};
 		
 		moveButtonBarUp = function() {
