@@ -166,15 +166,15 @@
 			font: { fontSize: 14, fontFamily:'Gotham Rounded', fontWeight: 'Light' }
 		});
 		yourBlogButton.add(blogUrlLabel);
+		yourBlogButton.addEventListener('click', function() {
+			meme.ui.openLinkOnSafari({
+				url: 'http://' + blogUrlLabel.text
+			});
+		});
 		loggedInView.add(yourBlogButton);
 		
 		configureLoggedInView = function() {
 			blogUrlLabel.text = 'me.me/' + meme.app.userInfo().name;
-			yourBlogButton.addEventListener('click', function() {
-				meme.ui.openLinkOnSafari({
-					url: 'http://me.me/' + meme.app.userInfo().name
-				});
-			});
 		};
 	};
 	
