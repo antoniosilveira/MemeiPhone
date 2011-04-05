@@ -44,35 +44,15 @@
 	};
 	
 	var createHeader = function() {
-		var headerView =  Ti.UI.createView({
-			top: 0,
-			height: 460,
-			width: 320,
-			backgroundColor: 'transparent'
-		});
-		homeWindow.add(headerView);
-		
 		var logoView = Ti.UI.createView({
 			backgroundImage: 'images/en/logo_big.png',
-			top: 90,
+			top: 72,
 			left: 32,
 			width: 263,
 			height: 146,
 			visible: true
 		});
-		headerView.add(logoView);
-		
-		setTimeout(function() {
-			headerView.animate({
-				duration: 500,
-				backgroundColor: '#191919'
-			});
-
-			logoView.animate({
-				duration: 500,
-				top: 60
-			});
-		}, 125);
+		homeWindow.add(logoView);
 	};
 	
 	var createLoggedInView = function() {
