@@ -110,6 +110,10 @@
 			logoutBarView.animate({
 				top: 0
 			});
+			
+			logoView.animate({
+				top: 75
+			});
 		};
 	};
 	
