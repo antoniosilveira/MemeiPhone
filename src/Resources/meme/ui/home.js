@@ -28,10 +28,13 @@
 		setTimeout(function() {
 			var showView = loggedOutView, hideView = loggedInView;
 			var showOrHideLogoutBar = hideLogoutBar;
+			var username = null;
 			if (meme.auth.oadapter && meme.auth.oadapter.isLoggedIn()) {
 				showView = loggedInView; hideView = loggedOutView;
 				showOrHideLogoutBar = showLogoutBar;
-				Ti.API.info('hi, welcome to meme! user is [' + meme.app.userInfo().name + ']');
+				username = meme.app.userInfo().name;
+				setUrls(username);
+				Ti.API.info('hi, welcome to meme! user is [' + username + ']');
 			}
 			
 			var animation = Ti.UI.createAnimation({
@@ -42,7 +45,7 @@
 				showView.animate({ duration: 250, top: 240 });
 			});
 			hideView.animate(animation);
-			showOrHideLogoutBar();
+			showOrHideLogoutBar(username);
 		}, 125);
 	};
 	
@@ -94,8 +97,7 @@
 			left: 98,
 			width: 'auto',
 			color: 'white',
-			font: { fontSize: 12, fontFamily: 'Helvetica', fontWeight: 'Bold' },
-			//text: meme.app.userInfo().name
+			font: { fontSize: 12, fontFamily: 'Helvetica', fontWeight: 'Bold' }
 		});
 		textBarView.add(usernameLabel);
 		
@@ -114,7 +116,8 @@
 		});
 		logoutBarView.add(signOutLabel);
 		
-		showLogoutBar = function() {
+		showLogoutBar = function(username) {
+			usernameLabel.text = username;
 			logoutBarView.animate({ top: 0 });
 			logoView.animate({ top: 75 });
 		};
@@ -125,6 +128,7 @@
 		};
 	};
 	
+	var setUrls;
 	var createLoggedInView = function() {
 		loggedInView = Ti.UI.createView({
 			top: 460,
@@ -156,17 +160,19 @@
 			top: 36,
 			left: 22,
 			color: 'white',
-			font: { fontSize: 14, fontFamily:'Gotham Rounded', fontWeight: 'Light' },
-			//text: 'me.me/' + meme.app.userInfo().name
+			font: { fontSize: 14, fontFamily:'Gotham Rounded', fontWeight: 'Light' }
 		});
 		yourBlogButton.add(blogUrlLabel);
-		
-		yourBlogButton.addEventListener('click', function() {
-			meme.ui.openLinkOnSafari({
-				//url: 'http://me.me/' + meme.app.userInfo().name
-			});
-		});
 		loggedInView.add(yourBlogButton);
+		
+		setUrls = function(username) {
+			blogUrlLabel.text = 'me.me/' + username;
+			yourBlogButton.addEventListener('click', function() {
+				meme.ui.openLinkOnSafari({
+					url: 'http://me.me/' + username
+				});
+			});
+		};
 	};
 	
 	var createloggedOutView = function() {
