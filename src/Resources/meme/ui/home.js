@@ -143,7 +143,7 @@
 				clearTimeout(clickTimeoutSignIn);
 				clickTimeoutSignIn = setTimeout(function() {
 					continuation();
-				}, 500);
+				}, 250);
 			});
 		};
 		meme.auth.attachLogin(signInButtonClick, meme.ui.refreshHomeWindow);
