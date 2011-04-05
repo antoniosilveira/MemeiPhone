@@ -28,13 +28,12 @@
 		setTimeout(function() {
 			var showView = loggedOutView, hideView = loggedInView;
 			var showOrHideLogoutBar = hideLogoutBar;
-			var username = null;
 			if (meme.auth.oadapter && meme.auth.oadapter.isLoggedIn()) {
 				showView = loggedInView; hideView = loggedOutView;
 				showOrHideLogoutBar = showLogoutBar;
-				username = meme.app.userInfo().name;
 				configureLogoutBar();
-				Ti.API.info('hi, welcome to meme! user is [' + username + ']');
+				configureLoggedInView();
+				Ti.API.info('hi, welcome to meme! user is [' + meme.app.userInfo().name + ']');
 			}
 			
 			var animation = Ti.UI.createAnimation({
@@ -45,11 +44,11 @@
 				showView.animate({ duration: 250, top: 240 });
 			});
 			hideView.animate(animation);
-			showOrHideLogoutBar(username);
+			showOrHideLogoutBar();
 		}, 125);
 	};
 	
-	var showLogoutBar, hideLogoutBar;
+	var configureLogoutBar, showLogoutBar, hideLogoutBar;
 	var createHeader = function() {
 		var logoView = Ti.UI.createView({
 			backgroundImage: 'images/en/logo_big.png',
@@ -116,8 +115,7 @@
 		});
 		logoutBarView.add(signOutLabel);
 		
-		showLogoutBar = function(username) {
-			usernameLabel.text = username;
+		showLogoutBar = function() {
 			logoutBarView.animate({ top: 0 });
 			logoView.animate({ top: 75 });
 		};
@@ -126,9 +124,13 @@
 			logoutBarView.animate({ top: -33 });
 			logoView.animate({ top: 57 });
 		};
+		
+		configureLogoutBar = function() {
+			usernameLabel.text = meme.app.userInfo().name;
+		};
 	};
 	
-	var configureLogoutBar;
+	var configureLoggedInView;
 	var createLoggedInView = function() {
 		loggedInView = Ti.UI.createView({
 			top: 460,
@@ -165,7 +167,7 @@
 		yourBlogButton.add(blogUrlLabel);
 		loggedInView.add(yourBlogButton);
 		
-		configureLogoutBar = function() {
+		configureLoggedInView = function() {
 			blogUrlLabel.text = 'me.me/' + meme.app.userInfo().name;
 			yourBlogButton.addEventListener('click', function() {
 				meme.ui.openLinkOnSafari({
