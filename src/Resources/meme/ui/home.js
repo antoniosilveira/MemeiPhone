@@ -64,29 +64,42 @@
 		});
 		homeWindow.add(loggedInView);
 		
-		var newPostButton = Titanium.UI.createButton({
-			image: 'images/old/home_button_newpost.png',
+		var createPostButton = Titanium.UI.createButton({
+			image: 'images/en/home_button_create_post.png',
 			left: 0,
 			top: 0,
 			width: 320, 
 			height: 110
 		});
-		newPostButton.addEventListener('click', meme.ui.openPostWindow);
-		loggedInView.add(newPostButton);
+		createPostButton.addEventListener('click', meme.ui.openPostWindow);
+		loggedInView.add(createPostButton);
 		
-		var logoutButton = Titanium.UI.createButton({
-			image: 'images/old/home_button_logout.png',
+		var yourBlogButton = Titanium.UI.createButton({
+			image: 'images/en/home_button_your_blog.png',
 			left: 0,
 			top: 110,
 			width: 320, 
 			height: 110
 		});
-		logoutButton.addEventListener('click', function() {
-			meme.auth.oadapter.logout('meme', function() {
-				meme.ui.refreshHomeWindow();
-			});
+		
+		var blogUrlLabel = Ti.UI.createLabel({
+			top: 36,
+			left: 22,
+			color: 'white',
+			font: { fontSize: 14, fontFamily:'Gotham Rounded', fontWeight: 'Light' },
+			text: 'me.me/' + meme.app.userInfo().name;
 		});
-		loggedInView.add(logoutButton);
+		yourBlogButton.add(blogUrlLabel);
+		
+		yourBlogButton.addEventListener('click', function() {
+			meme.ui.openLinkOnSafari({
+				url: 'http://me.me/' + meme.app.userInfo().name;
+			});
+			// meme.auth.oadapter.logout('meme', function() {
+			// 				meme.ui.refreshHomeWindow();
+			// 			});
+		});
+		loggedInView.add(yourBlogButton);
 	};
 	
 	var createloggedOutView = function() {
