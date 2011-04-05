@@ -143,11 +143,10 @@ mim: check-no-changes-on-git clean
 	@rm -rvf ${PROJECT_ROOT}/src/Resources/pt.lproj
 	@rm -rvf ${PROJECT_ROOT}/src/Resources/zh-Hant.lproj
 	@echo "Deleting uneeded images..."
-	@rm -rvf ${PROJECT_ROOT}/src/Resources/images/*_br.*
-	@rm -rvf ${PROJECT_ROOT}/src/Resources/images/*_es.*
-	@rm -rvf ${PROJECT_ROOT}/src/Resources/images/*_en.*
-	@rm -rvf ${PROJECT_ROOT}/src/Resources/images/*_pt.*
-	@rm -rvf ${PROJECT_ROOT}/src/Resources/images/*_zh.*
+	@rm -rvf ${PROJECT_ROOT}/src/Resources/images/es
+	@rm -rvf ${PROJECT_ROOT}/src/Resources/images/en
+	@rm -rvf ${PROJECT_ROOT}/src/Resources/images/pt
+	@rm -rvf ${PROJECT_ROOT}/src/Resources/images/zh-Hant
 	@echo "Replace Meme files for Mim files..."
 	@mv -v ${PROJECT_ROOT}/src/Info_mim.plist ${PROJECT_ROOT}/src/Info.plist
 	@mv -v ${PROJECT_ROOT}/src/manifest_mim ${PROJECT_ROOT}/src/manifest
