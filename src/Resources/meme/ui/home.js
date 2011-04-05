@@ -100,13 +100,14 @@
 		});
 		textBarView.add(usernameLabel);
 		
-		var signOutLabel = Ti.UI.createLabel({
+		var signOutLabel = Ti.UI.createButton({
 			top: 0,
 			right: 9,
 			width: 42,
 			color: '#9F1392',
 			font: { fontSize: 11, fontFamily: 'Helvetica' },
-			text: 'sign out'
+			title: 'sign out',
+			style: Titanium.UI.iPhone.SystemButtonStyle.PLAIN
 		});
 		signOutLabel.addEventListener('click', function(e) {
 			meme.auth.oadapter.logout('meme', function() {
@@ -160,7 +161,7 @@
 		
 		var blogUrlLabel = Ti.UI.createLabel({
 			top: 36,
-			left: 22,
+			left: 26,
 			color: 'white',
 			font: { fontSize: 14, fontFamily:'Gotham Rounded', fontWeight: 'Light' }
 		});
