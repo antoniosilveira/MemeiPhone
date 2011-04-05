@@ -138,11 +138,11 @@
 		postWindow.add(attachmentsView);
 		
 		var newPictureButton = Titanium.UI.createButton({
-			backgroundImage: 'images/new_image_icon.png',
-			width: 23,
-			height: 19,
-			top: 180,
-			left: 112
+			backgroundImage: 'images/en/btn_new_image.png',
+			width: 190,
+			height: 41,
+			top: 170,
+			left: 65
 		});
 		newPictureButton.addEventListener('click', function() {
 			choosePhotoFromCameraOrGallery();
