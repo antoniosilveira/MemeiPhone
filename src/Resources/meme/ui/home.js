@@ -43,6 +43,7 @@
 		}, 125);
 	};
 	
+	var showLogoutBar;
 	var createHeader = function() {
 		var logoView = Ti.UI.createView({
 			backgroundImage: 'images/en/logo_big.png',
@@ -53,6 +54,63 @@
 			visible: true
 		});
 		homeWindow.add(logoView);
+		
+		var logoutBarView = Ti.UI.createView({
+			backgroundImage: 'images/home_signed_bg.png',
+			top: -33,
+			left: 0,
+			width: 320,
+			height: 33
+		});
+		homeWindow.add(logoutBarView);
+		
+		var iButton = Ti.UI.createButton({
+			top: 6,
+			left: 9,
+			style: Titanium.UI.iPhone.SystemButton.INFO_LIGHT
+		});
+		logoutBarView.add(iButton);
+		
+		var textBarView = Ti.UI.createView({
+			width: 'auto',
+			height: 33
+		});
+		logoutBarView.add(textBarView)
+		
+		var signedInAsLabel = Ti.UI.createLabel({
+			top: 0,
+			left: 0,
+			color: '#999',
+			font: { fontSize: 10, fontFamily: 'Helvetica' },
+			text: 'you are signed in as'
+		});
+		textBarView.add(signedInAsLabel);
+		
+		var usernameLabel = Ti.UI.createLabel({
+			top: 0,
+			left: 98,
+			width: 'auto',
+			color: 'white',
+			font: { fontSize: 12, fontFamily: 'Helvetica', fontWeight: 'Bold' },
+			text: meme.app.userInfo().name
+		});
+		textBarView.add(usernameLabel);
+		
+		var signOutLabel = Ti.UI.createLabel({
+			top: 0,
+			right: 9,
+			width: 42,
+			color: '#9F1392',
+			font: { fontSize: 11, fontFamily: 'Helvetica' },
+			text: 'sign out'
+		});
+		logoutBarView.add(signOutLabel);
+		
+		showLogoutBar = function() {
+			logoutBarView.animate({
+				top: 0
+			});
+		};
 	};
 	
 	var createLoggedInView = function() {
@@ -87,19 +145,21 @@
 			left: 22,
 			color: 'white',
 			font: { fontSize: 14, fontFamily:'Gotham Rounded', fontWeight: 'Light' },
-			text: 'me.me/' + meme.app.userInfo().name;
+			text: 'me.me/' + meme.app.userInfo().name
 		});
 		yourBlogButton.add(blogUrlLabel);
 		
 		yourBlogButton.addEventListener('click', function() {
 			meme.ui.openLinkOnSafari({
-				url: 'http://me.me/' + meme.app.userInfo().name;
+				url: 'http://me.me/' + meme.app.userInfo().name
 			});
 			// meme.auth.oadapter.logout('meme', function() {
 			// 				meme.ui.refreshHomeWindow();
 			// 			});
 		});
 		loggedInView.add(yourBlogButton);
+		
+		showLogoutBar();
 	};
 	
 	var createloggedOutView = function() {
