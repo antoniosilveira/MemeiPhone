@@ -33,7 +33,7 @@
 				showView = loggedInView; hideView = loggedOutView;
 				showOrHideLogoutBar = showLogoutBar;
 				username = meme.app.userInfo().name;
-				setUrls(username);
+				configureLogoutBar();
 				Ti.API.info('hi, welcome to meme! user is [' + username + ']');
 			}
 			
@@ -128,7 +128,7 @@
 		};
 	};
 	
-	var setUrls;
+	var configureLogoutBar;
 	var createLoggedInView = function() {
 		loggedInView = Ti.UI.createView({
 			top: 460,
@@ -165,11 +165,11 @@
 		yourBlogButton.add(blogUrlLabel);
 		loggedInView.add(yourBlogButton);
 		
-		setUrls = function(username) {
-			blogUrlLabel.text = 'me.me/' + username;
+		configureLogoutBar = function() {
+			blogUrlLabel.text = 'me.me/' + meme.app.userInfo().name;
 			yourBlogButton.addEventListener('click', function() {
 				meme.ui.openLinkOnSafari({
-					url: 'http://me.me/' + username
+					url: 'http://me.me/' + meme.app.userInfo().name
 				});
 			});
 		};
