@@ -138,11 +138,11 @@
 		postWindow.add(attachmentsView);
 		
 		var newPictureButton = Titanium.UI.createButton({
-			backgroundImage: 'images/btn_another_image.png',
-			width: 118,
-			height: 105,
-			top: 57,
-			left: 185
+			backgroundImage: 'images/new_image_icon.png',
+			width: 23,
+			height: 19,
+			top: 180,
+			left: 112
 		});
 		newPictureButton.addEventListener('click', function() {
 			choosePhotoFromCameraOrGallery();
@@ -151,19 +151,19 @@
 		
 		var attachmentContainerView = Ti.UI.createView({
 			backgroundColor: 'white',
-			width: 137,
-			height: 92,
-			top: 63,
-			left: 23
+			width: 200,
+			height: 150,
+			top: 15,
+			left: 60
 		});
 		attachmentsView.add(attachmentContainerView);
 		
 		var attachmentContainerSubView = Ti.UI.createView({
 			backgroundColor: 'black',
-			width: 129,
-			height: 84,
-			top: 4,
-			left: 4
+			width: 190,
+			height: 140,
+			top: 5,
+			left: 5
 		});
 		attachmentContainerView.add(attachmentContainerSubView);
 		
@@ -171,8 +171,8 @@
 			backgroundImage: 'images/remove_image_x.png',
 			width: 31,
 			height: 31,
-			top: 49,
-			left: 142,
+			top: 2,
+			left: 242,
 			zIndex: 2
 		});
 		removeAttachmentButton.addEventListener('click', function(e) {
