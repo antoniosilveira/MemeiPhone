@@ -9,10 +9,18 @@ for file in `svn st ${SVN_DIR} | awk -F" " '{print $1 "|" $2}'`; do
 	fname=`echo $file | cut -d"|" -f2`
 	
 	if [ "$fstatus" == "?" ]; then
-		svn add $fname
+		if [[ "$fname" == *@* ]]; then
+			svn add $fname@;
+		else
+			svn add $fname;
+		fi
 	fi
 	if [ "$fstatus" == "!" ]; then
-		svn rm $fname
+		if [[ "$fname" == *@* ]]; then
+			svn rm $fname@;
+		else
+			svn rm $fname;
+		fi
 	fi
 	if [ "$fstatus" == "~" ]; then
 		rm -rf $fname
