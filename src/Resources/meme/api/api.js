@@ -14,7 +14,7 @@
 		var queryGuid, where;
 		
 		if (typeof guid == 'string') {
-			queryGuid = (guid == 'me') ? guid : '"' + guid + '"';
+			queryGuid = '"' + guid + '"';
 			where = 'where owner_guid=' + queryGuid;
 		} else {
 			queryGuid = '"' + guid.join('","') + '"';
@@ -42,7 +42,7 @@
 	
 	meme.api.flashlightFlickrPhoto = function(query) {
 		var params = {
-			//cacheKey: 'flashlight:flickrphotos:' + query,
+			cacheKey: 'flashlight:flickrPhoto:' + query,
 			yqlQuery: 'SELECT * FROM flickr.photos.search WHERE text="' + query + '" AND license="4"'
 		};
 		var photos;
@@ -58,7 +58,7 @@
 	
 	meme.api.flashlightWebPhoto = function(query) {
 		var params = {
-			//cacheKey: 'flashlight:webphotos:' + query,
+			cacheKey: 'flashlight:webPhoto:' + query,
 			yqlQuery: 'SELECT * FROM search.images WHERE query="' + query + ' -url:flickr.com" and filter="yes"'
 		};
 		var photos;
@@ -74,7 +74,7 @@
 	
 	meme.api.flashlightVideo = function(query) {
 		var params = {
-			//cacheKey: 'flashlight:videos:' + query,
+			cacheKey: 'flashlight:video:' + query,
 			yqlQuery: 'SELECT * FROM youtube.search WHERE query="' + query + '"'
 		};
 		var videos;
@@ -90,7 +90,7 @@
 	
 	meme.api.flashlightWeb = function(query) {
 		var params = {
-			//cacheKey: 'flashlight:web:' + query,
+			cacheKey: 'flashlight:web:' + query,
 			yqlQuery: 'SELECT title, abstract, url FROM search.web WHERE query="' + query + '"'
 		};
 		var items;
@@ -106,7 +106,7 @@
 	
 	meme.api.flashlightTwitter = function(query) {
 		var params = {
-			//cacheKey: 'flashlight:tweets:' + query,
+			cacheKey: 'flashlight:twitter:' + query,
 			yqlQuery: 'SELECT * FROM twitter.search WHERE q="' + query + '"'
 		};
 		var items;
@@ -187,10 +187,6 @@
 		var results = yqlResponse.query.results;
 		
 		Ti.API.info("Results: ["+ JSON.stringify(results) +"]");
-		
-		if (!results) {
-			// TODO: throw yql error
-		}
 		
 		if (results.status && results.status.message == 'ok') { 
 			return results;
