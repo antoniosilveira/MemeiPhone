@@ -21,10 +21,15 @@
 			where = 'where owner_guid IN (' + queryGuid + ')';
 		}
 		
+		var yqlQuery = 'SELECT * FROM meme.info ' + where;
+		if (thumbWidth && thumbHeight) {
+			 yqlQuery += ' | meme.functions.thumbs(width=' + thumbWidth + ',height=' + thumbHeight + ')';
+		}
+		
 		var params = {
 			//cacheKey: 'userInfo:' + queryGuid,
 			//cacheSeconds: 86400, // 24 hours
-			yqlQuery: 'SELECT * FROM meme.info ' + where + ' | meme.functions.thumbs(width=' + thumbWidth + ',height=' + thumbHeight + ')'
+			yqlQuery: yqlQuery
 		};
 		
 		var userInfo = null;
