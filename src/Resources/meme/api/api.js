@@ -40,10 +40,14 @@
 		return userInfo;
 	};
 	
-	meme.api.flashlightFlickrPhoto = function(query) {
+	meme.api.flashlightFlickrPhoto = function(query, start, count) {
+		var limiting = '(0,10)';
+		if (start && count) {
+			limiting = '(' + start + ',' + count + ')';
+		}
 		var params = {
-			cacheKey: 'flashlight:flickrPhoto:' + query,
-			yqlQuery: 'SELECT * FROM flickr.photos.search WHERE text="' + query + '" AND license="4"'
+			cacheKey: 'flashlight:flickrPhoto:' + limiting + ':' + query,
+			yqlQuery: 'SELECT * FROM flickr.photos.search' + limiting + ' WHERE text="' + query + '" AND license="4"'
 		};
 		var photos;
 		var successCallback = function(results) {
@@ -56,10 +60,14 @@
 		return photos;
 	};
 	
-	meme.api.flashlightWebPhoto = function(query) {
+	meme.api.flashlightWebPhoto = function(query, start, count) {
+		var limiting = '(0,10)';
+		if (start && count) {
+			limiting = '(' + start + ',' + count + ')';
+		}
 		var params = {
-			cacheKey: 'flashlight:webPhoto:' + query,
-			yqlQuery: 'SELECT * FROM search.images WHERE query="' + query + ' -url:flickr.com" and filter="yes"'
+			cacheKey: 'flashlight:webPhoto:' + limiting + ':' + query,
+			yqlQuery: 'SELECT * FROM search.images' + limiting + ' WHERE query="' + query + ' -url:flickr.com" and filter="yes"'
 		};
 		var photos;
 		var successCallback = function(results) {
@@ -72,10 +80,14 @@
 		return photos;
 	};
 	
-	meme.api.flashlightVideo = function(query) {
+	meme.api.flashlightVideo = function(query, start, count) {
+		var limiting = '';
+		if (start && count) {
+			limiting = ' AND start_index="' + (start + 1) + '" AND max_results="' + count + '" ';
+		}
 		var params = {
-			cacheKey: 'flashlight:video:' + query,
-			yqlQuery: 'SELECT * FROM youtube.search WHERE query="' + query + '"'
+			cacheKey: 'flashlight:video:' + limiting + ':' + query,
+			yqlQuery: 'SELECT * FROM youtube.search WHERE query="' + query + '"' + limiting
 		};
 		var videos;
 		var successCallback = function(results) {
@@ -88,10 +100,14 @@
 		return videos;
 	};
 	
-	meme.api.flashlightWeb = function(query) {
+	meme.api.flashlightWeb = function(query, start, count) {
+		var limiting = '(0,10)';
+		if (start && count) {
+			limiting = '(' + start + ',' + count + ')';
+		}
 		var params = {
-			cacheKey: 'flashlight:web:' + query,
-			yqlQuery: 'SELECT title, abstract, url FROM search.web WHERE query="' + query + '"'
+			cacheKey: 'flashlight:web:' + limiting + ':' + query,
+			yqlQuery: 'SELECT title, abstract, url FROM search.web' + limiting + ' WHERE query="' + query + '"'
 		};
 		var items;
 		var successCallback = function(results) {
@@ -104,10 +120,14 @@
 		return items;
 	};
 	
-	meme.api.flashlightTwitter = function(query) {
+	meme.api.flashlightTwitter = function(query, start, count) {
+		var limiting = '';
+		if (start && count) {
+			limiting = ' AND page="' + ((start / count) + 1) + '" and rpp="' + count + '" ';
+		}
 		var params = {
-			cacheKey: 'flashlight:twitter:' + query,
-			yqlQuery: 'SELECT * FROM twitter.search WHERE q="' + query + '"'
+			cacheKey: 'flashlight:twitter:' + limiting + ':' + query,
+			yqlQuery: 'SELECT * FROM twitter.search WHERE q="' + query + '"' + limiting
 		};
 		var items;
 		var successCallback = function(results) {
