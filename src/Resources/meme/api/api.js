@@ -41,7 +41,7 @@
 	};
 	
 	meme.api.flashlightFlickrPhoto = function(query, start, count) {
-		var limiting = '(0,10)';
+		var limiting = '(0,24)';
 		if (start && count) {
 			limiting = '(' + start + ',' + count + ')';
 		}
@@ -61,7 +61,7 @@
 	};
 	
 	meme.api.flashlightWebPhoto = function(query, start, count) {
-		var limiting = '(0,10)';
+		var limiting = '(0,24)';
 		if (start && count) {
 			limiting = '(' + start + ',' + count + ')';
 		}
@@ -101,7 +101,7 @@
 	};
 	
 	meme.api.flashlightWeb = function(query, start, count) {
-		var limiting = '(0,10)';
+		var limiting = '(0,24)';
 		if (start && count) {
 			limiting = '(' + start + ',' + count + ')';
 		}
