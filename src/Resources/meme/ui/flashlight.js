@@ -30,7 +30,7 @@
 		}, 250);
 	};
 	
-	var getSearchText, searchFieldFocus;
+	var getSearchText, searchFieldFocus, startLoading, stopLoading;
 	var createFlashlightWindowHeader = function() {
 		var flashlightButton = Titanium.UI.createButton({
 			image: 'images/old/flashlight_button.png',
@@ -49,6 +49,25 @@
 			}));
 		});
 		flashlightWindow.add(flashlightButton);
+		
+		var lampBright = Titanium.UI.createImageView({
+			image: 'images/old/lamp_bright.png',
+			left: 1,
+			top: 0,
+			width: 37,
+			height: 38,
+			zIndex: 3,
+			visible: false
+		});
+		lampBright.animate(Titanium.UI.createAnimation({
+			transform: Ti.UI.create2DMatrix({
+				scale: 0.8
+			}),
+			duration: 300,
+			autoreverse: true,
+			repeat: 1000
+		}));
+		flashlightWindow.add(lampBright);
 		
 		var flashlightField = Titanium.UI.createView({
 			backgroundImage: 'images/old/flashlight_field.png',
@@ -76,9 +95,8 @@
 			clearButtonMode: Titanium.UI.INPUT_BUTTONMODE_ONFOCUS,
 			autocapitalization: false
 		});
-		flashlightField.add(searchField);
-		
 		searchField.addEventListener('return', handleFlashlightSearch);
+		flashlightField.add(searchField);
 		
 		getSearchText = function() {
 			return searchField.value;
@@ -86,7 +104,15 @@
 		
 		searchFieldFocus = function() {
 			searchField.focus();
-		}
+		};
+		
+		startLoading = function() {
+			lampBright.show();
+		};
+		
+		stopLoading = function() {
+			lampBright.hide();
+		};
 	};
 	
 	var showTabBar, hideTabBar;
@@ -524,6 +550,7 @@
 		Ti.API.debug(JSON.stringify(e.source.tabSubType));
 		
 		if (getSearchText()) {
+			startLoading();
 			var apiQuery, createRow, tabBarAnimation;
 			
 			// settings defaults
@@ -582,6 +609,7 @@
 			}
 			setFlashlightRows(rows);
 			tabBarAnimation();
+			stopLoading();
 		}
 	};
 	
