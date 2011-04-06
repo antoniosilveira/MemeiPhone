@@ -243,8 +243,7 @@
 
 		// Resizes image before uploading
 		// Max size accepted by Meme is 780x2500 px
-		var newSize = meme.util.getImageDownsizedSizes(780, 2500, options.image);
-		var image = options.image.imageAsResized(newSize.width, newSize.height);
+		var image = meme.util.resizeImage(780, 2500, options.image);
 
 		// Create upload signture
 		var time = parseInt(meme.util.timestamp()/1000);

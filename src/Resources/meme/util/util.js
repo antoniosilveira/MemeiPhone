@@ -39,4 +39,9 @@
 	    return { width: w, height: h };
 	};
 	
+	meme.util.resizeImage = function(max_width, max_height, image) {
+		var newSize = meme.util.getImageDownsizedSizes(max_width, max_height, image);
+		return image.imageAsResized(newSize.width, newSize.height);
+	}
+	
 })();
