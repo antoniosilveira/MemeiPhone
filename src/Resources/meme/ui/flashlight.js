@@ -95,7 +95,47 @@
 			clearButtonMode: Titanium.UI.INPUT_BUTTONMODE_ONFOCUS,
 			autocapitalization: false
 		});
-		searchField.addEventListener('return', handleFlashlightSearch);
+		
+		// monitor flashlight searchfield for changes and start search automatically
+		var monitorStarted = false;
+		var monitor, monitoredValue, lastMonitoredValue;
+		var monitorStart = function() {
+			if (!monitorStarted) {
+				Ti.API.debug('search field monitor started');
+				monitorStarted = true;
+				monitor = setInterval(monitorSearchFieldChanges, 1000);
+			}
+		};
+		var monitorStop = function() {
+			clearInterval(monitor);
+			monitorStarted = false;
+			monitoredValue = null;
+			lastMonitoredValue = null;	
+		};
+		var monitorSearchFieldChanges = function() {
+			if (monitoredValue) {
+				if (monitoredValue == lastMonitoredValue) {
+					Ti.API.debug('TIMEOUT reached with no changes, firing search!');
+					searchField.fireEvent('return');
+					monitorStop();
+				} else {
+					lastMonitoredValue = monitoredValue;
+				}
+			}
+		};
+		var monitorUpdate = function(newValue) {
+			monitoredValue = newValue;
+			monitorStart();
+		};
+		searchField.addEventListener('change', function() {
+			monitorUpdate(searchField.value);
+		});
+		searchField.addEventListener('return', function(e) {
+			monitorStop();
+			handleFlashlightSearch(e);
+		});
+		// end flashlight monitor
+		
 		flashlightField.add(searchField);
 		
 		getSearchText = function() {
@@ -603,12 +643,20 @@
 			
 			// go!
 			var results = apiQuery(getSearchText());
-			var rows = [];
-			for (var i=0; i<results.length; i++) {
-				rows.push(createRow(results[i]));
+			if (results) {
+				var rows = [];
+				for (var i=0; i<results.length; i++) {
+					rows.push(createRow(results[i]));
+				}
+				setFlashlightRows(rows);
+				tabBarAnimation();
+			} else {
+				meme.ui.alert({
+					title: 'Oops...',
+					message: 'No search results found.',
+					buttonNames: ['Ok']
+				});
 			}
-			setFlashlightRows(rows);
-			tabBarAnimation();
 			stopLoading();
 		}
 	};
