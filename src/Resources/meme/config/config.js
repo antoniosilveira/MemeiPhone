@@ -16,7 +16,13 @@
 		oauth_signature_method: 'HMAC-SHA1',
 		
 		// Tests are disabled by default
-		tests_enabled: false
+		tests_enabled: false,
+		
+		// Cache configurations
+		cache: {
+			disable: false,
+			cache_expiration_interval: 60
+		}
 	};
 	
 })();

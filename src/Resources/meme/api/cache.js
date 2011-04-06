@@ -22,12 +22,7 @@ Usage:
 // ##################################################
 (function(){
 	
-	var cacheOptions = {
-		disable: false,
-		cache_expiration_interval: 60
-	}
-	
-	meme.api.cache = function(options) {
+	meme.api.cache = function() {
 		var init_cache, expire_cache, current_timestamp, get, put, del;
 
 		// Cache initialization
@@ -118,8 +113,8 @@ Usage:
 				put: put,
 				del: del
 			};
-		}(options);
+		}(meme.config.cache);
 		
-	}(cacheOptions);
+	}();
 	
 })();
