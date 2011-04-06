@@ -21,19 +21,19 @@
 			where = 'where owner_guid IN (' + queryGuid + ')';
 		}
 		
-		var yqlQuery = 'SELECT * FROM meme.info ' + where;
+		var query = 'SELECT * FROM meme.info ' + where;
 		if (thumbWidth && thumbHeight) {
-			 yqlQuery += ' | meme.functions.thumbs(width=' + thumbWidth + ',height=' + thumbHeight + ')';
+			 query += ' | meme.functions.thumbs(width=' + thumbWidth + ',height=' + thumbHeight + ')';
 		}
 		
 		var params = {
-			//cacheKey: 'userInfo:' + queryGuid,
-			//cacheSeconds: 86400, // 24 hours
-			yqlQuery: yqlQuery
+			cacheKey: 'userInfo:' + queryGuid + ':' + thumbWidth + ':' + thumbHeight,
+			cacheSeconds: 86400, // 24 hours
+			yqlQuery: query
 		};
 		
 		var userInfo = null;
-		cachedYqlQuery(params, function(results) {
+		yqlQuery(params, function(results) {
 			userInfo = results.meme;
 		});
 		
@@ -52,7 +52,7 @@
 		var errorCallback = function() {
 			photos = null;
 		};
-		cachedYqlQuery(params, successCallback, errorCallback);
+		yqlQuery(params, successCallback, errorCallback);
 		return photos;
 	};
 	
@@ -68,7 +68,7 @@
 		var errorCallback = function() {
 			photos = null;
 		};
-		cachedYqlQuery(params, successCallback, errorCallback);
+		yqlQuery(params, successCallback, errorCallback);
 		return photos;
 	};
 	
@@ -84,7 +84,7 @@
 		var errorCallback = function() {
 			videos = null;
 		};
-		cachedYqlQuery(params, successCallback, errorCallback);
+		yqlQuery(params, successCallback, errorCallback);
 		return videos;
 	};
 	
@@ -100,7 +100,7 @@
 		var errorCallback = function() {
 			items = null;
 		};
-		cachedYqlQuery(params, successCallback, errorCallback);
+		yqlQuery(params, successCallback, errorCallback);
 		return items;
 	};
 	
@@ -116,21 +116,22 @@
 		var errorCallback = function() {
 			items = null;
 		};
-		cachedYqlQuery(params, successCallback, errorCallback);
+		yqlQuery(params, successCallback, errorCallback);
 		return items;
 	};
 	
 	// Executes an API read query (select)
-	var cachedYqlQuery = function(params, successCallback, errorCallback) {
+	var yqlQuery = function(params, successCallback, errorCallback) {
 		// default cache time is 15 minutes
 		var cacheSeconds = 900;
 		if (params.cacheSeconds) {
 			cacheSeconds = params.cacheSeconds;
 		}
 		
-		// -- cache not implemented yet
-		//var items = cacheGet(params.cacheKey);
 		var items;
+		if (params.cacheKey) {
+			items = meme.api.cache.get(params.cacheKey);
+		}
 		
 		// if didn't find items in cache, go fetch them on YQL
 		if (!items) {
@@ -140,19 +141,19 @@
 				if (errorCallback) {
 					errorCallback();
 				} else {
-					// -- not implemented yet
-					//throwYqlError();
-					meme.ui.alert({ title: 'Oops...', message: 'Error in YQL query :(' });
+					meme.ui.alert({
+						title: 'Oops...',
+						message: 'Error in YQL query, please try again in a few seconds.'
+					});
 				}
 			}
 
 			items = yqlResponse.query.results;
 
-			// -- not implemented yet
 			// cache valid results only
-			//if (items) {
-			//	cachePut(params.cacheKey, items, cacheSeconds);
-			//}
+			if (params.cacheKey && items) {
+				meme.api.cache.put(params.cacheKey, items, cacheSeconds);
+			}
 		}
 		
 		// if there are results (cached or not), execute successCallback
@@ -264,3 +265,7 @@
 	};
 	
 })();
+
+Ti.include(
+	'/meme/api/cache.js'
+);

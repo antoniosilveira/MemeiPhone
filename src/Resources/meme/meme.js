@@ -7,7 +7,7 @@ var meme = {};
 	
 	meme.app.userInfo = function() {
 		if (meme.auth.oadapter && meme.auth.oadapter.isLoggedIn()) {
-			return meme.api.userInfo('me');
+			return meme.api.userInfo(meme.auth.oadapter.getUserGuid());
 		}
 	};
 	
