@@ -65,7 +65,3 @@
 	});
 		
 })();
-
-// sem params
-
-// verificar se depois de observar o treco funciona
