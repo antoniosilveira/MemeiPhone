@@ -194,6 +194,7 @@
 		setFlashlightRows = function(rows) {
 			flashlightTableView.setData(rows);
 			flashlightTableView.show();
+			flashlightTableView.scrollToTop(0);
 		}
 	};
 	
