@@ -198,7 +198,6 @@
 		};
 		
 		showAttachments = function() {
-			closeKeyboard();
 			attachmentsView.animate({
 				bottom: 0, 
 				duration: 300, 
@@ -208,7 +207,6 @@
 		};
 		
 		hideAttachments = function() {
-			closeKeyboard();
 			attachmentsView.animate({
 				bottom: -216, 
 				duration: 300, 
@@ -220,9 +218,11 @@
 	
 	var showOrHideAttachments = function() {
 		if (attachmentsOn) {
+			closeKeyboard();
 			moveButtonBarDown();
 			hideAttachments();
 		} else {
+			closeKeyboard();
 			showAttachments();
 			moveButtonBarUp();
 		}
