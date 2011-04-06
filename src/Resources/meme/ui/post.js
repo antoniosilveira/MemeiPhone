@@ -191,8 +191,10 @@
 				imagePreview = null;
 			}
 			
+			var newSize = meme.util.getImageDownsizedSizes(190, 140, data.media);
+			
 			imagePreview = Ti.UI.createImageView({
-				image: data.media
+				image: data.media.imageAsResized(newSize.width, newSize.height)
 			});
 			attachmentContainerSubView.add(imagePreview);
 		};
