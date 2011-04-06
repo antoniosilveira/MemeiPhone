@@ -25,7 +25,7 @@ Usage:
 	meme.ui.inactivityObserver = function(params) {
 		
 		if (!params || !params.fieldToObserve || !params.inactivityTimeout || !params.inactivityTimeoutAction) {
-			throw('Please inform all necessary parameters ({fieldToObserve:?, inactivityTimeout:?, inactivityTimeoutAction:?}).');
+			throw 'Please inform all necessary parameters.';
 		}
 		
 		var observer = null, 

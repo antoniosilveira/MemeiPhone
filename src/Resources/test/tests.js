@@ -6,6 +6,7 @@
 		// Include all the test files
 		Ti.include(
 			'/test/tests/api/test_cache.js',
+			'/test/tests/ui/test_inactivity_observer.js',
 			'/test/tests/util/test_util.js'
 		);
 		
