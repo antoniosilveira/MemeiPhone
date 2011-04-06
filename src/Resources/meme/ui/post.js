@@ -35,6 +35,8 @@
 		postMedia = data;
 		setAttachmentButtonOn();
 		addAttachmentPreview(data);
+		showAttachments();
+		moveButtonBarUp();
 	};
 	
 	meme.ui.removePostMedia = function() {
