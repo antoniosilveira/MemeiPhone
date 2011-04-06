@@ -20,6 +20,7 @@ Usage:
 // - Encode cache keys (?)
 // - Support blob caching
 // ##################################################
+
 (function(){
 	
 	meme.api.cache = function() {

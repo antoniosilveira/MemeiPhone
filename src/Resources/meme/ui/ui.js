@@ -51,6 +51,7 @@
 })();
 
 Ti.include(
+	'/meme/ui/inactivity_observer.js',
 	'/meme/ui/flashlight.js',
 	'/meme/ui/home.js',
 	'/meme/ui/post.js'

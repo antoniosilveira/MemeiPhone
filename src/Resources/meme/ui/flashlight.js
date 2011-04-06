@@ -96,45 +96,19 @@
 			autocapitalization: false
 		});
 		
-		// monitor flashlight searchfield for changes and start search automatically
-		var monitorStarted = false;
-		var monitor, monitoredValue, lastMonitoredValue;
-		var monitorStart = function() {
-			if (!monitorStarted) {
-				Ti.API.debug('search field monitor started');
-				monitorStarted = true;
-				monitor = setInterval(monitorSearchFieldChanges, 1000);
+		var observer = meme.ui.inactivityObserver({
+			fieldToObserve: searchField,
+			inactivityTimeout: 1000,
+			inactivityTimeoutAction: function() {
+				searchField.blur();
+				searchField.fireEvent('return');
 			}
-		};
-		var monitorStop = function() {
-			clearInterval(monitor);
-			monitorStarted = false;
-			monitoredValue = null;
-			lastMonitoredValue = null;	
-		};
-		var monitorSearchFieldChanges = function() {
-			if (monitoredValue) {
-				if (monitoredValue == lastMonitoredValue) {
-					Ti.API.debug('TIMEOUT reached with no changes, firing search!');
-					searchField.fireEvent('return');
-					monitorStop();
-				} else {
-					lastMonitoredValue = monitoredValue;
-				}
-			}
-		};
-		var monitorUpdate = function(newValue) {
-			monitoredValue = newValue;
-			monitorStart();
-		};
-		searchField.addEventListener('change', function() {
-			monitorUpdate(searchField.value);
 		});
+		
 		searchField.addEventListener('return', function(e) {
-			monitorStop();
+			observer.pauseObserver();
 			handleFlashlightSearch(e);
 		});
-		// end flashlight monitor
 		
 		flashlightField.add(searchField);
 		
