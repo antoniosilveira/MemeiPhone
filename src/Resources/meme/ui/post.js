@@ -282,10 +282,10 @@
 	var createPostWindowButtons = function() {
 		var closeButton = Titanium.UI.createButton({
 			backgroundImage: 'images/closeBtn.png',
-			width: 20,
-			height: 20,
-			top: 13,
-			right: 13,
+			width: 27,
+			height: 46,
+			top: 1,
+			right: 0,
 			zIndex: 10,
 			visible: true
 		});
