@@ -84,7 +84,8 @@
 			hintText: 'search',
 			textAlign: 'left',
 			verticalAlign: 'center',
-			font: { fontSize: 16, fontFamily: 'Helvetica' },
+			color: '#666666',
+			font: { fontSize: 14, fontFamily: 'Georgia', fontStyle: 'italic' },
 			width: 184,
 			height: 33,
 			top: 5,
@@ -133,7 +134,7 @@
 	var createFlashlightWindowTabBar = function() {
 		var flashlightTabBar = Titanium.UI.createView({
 			backgroundColor: '#252525',
-			top: 0,
+			top: 0, // hiding flashlight tab for 1st release
 			left: 0,
 			width: 320,
 			height: 35,
