@@ -70,7 +70,7 @@
 		flashlightWindow.add(lampBright);
 		
 		var flashlightField = Titanium.UI.createView({
-			backgroundImage: 'images/old/flashlight_field.png',
+			backgroundImage: 'images/flashlight_field.png',
 			width: 206,
 			height: 43,
 			top: 0,
