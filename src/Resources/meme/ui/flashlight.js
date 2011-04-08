@@ -697,4 +697,10 @@
 		}));
 	};
 	
+	// LOAD MORE BUTTON
+	// text: load more images
+	// font: helvetica
+	// color: 811f73
+	// size: 14
+	
 })();
