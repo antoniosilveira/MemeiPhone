@@ -244,7 +244,7 @@
 			bottom: 0,
 			height: 60,
 			width: 320,
-			backgroundImage: 'images/bg_flashlight_bar.png'
+			backgroundImage: 'images/old/bg_flashlight_bar.png'
 		});
 		flashlightWindow.add(footerView);
 		
@@ -267,10 +267,10 @@
 		}
 		
 		var arrow = Ti.UI.createView({
-			backgroundImage: 'images/bg_flashlight_bar_arrow.png',
+			backgroundImage: 'images/old/bg_flashlight_bar_arrow.png',
 			width: 17,
 			height: 10,
-			bottom: 57,
+			bottom: 56,
 			left: -17,
 			zIndex: 3,
 			visible: false
