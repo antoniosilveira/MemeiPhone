@@ -132,7 +132,7 @@
 	var showTabBar, hideTabBar;
 	var createFlashlightWindowTabBar = function() {
 		var flashlightTabBar = Titanium.UI.createView({
-			backgroundColor: '#2A2B34',
+			backgroundColor: '#252525',
 			top: 0,
 			left: 0,
 			width: 320,
