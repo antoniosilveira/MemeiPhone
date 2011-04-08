@@ -210,7 +210,7 @@
 		};
 	};
 	
-	var setResultsWindowMax, setResultsWindowMin, setFlashlightRows;
+	var setResultsWindowMax, setResultsWindowMin, setFlashlightRows, showNoResultsView;
 	var createFlashlightWindowResults = function(rows) {
 		var flashlightTableView = Ti.UI.createTableView({
 			top: 43, 
@@ -220,6 +220,52 @@
 			visible: false
 		});
 		flashlightWindow.add(flashlightTableView);
+		
+		var noResultsView = Ti.UI.createView({
+			top: 43,
+			height: 382, // height: 322, // hiding flashlight tab for 1st release
+			width: 320,
+			visible: false
+		});
+		flashlightWindow.add(noResultsView);
+		
+		var titleLabel = Ti.UI.createLabel({
+			top: 108,
+			left: 40,
+			width: 240, 
+			height: 58, 
+			text: 'Your terms did not match any results.',
+			color: '#923385',
+			font: { fontSize: 25, fontFamily: 'Helvetica', fontWeight: 'bold' }
+		});
+		noResultsView.add(titleLabel);
+		
+		var subtitleLabel = Ti.UI.createLabel({
+			top: 178,
+			left: 40,
+			width: 240, 
+			height: 16, 
+			text: 'Tips:',
+			color: '#222222',
+			font: { fontSize: 12, fontFamily: 'Helvetica', fontWeight: 'bold' }
+		});
+		noResultsView.add(subtitleLabel);
+		
+		var tipsLabel = Ti.UI.createLabel({
+			top: 198,
+			left: 40,
+			width: 240, 
+			height: 40, 
+			text: 'Make sure all words are spelled correctly.\nTry different keywords.\nTry being more specific.',
+			color: '#666666',
+			font: { fontSize: 11, fontFamily: 'Helvetica' }
+		});
+		noResultsView.add(tipsLabel);
+		
+		showNoResultsView = function() {
+			flashlightTableView.hide();
+			noResultsView.show();
+		};
 		
 		setResultsWindowMax = function() {
 			Ti.API.debug('maximized result window');
@@ -238,6 +284,7 @@
 		};
 		
 		setFlashlightRows = function(rows) {
+			noResultsView.hide();
 			flashlightTableView.setData(rows);
 			flashlightTableView.show();
 			flashlightTableView.scrollToTop(0);
@@ -631,11 +678,7 @@
 				setFlashlightRows(rows);
 				tabBarAnimation();
 			} else {
-				meme.ui.alert({
-					title: 'Oops...',
-					message: 'No search results found.',
-					buttonNames: ['Ok']
-				});
+				showNoResultsView();
 			}
 			stopLoading();
 		}
