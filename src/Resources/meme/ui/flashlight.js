@@ -214,7 +214,7 @@
 	var createFlashlightWindowResults = function(rows) {
 		var flashlightTableView = Ti.UI.createTableView({
 			top: 43, 
-			height: 357,
+			height: 417, // height: 357, // hiding flashlight tab for 1st release 
 			width: 320, 
 			separatorColor: 'gray',
 			visible: false
@@ -223,12 +223,18 @@
 		
 		setResultsWindowMax = function() {
 			Ti.API.debug('maximized result window');
-			flashlightTableView.animate({ top: 43, height: 357 });
+			flashlightTableView.animate({
+				top: 43, 
+				height: 417 // height: 357 // hiding flashlight tab for 1st release 
+			});
 		};
 		
 		setResultsWindowMin = function() {
 			Ti.API.debug('minimized result window');
-			flashlightTableView.animate({ top: 78, height: 322 });
+			flashlightTableView.animate({
+				top: 78,
+				height: 382 // height: 322 // hiding flashlight tab for 1st release 
+			});
 		};
 		
 		setFlashlightRows = function(rows) {
@@ -241,7 +247,7 @@
 	var showArrow, buttonBarAnimation;
 	var createFlashlightWindowFooter = function() {
 		var footerView = Ti.UI.createView({
-			bottom: 0,
+			top: 520, // bottom: 0, // hiding flashlight tab for 1st release
 			height: 60,
 			width: 320,
 			backgroundImage: 'images/old/bg_flashlight_bar.png'
@@ -270,7 +276,7 @@
 			backgroundImage: 'images/old/bg_flashlight_bar_arrow.png',
 			width: 17,
 			height: 10,
-			bottom: 56,
+			top: 490, //bottom: 56, // hiding flashlight tab for 1st release
 			left: -17,
 			zIndex: 3,
 			visible: false
