@@ -270,7 +270,7 @@
 			backgroundImage: 'images/bg_flashlight_bar_arrow.png',
 			width: 17,
 			height: 10,
-			bottom: 56,
+			bottom: 57,
 			left: -17,
 			zIndex: 3,
 			visible: false
