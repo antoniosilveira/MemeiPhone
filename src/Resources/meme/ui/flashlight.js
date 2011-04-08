@@ -51,7 +51,7 @@
 		flashlightWindow.add(flashlightButton);
 		
 		var lampBright = Titanium.UI.createImageView({
-			image: 'images/old/lamp_bright.png',
+			image: 'images/lamp_bright.png',
 			left: 1,
 			top: 0,
 			width: 37,
@@ -244,7 +244,7 @@
 			bottom: 0,
 			height: 60,
 			width: 320,
-			backgroundImage: 'images/old/bg_flashlight_bar.png'
+			backgroundImage: 'images/bg_flashlight_bar.png'
 		});
 		flashlightWindow.add(footerView);
 		
@@ -267,7 +267,7 @@
 		}
 		
 		var arrow = Ti.UI.createView({
-			backgroundImage: 'images/old/bg_flashlight_bar_arrow.png',
+			backgroundImage: 'images/bg_flashlight_bar_arrow.png',
 			width: 17,
 			height: 10,
 			bottom: 56,
