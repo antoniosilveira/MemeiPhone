@@ -60,7 +60,7 @@
 			textAlign: 'left',
 			verticalAlign: 'center',
 			font: { fontSize: 20, fontFamily: 'Helvetica', fontWeight: 'bold' },
-			width: 300,
+			width: 265,
 			height: 45,
 			top: 2,
 			left: 16,
