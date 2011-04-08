@@ -214,7 +214,7 @@
 	var createFlashlightWindowResults = function(rows) {
 		var flashlightTableView = Ti.UI.createTableView({
 			top: 43, 
-			height: 417, // height: 357, // hiding flashlight tab for 1st release 
+			height: 417, // height: 357, // hiding flashlight tab for 1st release
 			width: 320, 
 			separatorColor: 'gray',
 			visible: false
@@ -593,7 +593,7 @@
 				}
 				tabBarAnimation = function() {
 					setResultsWindowMin();
-					hideTabBar();
+					// hideTabBar(); // hiding flashlight tab for 1st release
 					showTabBar(e.source.tabType, e.source.tabSubType);
 				};
 			} else if (e.source.tabType == 'video') {
