@@ -222,7 +222,7 @@
 		flashlightWindow.add(flashlightTableView);
 		
 		var noResultsView = Ti.UI.createView({
-			top: 43,
+			top: 78,
 			height: 382, // height: 322, // hiding flashlight tab for 1st release
 			width: 320,
 			visible: false
@@ -640,7 +640,7 @@
 				}
 				tabBarAnimation = function() {
 					setResultsWindowMin();
-					// hideTabBar(); // hiding flashlight tab for 1st release
+					hideTabBar();
 					showTabBar(e.source.tabType, e.source.tabSubType);
 				};
 			} else if (e.source.tabType == 'video') {
@@ -676,10 +676,10 @@
 					rows.push(createRow(results[i]));
 				}
 				setFlashlightRows(rows);
-				tabBarAnimation();
 			} else {
 				showNoResultsView();
 			}
+			tabBarAnimation();
 			stopLoading();
 		}
 	};
