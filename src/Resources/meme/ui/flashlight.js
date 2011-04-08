@@ -697,10 +697,14 @@
 		}));
 	};
 	
-	// LOAD MORE BUTTON
+	// TODO:
+	
+	// 1) LOAD MORE BUTTON
 	// text: load more images
 	// font: helvetica
 	// color: 811f73
 	// size: 14
+	
+	// 2) NEW IMAGES SCREEN
 	
 })();
