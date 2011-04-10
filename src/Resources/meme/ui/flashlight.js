@@ -134,7 +134,7 @@
 	var createFlashlightWindowTabBar = function() {
 		var flashlightTabBar = Titanium.UI.createView({
 			backgroundColor: '#252525',
-			top: 0, // hiding flashlight tab for 1st release
+			top: 0,
 			left: 0,
 			width: 320,
 			height: 35,
@@ -215,7 +215,7 @@
 	var createFlashlightWindowResults = function(rows) {
 		var flashlightTableView = Ti.UI.createTableView({
 			top: 43, 
-			height: 417, // height: 357, // hiding flashlight tab for 1st release
+			height: 357,
 			width: 320, 
 			separatorColor: 'gray',
 			visible: false
@@ -224,7 +224,7 @@
 		
 		var noResultsView = Ti.UI.createView({
 			top: 78,
-			height: 382, // height: 322, // hiding flashlight tab for 1st release
+			height: 322,
 			width: 320,
 			visible: false
 		});
@@ -272,7 +272,7 @@
 			Ti.API.debug('maximized result window');
 			flashlightTableView.animate({
 				top: 43, 
-				height: 417 // height: 357 // hiding flashlight tab for 1st release 
+				height: 357
 			});
 		};
 		
@@ -280,7 +280,7 @@
 			Ti.API.debug('minimized result window');
 			flashlightTableView.animate({
 				top: 78,
-				height: 382 // height: 322 // hiding flashlight tab for 1st release 
+				height: 322
 			});
 		};
 		
@@ -295,7 +295,7 @@
 	var showArrow, buttonBarAnimation;
 	var createFlashlightWindowFooter = function() {
 		var footerView = Ti.UI.createView({
-			top: 520, // bottom: 0, // hiding flashlight tab for 1st release
+			bottom: 0,
 			height: 60,
 			width: 320,
 			backgroundImage: 'images/old/bg_flashlight_bar.png'
@@ -324,7 +324,7 @@
 			backgroundImage: 'images/old/bg_flashlight_bar_arrow.png',
 			width: 17,
 			height: 10,
-			top: 490, //bottom: 56, // hiding flashlight tab for 1st release
+			bottom: 56,
 			left: -17,
 			zIndex: 3,
 			visible: false
@@ -696,15 +696,5 @@
 			top: 460 
 		}));
 	};
-	
-	// TODO:
-	
-	// 1) LOAD MORE BUTTON
-	// text: load more images
-	// font: helvetica
-	// color: 811f73
-	// size: 14
-	
-	// 2) NEW IMAGES SCREEN
 	
 })();
