@@ -52,7 +52,7 @@
 
 Ti.include(
 	'/meme/ui/inactivity_observer.js',
-	'/meme/ui/flashlight.js',
-	'/meme/ui/home.js',
-	'/meme/ui/post.js'
+	'/meme/ui/flashlight/flashlight.js',
+	'/meme/ui/home/home.js',
+	'/meme/ui/post/post.js'
 );

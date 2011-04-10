@@ -106,7 +106,7 @@
 				
 				//Close button
 				var btn_close = Titanium.UI.createButton({
-					backgroundImage: 'images/closeBtn.png',
+					backgroundImage: 'images/close.png',
 					width: 			20,
 					height: 		20,
 					top: 			12,

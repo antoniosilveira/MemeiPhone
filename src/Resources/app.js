@@ -1,3 +1,3 @@
 Ti.include('/meme/meme.js');
 
-meme.ui.openHomeWindow();
+meme.ui.home.window.open();
