@@ -10,7 +10,7 @@
 				row.addEventListener('click', handleRowClick);
 
 				var thumb = 'http://farm' + data.farm + '.static.flickr.com/' + data.server + '/' + data.id + '_' + data.secret + '_t_d.jpg';
-				var fullPhoto = 'http://farm' + data.farm + '.static.flickr.com/' + data.server + '/' + data.id + '_' + data.secret + '.jpg';
+				var photoUrl = 'http://farm' + data.farm + '.static.flickr.com/' + data.server + '/' + data.id + '_' + data.secret + '.jpg';
 				var title = Ti.UI.createLabel({
 					text: data.title,
 					color: '#863486',
@@ -37,7 +37,8 @@
 					width: 310,
 					zIndex: 2,
 					title: data.title,
-					fullPhoto: fullPhoto,
+					photoUrl: photoUrl,
+					subType: 'flickr',
 					type: 'photo'
 				}));
 
@@ -78,7 +79,8 @@
 					width: 310,
 					zIndex: 2,
 					title: meme.util.stripHtmlEntities(data.abstract),
-					fullPhoto: data.url,
+					photoUrl: data.url,
+					subType: 'web',
 					type: 'photo'
 				}));
 
@@ -267,11 +269,22 @@
 		};
 		
 		var handleRowClick = function(e) {
-			Ti.API.debug('Flashlight item clicked [' + e.source.type + ']');
-			meme.ui.alert({
-				title: 'To Do',
-				message: 'Not implemented yet :('
-			});
+			Ti.API.debug('Flashlight item clicked [' + e.source.type + '][' + e.source.subType + ']');
+			
+			if (e.source.type == 'photo') {
+				Ti.API.debug('Photo item clicked [' + e.source.title + '][' + e.source.photoUrl + ']');
+				meme.ui.post.window.setMedia({
+					type: 'photo',
+					url: e.source.photoUrl,
+					title: e.source.title
+				});
+			} else {
+				meme.ui.alert({
+					title: 'To Do',
+					message: 'Under construction :)\n(This is a development version and Flashlight is working only for photos)'
+				});
+			}
+			
 			meme.ui.flashlight.window.close();
 		};
 		

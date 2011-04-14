@@ -194,10 +194,17 @@
 					attachmentContainerSubView.remove(imagePreview);
 					imagePreview = null;
 				}
-
-				imagePreview = Ti.UI.createImageView({
-					image: meme.util.resizeImage(190, 140, data.media)
-				});
+				
+				if (data.media) {
+					imagePreview = Ti.UI.createImageView({
+						image: meme.util.resizeImage(190, 140, data.media)
+					});
+				} else if (data.url) {
+					imagePreview = Ti.UI.createImageView({
+						image: data.url
+					});
+				}
+				
 				attachmentContainerSubView.add(imagePreview);
 			};
 
