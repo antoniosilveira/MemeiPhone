@@ -147,23 +147,31 @@
 			});
 			postWindow.add(attachmentsView);
 
-			var newMediaButton = Titanium.UI.createButton({
+			var newImageButton = Titanium.UI.createButton({
 				backgroundImage: 'images/en/btn_new_image.png',
 				width: 190,
 				height: 41,
 				top: 170,
-				left: 65
+				left: 65,
+				visible: false
 			});
-			newMediaButton.addEventListener('click', function() {
-				if (postMedia && postMedia.media) {
-					choosePhotoFromCameraOrGallery();
-				} else if (postMedia && postMedia.url) {
-					meme.ui.flashlight.window.open();
-				} else {
-					Ti.API.warn('post media is undefined when choosing new attachment');
-				}
+			newImageButton.addEventListener('click', function() {
+				choosePhotoFromCameraOrGallery();
 			});
-			attachmentsView.add(newMediaButton);
+			attachmentsView.add(newImageButton);
+			
+			var newFlashlightMediaButton = Titanium.UI.createButton({
+				backgroundImage: 'images/en/btn_new_flashlight_media.png',
+				width: 140,
+				height: 18,
+				top: 180,
+				left: 90,
+				visible: false
+			});
+			newFlashlightMediaButton.addEventListener('click', function() {
+				meme.ui.flashlight.window.open();
+			});
+			attachmentsView.add(newFlashlightMediaButton);
 
 			var attachmentContainerView = Ti.UI.createView({
 				backgroundColor: 'white',
@@ -211,25 +219,16 @@
 						image: meme.util.resizeImage(190, 140, data.media)
 					});
 					
-					// TODO: REFACTOR!!!!
-					newMediaButton.backgroundImage = 'images/en/btn_new_image.png';
-					newMediaButton.width = 190;
-					newMediaButton.height = 41;
-					newMediaButton.top = 170;
-					newMediaButton.left = 65;
-					
+					newFlashlightMediaButton.hide();
+					newImageButton.show();
 				} else if (data.url) {
 					setFlashlightAttachmentButtonOn();
 					imagePreview = Ti.UI.createImageView({
 						image: data.url
 					});
 					
-					// TODO: REFACTOR!!!!
-					newMediaButton.backgroundImage = 'images/en/btn_new_flashlight_media.png';
-					newMediaButton.width = 140;
-					newMediaButton.height = 18;
-					newMediaButton.top = 180;
-					newMediaButton.left = 90;
+					newImageButton.hide();
+					newFlashlightMediaButton.show();
 				}
 				
 				attachmentContainerSubView.add(imagePreview);
