@@ -538,27 +538,35 @@
 				var response = null;
 				if (postMedia) {
 					if (postMedia.type == 'photo') {
-						meme.api.uploadImage({
-							image: postMedia.media,
-							updateProgressCallback: updateProgress,
-							successCallback: function(url) {
-								updateProgress(1, 'Posting on Meme');
-								response = meme.api.createPhotoPost(url, content);
-								hideProgress();
-								displayPostSuccess(response);
-							},
-							errorCallback: function() {
-								hideProgress();
-								meme.ui.alert({
-									title: 'Error',
-									message: 'Error uploading image. Please try again in a few seconds.',
-									buttonNames: ['Ok'],
-									onClick: function() {
-										postWindow.close();
-									}
-								});
-							}
-						});
+						if (postMedia.media) {
+							meme.api.uploadImage({
+								image: postMedia.media,
+								updateProgressCallback: updateProgress,
+								successCallback: function(url) {
+									updateProgress(1, 'Posting on Meme');
+									response = meme.api.createPhotoPost(url, content);
+									hideProgress();
+									displayPostSuccess(response);
+								},
+								errorCallback: function() {
+									hideProgress();
+									meme.ui.alert({
+										title: 'Error',
+										message: 'Error uploading image. Please try again in a few seconds.',
+										buttonNames: ['Ok'],
+										onClick: function() {
+											postWindow.close();
+										}
+									});
+								}
+							});
+						} else {
+							updateProgress(0.5);
+							response = meme.api.createPhotoPost(postMedia.url, content);
+							updateProgress(1);
+							hideProgress();
+							displayPostSuccess(response);
+						}
 					}
 				} else {
 					updateProgress(0.5);
