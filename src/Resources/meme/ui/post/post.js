@@ -36,8 +36,8 @@
 		// url: 'url of the video/image'
 		// media: 'the actual media (photo only)'
 		var setMedia = function(data) {
+			removeMedia();
 			postMedia = data;
-			setAttachmentButtonOn();
 			addAttachmentPreview(data);
 			showAttachments();
 			moveButtonBarUp();
@@ -45,7 +45,8 @@
 
 		var removeMedia = function() {
 			postMedia = null;
-			setAttachmentButtonOff();
+			setPictureAttachmentButtonOff();
+			setFlashlightAttachmentButtonOff();
 		};
 
 		var getTitle, getText, setTextFieldHeight, closeKeyboard;
@@ -133,7 +134,10 @@
 			};
 		};
 
-		var showAttachments, hideAttachments, addAttachmentPreview, attachmentsOn = false;
+		var showAttachments, 
+			hideAttachments, 
+			addAttachmentPreview, 
+			attachmentsOn = false;
 		var createPostWindowAttachmentsView = function() {
 			var attachmentsView = Ti.UI.createView({
 				backgroundImage: 'images/below_keyboard_bg.png',
@@ -196,10 +200,12 @@
 				}
 				
 				if (data.media) {
+					setPictureAttachmentButtonOn();
 					imagePreview = Ti.UI.createImageView({
 						image: meme.util.resizeImage(190, 140, data.media)
 					});
 				} else if (data.url) {
+					setFlashlightAttachmentButtonOn();
 					imagePreview = Ti.UI.createImageView({
 						image: data.url
 					});
@@ -289,7 +295,12 @@
 		    dialog.show();	
 		};
 
-		var moveButtonBarUp, moveButtonBarDown, setAttachmentButtonOn, setAttachmentButtonOff;
+		var moveButtonBarUp, 
+			moveButtonBarDown, 
+			setPictureAttachmentButtonOn, 
+			setPictureAttachmentButtonOff,
+			setFlashlightAttachmentButtonOn, 
+			setFlashlightAttachmentButtonOff;
 		var createPostWindowButtons = function() {
 			var closeButton = Titanium.UI.createButton({
 				backgroundImage: 'images/close_post.png',
@@ -323,7 +334,13 @@
 				width: 146, 
 				height: 43
 			});
-			flashlightButton.addEventListener('click', meme.ui.flashlight.window.open);
+			flashlightButton.addEventListener('click', function(e) {
+				if (postMedia && postMedia.url) {
+					showOrHideAttachments();
+				} else {
+					meme.ui.flashlight.window.open();
+				}
+			});
 			buttonBar.add(flashlightButton);
 
 			var pictureButton = Ti.UI.createButton({
@@ -334,7 +351,7 @@
 				height: 43
 			});
 			pictureButton.addEventListener('click', function(e) {
-				if (postMedia) {
+				if (postMedia && postMedia.media) {
 					showOrHideAttachments();
 				} else {
 					choosePhotoFromCameraOrGallery();
@@ -354,11 +371,19 @@
 			});
 			buttonBar.add(postButton);
 
-			setAttachmentButtonOn = function() {
+			setFlashlightAttachmentButtonOn = function() {
+				flashlightButton.image = 'images/postbar_flashlight_item.png';
+			};
+			
+			setFlashlightAttachmentButtonOff = function() {
+				flashlightButton.image = 'images/postbar_flashlight.png';
+			};
+			
+			setPictureAttachmentButtonOn = function() {
 				pictureButton.image = 'images/postbar_image_item.png';
 			};
 
-			setAttachmentButtonOff = function() {
+			setPictureAttachmentButtonOff = function() {
 				pictureButton.image = 'images/postbar_image.png';
 			};
 
