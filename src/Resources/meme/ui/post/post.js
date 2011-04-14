@@ -522,7 +522,7 @@
 					opacity: 0.3,
 					height: 460,
 					width: 320,
-					zIndex: 2
+					zIndex: 50
 				});
 				postWindow.add(blackScreen);
 
