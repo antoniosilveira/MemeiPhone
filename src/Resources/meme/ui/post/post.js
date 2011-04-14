@@ -38,7 +38,7 @@
 		var setMedia = function(data) {
 			removeMedia();
 			postMedia = data;
-			addAttachmentPreview(data);
+			createAttachmentPreview(data);
 			showAttachments();
 			moveButtonBarUp();
 		};
@@ -136,7 +136,7 @@
 
 		var showAttachments, 
 			hideAttachments, 
-			addAttachmentPreview, 
+			createAttachmentPreview, 
 			attachmentsOn = false;
 		var createPostWindowAttachmentsView = function() {
 			var attachmentsView = Ti.UI.createView({
@@ -147,17 +147,23 @@
 			});
 			postWindow.add(attachmentsView);
 
-			var newPictureButton = Titanium.UI.createButton({
+			var newMediaButton = Titanium.UI.createButton({
 				backgroundImage: 'images/en/btn_new_image.png',
 				width: 190,
 				height: 41,
 				top: 170,
 				left: 65
 			});
-			newPictureButton.addEventListener('click', function() {
-				choosePhotoFromCameraOrGallery();
+			newMediaButton.addEventListener('click', function() {
+				if (postMedia && postMedia.media) {
+					choosePhotoFromCameraOrGallery();
+				} else if (postMedia && postMedia.url) {
+					meme.ui.flashlight.window.open();
+				} else {
+					Ti.API.warn('post media is undefined when choosing new attachment');
+				}
 			});
-			attachmentsView.add(newPictureButton);
+			attachmentsView.add(newMediaButton);
 
 			var attachmentContainerView = Ti.UI.createView({
 				backgroundColor: 'white',
@@ -193,8 +199,8 @@
 			attachmentsView.add(removeAttachmentButton);
 
 			var imagePreview;
-			addAttachmentPreview = function(data) {
-				if (imagePreview) {
+			createAttachmentPreview = function(data) {
+				if (imagePreview != null) {
 					attachmentContainerSubView.remove(imagePreview);
 					imagePreview = null;
 				}
@@ -204,11 +210,26 @@
 					imagePreview = Ti.UI.createImageView({
 						image: meme.util.resizeImage(190, 140, data.media)
 					});
+					
+					// TODO: REFACTOR!!!!
+					newMediaButton.backgroundImage = 'images/en/btn_new_image.png';
+					newMediaButton.width = 190;
+					newMediaButton.height = 41;
+					newMediaButton.top = 170;
+					newMediaButton.left = 65;
+					
 				} else if (data.url) {
 					setFlashlightAttachmentButtonOn();
 					imagePreview = Ti.UI.createImageView({
 						image: data.url
 					});
+					
+					// TODO: REFACTOR!!!!
+					newMediaButton.backgroundImage = 'images/en/btn_new_flashlight_media.png';
+					newMediaButton.width = 140;
+					newMediaButton.height = 18;
+					newMediaButton.top = 180;
+					newMediaButton.left = 90;
 				}
 				
 				attachmentContainerSubView.add(imagePreview);
