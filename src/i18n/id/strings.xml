@@ -60,6 +60,7 @@
   <string name="flashlight_search">search</string>
   <string name="flashlight_loading">loading</string>
   <string name="flashlight_loading_results">loading results</string>
+  <string name="flashlight_results_more">more</string>
   <string name="flashlight_btn_new_media">new flashlight media</string>
   <string name="flashlight_search_noresults_title">Your terms did not match any results.</string>
   <string name="flashlight_search_noresults_tips">Tips:</string>
