@@ -39,7 +39,9 @@
 			removeMedia();
 			postMedia = data;
 			createAttachmentPreview(data);
-			setTitle(data.title);
+			if (getTitle() == '') {
+				setTitle(data.title);
+			}
 			showAttachments();
 			moveButtonBarUp();
 		};
