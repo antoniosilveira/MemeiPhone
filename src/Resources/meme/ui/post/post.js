@@ -39,6 +39,7 @@
 			removeMedia();
 			postMedia = data;
 			createAttachmentPreview(data);
+			setTitle(data.title);
 			showAttachments();
 			moveButtonBarUp();
 		};
@@ -49,7 +50,7 @@
 			setFlashlightAttachmentButtonOff();
 		};
 
-		var getTitle, getText, setTextFieldHeight, closeKeyboard;
+		var getTitle, setTitle, getText, setTextFieldHeight, closeKeyboard;
 		var createPostWindowFields = function() {
 			var topRoundedBackground = Titanium.UI.createView({
 				backgroundImage: 'images/postarea_topbg.png',
@@ -113,6 +114,12 @@
 			});
 			postWindow.add(textField);
 
+			setTitle = function(title) {
+				if (title) {
+					titleField.value = title;
+				}
+			};
+			
 			getTitle = function() {
 				return titleField.value;
 			};
