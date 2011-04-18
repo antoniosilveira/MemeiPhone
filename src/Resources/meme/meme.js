@@ -5,6 +5,10 @@ var meme = {};
 	// application-global variables
 	meme.app = {};
 	
+	meme.app.lang = function() {
+		return Ti.Locale.currentLanguage;
+	};
+	
 	meme.app.userInfo = function() {
 		if (meme.auth.oadapter && meme.auth.oadapter.isLoggedIn()) {
 			return meme.api.userInfo(meme.auth.oadapter.getUserGuid());
