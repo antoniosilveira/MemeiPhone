@@ -13,6 +13,7 @@
 				width: 320
 			});
 			
+			createHeader();
 			createButtons();
 			createFooter();
 			
@@ -20,6 +21,26 @@
 				transition: Ti.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT,
 				duration: 300
 			});
+		};
+		
+		var createHeader = function() {
+			var logoView = Ti.UI.createView({
+				top: 40,
+				width: 320,
+				height: 119,
+				backgroundImage: 'images/en/about_memeforiphone.png'
+			});
+			aboutWindow.add(logoView);
+			
+			var versionLabel = Ti.UI.createLabel({
+				text: 'version 1.0.0',
+				color: 'white',
+				top: 59,
+				left: 100,
+				height: 15,
+				font: { fontSize: 11, fontFamily: 'Helvetica', fontWeight: 'Light' }
+			});
+			logoView.add(versionLabel);
 		};
 		
 		var createButtons = function() {
@@ -49,7 +70,7 @@
 			var count = 0
 			for (key in buttons) {
 				var aboutButton = Ti.UI.createButton({
-					top: 160 + (count * 52),
+					top: 159 + (count * 52),
 					width: 320,
 					height: 52,
 					backgroundImage: 'images/about_btn.png'
@@ -75,7 +96,22 @@
 		};
 		
 		var createFooter = function() {
+			var footerView = Ti.UI.createView({
+				height: 41,
+				width: 320,
+				backgroundColor: 'black',
+				bottom: 0
+			});
+			aboutWindow.add(footerView);
 			
+			var copyrightLabel = Ti.UI.createLabel({
+				text: 'Copyright © 2011 Yahoo! All rights reserved.',
+				color: '#333333',
+				font: { fontSize: 11, fontFamily: 'Helvetica' },
+				width: 320,
+				textAlign: 'center'
+			});
+			footerView.add(copyrightLabel);
 		};
 		
 		return {
