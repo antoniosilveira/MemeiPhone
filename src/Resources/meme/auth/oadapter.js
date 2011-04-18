@@ -194,6 +194,8 @@
 			OAuth.completeRequest(message, accessor);
 
 			var client = Ti.Network.createHTTPClient();
+			client.setTimeout(30000); // timeout for queries is 30 seconds
+			
 			var myUrl  = OAuth.addToURL(pUrl, message.parameters);
 
 			client.open(message.method, myUrl, false);
