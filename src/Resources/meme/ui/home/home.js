@@ -78,6 +78,7 @@
 				left: 9,
 				style: Titanium.UI.iPhone.SystemButton.INFO_LIGHT
 			});
+			iButton.addEventListener('click', meme.ui.about.window.open);
 			logoutBarView.add(iButton);
 
 			var textBarView = Ti.UI.createView({
