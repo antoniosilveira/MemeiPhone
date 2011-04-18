@@ -92,7 +92,7 @@
 				left: 0,
 				color: '#999',
 				font: { fontSize: 10, fontFamily: 'Helvetica' },
-				text: 'you are signed in as'
+				text: L('home_signed_in_as')
 			});
 			textBarView.add(signedInAsLabel);
 
@@ -111,7 +111,7 @@
 				width: 42,
 				color: '#9F1392',
 				font: { fontSize: 11, fontFamily: 'Helvetica' },
-				title: 'sign out',
+				title: L('home_sign_out'),
 				style: Titanium.UI.iPhone.SystemButtonStyle.PLAIN
 			});
 			signOutLabel.addEventListener('click', function(e) {

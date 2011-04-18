@@ -64,7 +64,7 @@
 			postWindow.add(topRoundedBackground);
 
 			var titleField = Ti.UI.createTextField({
-				hintText: 'add title',
+				hintText: L('post_add_title'),
 				textAlign: 'left',
 				verticalAlign: 'center',
 				font: { fontSize: 20, fontFamily: 'Helvetica', fontWeight: 'bold' },
@@ -276,7 +276,7 @@
 
 		var choosePhotoFromCameraOrGallery = function() {
 			var dialog = Titanium.UI.createOptionDialog({
-		        options: ['Take photo with camera','Choose existing', 'Cancel'],
+		        options: [L('post_btn_take_photo'), L('post_btn_choose_existing'), L('alert_btn_cancel')],
 		        cancel: 2
 		    });
 
@@ -295,14 +295,14 @@
 							});
 						},
 						error: function(e) {
-							var message = 'Unexpected error: ' + e.code;
+							var message = String.format(L('post_alert_unexpected_error'), e.code);
 							if (e.code == Ti.Media.NO_CAMERA) {
-								message = 'Device does not have camera.';
+								message = L('post_alert_camera_error');
 							}
 							meme.ui.alert({
-								title: 'Error',
+								title: L('alert_error_title'),
 								message: message,
-								buttonNames: ['Ok']
+								buttonNames: [L('alert_btn_ok')]
 							});
 						}
 					});
@@ -468,7 +468,7 @@
 				max: 1,
 				value: 0,
 				style: Titanium.UI.iPhone.ProgressBarStyle.BAR,
-				message: 'Posting on Meme',
+				message: L('post_posting_on_meme'),
 				font: { fontSize: 16, fontWeight: 'bold' },
 				color: 'white'
 			});
@@ -482,7 +482,7 @@
 				top: 13,
 				height: 52,
 				width: 90,
-			    title: 'Cancel',
+			    title: L('alert_btn_cancel'),
 				color: 'white',
 				textAlign: 'center',
 				font: { fontSize: 12, fontFamily: 'Helvetica', fontWeight: 'bold' },
@@ -521,9 +521,9 @@
 
 			if ((getTitle() == '') && (getText() == '')) {
 				meme.ui.alert({
-					title: 'Oops...',
-					message: 'What about writing something before posting?',
-					buttonNames: [ 'Ok' ]
+					title: L('alert_oops_title'),
+					message: L('post_alert_empty_error'),
+					buttonNames: [L('alert_btn_ok')]
 				});
 			} else {
 				var blackScreen = Ti.UI.createView({
@@ -535,7 +535,7 @@
 				});
 				postWindow.add(blackScreen);
 
-				showProgress('Posting on Meme');
+				showProgress(L('post_posting_on_meme'));
 
 				var content = '';
 				if (getTitle() != '') {
@@ -552,7 +552,7 @@
 								image: postMedia.media,
 								updateProgressCallback: updateProgress,
 								successCallback: function(url) {
-									updateProgress(1, 'Posting on Meme');
+									updateProgress(1, L('post_posting_on_meme'));
 									response = meme.api.createPhotoPost(url, content);
 									hideProgress();
 									displayPostSuccess(response);
@@ -560,9 +560,9 @@
 								errorCallback: function() {
 									hideProgress();
 									meme.ui.alert({
-										title: 'Error',
-										message: 'Error uploading image. Please try again in a few seconds.',
-										buttonNames: ['Ok'],
+										title: L('alert_error_title'),
+										message: L('post_alert_image_upload_error'),
+										buttonNames: [L('alert_btn_ok')],
 										onClick: function() {
 											postWindow.close();
 										}
@@ -589,9 +589,9 @@
 
 		var displayPostSuccess = function(response) {
 			meme.ui.alert({
-				title: 'Success',
-				message: 'Posted on Meme successfully!',
-				buttonNames: ['View Post', 'Copy URL', 'Ok'],
+				title: L('alert_success_title'),
+				message: L('post_alert_success_message'),
+				buttonNames: [L('post_alert_btn_view_post'), L('post_alert_btn_copy_url'), L('alert_btn_ok')],
 				onClick: function(e) {
 					if (e.index == 0) {
 						meme.ui.openLinkOnSafari({
@@ -600,9 +600,9 @@
 					} else if (e.index == 1) {
 						Ti.UI.Clipboard.setText(response.status.post.url);
 						meme.ui.alert({
-							title: 'Success',
-							message: 'The URL was copied to your clipboard',
-							buttonNames: ['Ok']
+							title: L('alert_success_title'),
+							message: L('post_alert_clipboard_message'),
+							buttonNames: [L('alert_btn_ok')]
 						});
 					}
 					postWindow.close();

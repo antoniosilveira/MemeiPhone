@@ -10,6 +10,7 @@
   <string name="alert_error_title">Error</string>
   <string name="alert_oops_title">Oops...</string>
   <string name="alert_success_title">Success</string>
+  <string name="alert_yql_error">Error in YQL query, please try again in a few seconds.</string>
   
   <!-- Logged-out home -->
   <string name="home_try_it_now">try it now!</string>
@@ -29,7 +30,7 @@
   <string name="about_title">about</string>
   <string name="about_btn_done">done</string>
   <string name="about_appname">meme for iPhone</string>
-  <string name="about_version">version</string>
+  <string name="about_version">version %s</string>
   <string name="about_utos">Yahoo! Terms of Service</string>
   <string name="about_atos">Additional Terms of Service</string>
   <string name="about_privacy">Privacy Policy</string>
@@ -45,9 +46,8 @@
   <string name="post_btn_choose_existing">Choose existing</string>
   <string name="post_btn_new_image">new image</string>
   <string name="post_uploading_image">Uploading image</string>
-  <string name="post_uploading_image">Posting on Meme</string>
-  <string name="post_alert_title">Success</string>
-  <string name="post_alert_message">Posted on Meme successfully!</string>
+  <string name="post_posting_on_meme">Posting on Meme</string>
+  <string name="post_alert_success_message">Posted on Meme successfully!</string>
   <string name="post_alert_btn_view_post">View Post</string>
   <string name="post_alert_btn_copy_url">Copy URL</string>
   <string name="post_alert_camera_error">Device does not have camera.</string>

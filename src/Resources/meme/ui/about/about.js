@@ -33,7 +33,7 @@
 			aboutWindow.add(aboutBar);
 			
 			var aboutLabel = Ti.UI.createLabel({
-				text: 'about',
+				text: L('about_title'),
 				color: 'white',
 				height: 22,
 				left: 60,
@@ -49,7 +49,7 @@
 				height: 30,
 				width: 60,
 				backgroundImage: 'images/btn_done.png',
-				title: 'done',
+				title: L('about_btn_done'),
 				font: { fontSize: 12, fontFamily: 'Helvetica Neue', fontWeight: 'Bold' }
 			});
 			doneButton.addEventListener('click', function() {
@@ -69,7 +69,7 @@
 			aboutWindow.add(logoView);
 			
 			var versionLabel = Ti.UI.createLabel({
-				text: 'version ' + Ti.App.version,
+				text: String.format(L('about_version'), Ti.App.version),
 				color: 'white',
 				top: 59,
 				left: 100,
@@ -82,23 +82,23 @@
 		var createButtons = function() {
 			var buttons = {
 				tos: {
-					text: 'Yahoo! Terms of Service',
+					text: L('about_utos'),
 					url: 'http://meme.yahoo.com/help/utos/?.lang=' + meme.app.lang()
 				},
 				atos: {
-					text: 'Additional Terms of Service',
+					text: L('about_atos'),
 					url: 'http://meme.yahoo.com/help/atos/?.lang=' + meme.app.lang()
 				},
 				privacy: {
-					text: 'Privacy Policy',
+					text: L('about_privacy'),
 					url: 'http://meme.yahoo.com/help/privacy/?.lang=' + meme.app.lang()
 				},
 				guidelines: {
-					text: 'Community Guidelines',
+					text: L('about_community'),
 					url: 'http://meme.yahoo.com/help/guidelines/?.lang=' + meme.app.lang()
 				},
 				feedback: {
-					text: 'Send us feedback',
+					text: L('about_feedback'),
 					url: 'http://meme.yahoo.com/help/feedback/?.lang=' + meme.app.lang()
 				}
 			};			
@@ -141,7 +141,7 @@
 			aboutWindow.add(footerView);
 			
 			var copyrightLabel = Ti.UI.createLabel({
-				text: 'Copyright © 2011 Yahoo! All rights reserved.',
+				text: L('about_copyright'),
 				color: '#333333',
 				font: { fontSize: 11, fontFamily: 'Helvetica' },
 				width: 320,

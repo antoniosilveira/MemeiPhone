@@ -162,8 +162,8 @@
 					errorCallback();
 				} else {
 					meme.ui.alert({
-						title: 'Oops...',
-						message: 'Error in YQL query, please try again in a few seconds.'
+						title: L('alert_oops_title'),
+						message: L('alert_yql_error')
 					});
 				}
 			}
@@ -257,7 +257,7 @@
 		};
 
 		xhr.onsendstream = function(e) {
-			options.updateProgressCallback(e.progress, 'Uploading image');
+			options.updateProgressCallback(e.progress, L('post_uploading_image'));
 			Ti.API.debug('upload progress: ' + e.progress);
 		};
 

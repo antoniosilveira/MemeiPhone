@@ -92,7 +92,7 @@
 			flashlightWindow.add(flashlightField);
 
 			var searchField = Ti.UI.createTextField({
-				hintText: 'search',
+				hintText: L('flashlight_search'),
 				textAlign: 'left',
 				verticalAlign: 'center',
 				color: '#666666',
@@ -246,7 +246,7 @@
 				left: 40,
 				width: 240, 
 				height: 58, 
-				text: 'Your terms did not match any results.',
+				text: L('flashlight_search_noresults_title'),
 				color: '#923385',
 				font: { fontSize: 25, fontFamily: 'Helvetica', fontWeight: 'bold' }
 			});
@@ -257,7 +257,7 @@
 				left: 40,
 				width: 240, 
 				height: 16, 
-				text: 'Tips:',
+				text: L('flashlight_search_noresults_tips'),
 				color: '#222222',
 				font: { fontSize: 12, fontFamily: 'Helvetica', fontWeight: 'bold' }
 			});
@@ -268,7 +268,7 @@
 				left: 40,
 				width: 240, 
 				height: 40, 
-				text: 'Make sure all words are spelled correctly.\nTry different keywords.\nTry being more specific.',
+				text: L('flashlight_search_noresults_tip_spelling') + '\n' + L('flashlight_search_noresults_tip_keywords') + '\n' + L('flashlight_search_noresults_tip_specific'),
 				color: '#666666',
 				font: { fontSize: 11, fontFamily: 'Helvetica' }
 			});

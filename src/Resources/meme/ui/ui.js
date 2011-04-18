@@ -9,7 +9,7 @@
 	// 	buttonNames: ['There', 'Are', 'Optional']
 	// }
 	meme.ui.alert = function(options) {
-		var buttonNames = ['Ok', 'Cancel'];
+		var buttonNames = [L('alert_btn_ok'), L('alert_btn_cancel')];
 		if (options.buttonNames) {
 			buttonNames = options.buttonNames;
 		}
@@ -27,10 +27,10 @@
 	// Must pass at least options.url, other parameters are optional
 	meme.ui.openLinkOnSafari = function(options) {
 		if (!options.title) {
-			options.title = 'Open link';
+			options.title = L('alert_openlink_title');
 		}
 		if (!options.message) {
-			options.message = 'We will open a page on Safari';
+			options.message = L('alert_openlink_message');
 		}
 		options.onClick = function(e) {
 			if (e.index == 0){
@@ -42,8 +42,8 @@
 	
 	meme.ui.createAccount = function() {
 		meme.ui.openLinkOnSafari({
-			title: 'Create your account',
-			message: 'We will now open the Sign Up page on Safari',
+			title: L('home_try_it_now_alert_title'),
+			message: L('home_try_it_now_alert_message'),
 			url: 'http://meme.yahoo.com/confirm'
 		});
 	};
