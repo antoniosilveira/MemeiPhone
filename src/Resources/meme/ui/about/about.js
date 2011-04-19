@@ -142,7 +142,7 @@
 			
 			var copyrightLabel = Ti.UI.createLabel({
 				text: L('about_copyright'),
-				color: '#333333',
+				color: '#4E4E4E',
 				font: { fontSize: 11, fontFamily: 'Helvetica' },
 				width: 320,
 				textAlign: 'center'
