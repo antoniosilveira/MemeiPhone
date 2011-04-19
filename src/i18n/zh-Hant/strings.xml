@@ -6,19 +6,19 @@
   <string name="alert_btn_ok">Ok</string>
   <string name="alert_btn_cancel">Cancel</string>
   <string name="alert_openlink_title">Open link</string>
-  <string name="alert_openlink_message">We will open a page on Safari</string>
+  <string name="alert_openlink_message">Open page on Safari?</string>
   <string name="alert_error_title">Error</string>
   <string name="alert_oops_title">Oops...</string>
   <string name="alert_success_title">Success</string>
-  <string name="alert_yql_error">Error in YQL query, please try again in a few seconds.</string>
+  <string name="alert_yql_error">API error, please try again in a few seconds.</string>
   
   <!-- Logged-out home -->
   <string name="home_try_it_now">try it now!</string>
-  <string name="home_try_it_now_subtitle">create your blog, start posting in 30 sec</string>
+  <string name="home_try_it_now_subtitle">create your blog and start posting right away</string>
   <string name="home_sign_in">sign in</string>
   <string name="home_sign_in_subtitle">if you already have an account</string>
-  <string name="home_try_it_now_alert_title">Create your account</string>
-  <string name="home_try_it_now_alert_message">We will now open the Sign Up page on Safari</string>
+  <string name="home_try_it_now_alert_title">Create your blog</string>
+  <string name="home_try_it_now_alert_message">Open the Sign Up page on Safari?</string>
   
   <!-- Logged-in home -->
   <string name="home_signed_in_as">you are signed in as</string>
@@ -29,12 +29,11 @@
   <!-- About -->
   <string name="about_title">about</string>
   <string name="about_btn_done">done</string>
-  <string name="about_appname">meme for iPhone</string>
   <string name="about_version">version %s</string>
   <string name="about_utos">Yahoo! Terms of Service</string>
   <string name="about_atos">Additional Terms of Service</string>
   <string name="about_privacy">Privacy Policy</string>
-  <string name="about_community">Community Guidelines</string>
+  <string name="about_community">Guidelines</string>
   <string name="about_feedback">Send us feedback</string>
   <string name="about_copyright">Copyright © 2011 Yahoo! All rights reserved.</string>
   
@@ -45,10 +44,11 @@
   <string name="post_btn_take_photo">Take photo with camera</string>
   <string name="post_btn_choose_existing">Choose existing</string>
   <string name="post_btn_new_image">new image</string>
+  <string name="post_posting_pre">Preparing to post</string>
   <string name="post_uploading_image">Uploading image</string>
   <string name="post_posting_on_meme">Posting on Meme</string>
   <string name="post_alert_success_message">Posted on Meme successfully!</string>
-  <string name="post_alert_btn_view_post">View Post</string>
+  <string name="post_alert_btn_view_post">View post on Safari</string>
   <string name="post_alert_btn_copy_url">Copy URL</string>
   <string name="post_alert_camera_error">Device does not have camera.</string>
   <string name="post_alert_unexpected_error">Unexpected error: %s</string>
@@ -61,10 +61,10 @@
   <string name="flashlight_loading">loading</string>
   <string name="flashlight_loading_results">loading results</string>
   <string name="flashlight_results_more">more</string>
-  <string name="flashlight_btn_new_media">new flashlight media</string>
-  <string name="flashlight_search_noresults_title">Your terms did not match any results.</string>
+  <string name="flashlight_btn_new_media">new flashlight search</string>
+  <string name="flashlight_search_noresults_title">Your search didn't match any results.</string>
   <string name="flashlight_search_noresults_tips">Tips:</string>
   <string name="flashlight_search_noresults_tip_spelling">Make sure all words are spelled correctly.</string>
   <string name="flashlight_search_noresults_tip_keywords">Try different keywords.</string>
-  <string name="flashlight_search_noresults_tip_specific">Try to be more specific.</string>
+  <string name="flashlight_search_noresults_tip_specific">Try to be more specific. Or vague ;)</string>
 </resources>
