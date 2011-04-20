@@ -163,11 +163,11 @@
 				height: 110
 			});
 			createPostButton.addEventListener('click', function() {
+				meme.ui.post.window.open();
 				homeWindow.animate({
 					duration: 250,
 					left: -320
 				});
-				meme.ui.post.window.open();
 			});
 			
 			loggedInView.add(createPostButton);
