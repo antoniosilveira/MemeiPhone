@@ -90,6 +90,7 @@
 			var signedInAsLabel = Ti.UI.createLabel({
 				top: 0,
 				left: 0,
+				width: 'auto',
 				color: '#999',
 				font: { fontSize: 10, fontFamily: 'Helvetica' },
 				text: L('home_signed_in_as')
@@ -98,7 +99,7 @@
 
 			var usernameLabel = Ti.UI.createLabel({
 				top: 0,
-				left: 98,
+				left: signedInAsLabel.width + 4,
 				width: 'auto',
 				color: 'white',
 				font: { fontSize: 12, fontFamily: 'Helvetica', fontWeight: 'Bold' }
