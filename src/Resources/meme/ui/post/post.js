@@ -23,6 +23,7 @@
 			postWindow.addEventListener('close', function() {
 				postWindow = null;
 				postMedia = null;
+				meme.ui.home.window.show();
 			});
 
 			postWindow.open(Ti.UI.createAnimation({

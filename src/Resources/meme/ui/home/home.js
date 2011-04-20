@@ -27,6 +27,13 @@
 				refresh();
 			}
 		};
+		
+		var show = function() {
+			homeWindow.animate({
+				duration: 250,
+				left: 0
+			});
+		};
 
 		var refresh = function() {
 			setTimeout(function() {
@@ -155,7 +162,14 @@
 				width: 320, 
 				height: 110
 			});
-			createPostButton.addEventListener('click', meme.ui.post.window.open);
+			createPostButton.addEventListener('click', function() {
+				homeWindow.animate({
+					duration: 250,
+					left: -320
+				});
+				meme.ui.post.window.open();
+			});
+			
 			loggedInView.add(createPostButton);
 
 			var yourBlogButton = Titanium.UI.createButton({
@@ -227,6 +241,7 @@
 		
 		return {
 			open: open,
+			show: show,
 			refresh: refresh
 		};
 		
