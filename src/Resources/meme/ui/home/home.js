@@ -62,7 +62,7 @@
 		var configureLogoutBar, showLogoutBar, hideLogoutBar;
 		var createHeader = function() {
 			var logoView = Ti.UI.createView({
-				backgroundImage: 'images/en/logo_big.png',
+				backgroundImage: 'images/' + meme.app.lang() + '/logo_big.png',
 				top: 57,
 				left: 28,
 				width: 263,
@@ -156,7 +156,7 @@
 			homeWindow.add(loggedInView);
 
 			var createPostButton = Titanium.UI.createButton({
-				image: 'images/en/home_button_create_post.png',
+				image: 'images/' + meme.app.lang() + '/home_button_create_post.png',
 				left: 0,
 				top: 0,
 				width: 320, 
@@ -173,7 +173,7 @@
 			loggedInView.add(createPostButton);
 
 			var yourBlogButton = Titanium.UI.createButton({
-				image: 'images/en/home_button_your_blog.png',
+				image: 'images/' + meme.app.lang() + '/home_button_your_blog.png',
 				left: 0,
 				top: 110,
 				width: 320, 
@@ -209,7 +209,7 @@
 			homeWindow.add(loggedOutView);
 
 			var tryNowButton = Titanium.UI.createButton({
-				image: 'images/en/home_button_tryitnow.png',
+				image: 'images/' + meme.app.lang() + '/home_button_tryitnow.png',
 				left: 0,
 				top: 0,
 				width: 320, 
@@ -219,7 +219,7 @@
 			loggedOutView.add(tryNowButton);
 
 			var signInButton = Titanium.UI.createButton({
-				image: 'images/en/home_button_signin.png',
+				image: 'images/' + meme.app.lang() + '/home_button_signin.png',
 				left: 0,
 				top: 110,
 				width: 320, 
