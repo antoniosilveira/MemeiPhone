@@ -158,7 +158,7 @@
 			postWindow.add(attachmentsView);
 
 			var newImageButton = Titanium.UI.createButton({
-				backgroundImage: 'images/en/btn_new_image.png',
+				backgroundImage: 'images/' + meme.app.lang() + '/btn_new_image.png',
 				width: 190,
 				height: 41,
 				top: 170,
@@ -171,7 +171,7 @@
 			attachmentsView.add(newImageButton);
 			
 			var newFlashlightMediaButton = Titanium.UI.createButton({
-				backgroundImage: 'images/en/btn_new_flashlight_media.png',
+				backgroundImage: 'images/' + meme.app.lang() + '/btn_new_flashlight_media.png',
 				width: 140,
 				height: 18,
 				top: 180,
@@ -390,7 +390,7 @@
 			buttonBar.add(pictureButton);
 
 			var postButton = Ti.UI.createButton({
-				image: 'images/en/postbar_post.png',
+				image: 'images/' + meme.app.lang() + '/postbar_post.png',
 				top: 0,
 				left: 214,
 				width: 106, 
