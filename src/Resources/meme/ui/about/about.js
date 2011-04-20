@@ -64,7 +64,7 @@
 				top: 40,
 				width: 320,
 				height: 119,
-				backgroundImage: 'images/en/about_memeforiphone.png'
+				backgroundImage: 'images/' + meme.app.lang() + '/about_memeforiphone.png'
 			});
 			aboutWindow.add(logoView);
 			
