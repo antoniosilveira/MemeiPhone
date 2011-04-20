@@ -83,40 +83,38 @@
 			var buttons = {
 				tos: {
 					text: L('about_utos'),
-					url: 'http://meme.yahoo.com/help/utos/?.lang=' + meme.app.lang()
+					url: 'http://meme.yahoo.com/help/utos/?.lang=%s'
 				},
 				atos: {
 					text: L('about_atos'),
-					url: 'http://meme.yahoo.com/help/atos/?.lang=' + meme.app.lang()
+					url: 'http://meme.yahoo.com/help/atos/?.lang=%s'
 				},
 				privacy: {
 					text: L('about_privacy'),
-					url: 'http://meme.yahoo.com/help/privacy/?.lang=' + meme.app.lang()
+					url: 'http://meme.yahoo.com/help/privacy/?.lang=%s'
 				},
 				guidelines: {
 					text: L('about_community'),
-					url: 'http://meme.yahoo.com/help/guidelines/?.lang=' + meme.app.lang()
+					url: 'http://meme.yahoo.com/help/guidelines/?.lang=%s'
 				},
 				feedback: {
 					text: L('about_feedback'),
-					url: 'http://meme.yahoo.com/help/feedback/?.lang=' + meme.app.lang()
+					url: 'http://meme.yahoo.com/help/feedback/?.lang=%s'
 				}
-			};			
+			};
 			
 			var count = 0
-			for (key in buttons) {
+			for (var key in buttons) {
 				var aboutButton = Ti.UI.createButton({
+					buttonKey: key,
 					top: 159 + (count * 52),
 					width: 320,
 					height: 52,
 					backgroundImage: 'images/about_btn.png'
 				});
-				aboutButton.addEventListener('click', function() {
-					meme.ui.openLinkOnSafari({
-						url: buttons[key].url
-					});
-				})
-				var aboutLabel = Ti.UI.createLabel({
+				
+				aboutButton.add(Ti.UI.createLabel({
+					buttonKey: key,
 					text: buttons[key].text,
 					color: '#D9D9D9',
 					top: 16,
@@ -124,9 +122,16 @@
 					height: 20,
 					width: 260,
 					font: { fontSize: 19, fontFamily: 'Helvetica' }
+				}));
+				
+				aboutButton.addEventListener('click', function(e) {
+					meme.ui.openLinkOnSafari({
+						url: String.format(buttons[e.source.buttonKey].url, meme.app.lang())
+					});
 				});
-				aboutButton.add(aboutLabel);
+				
 				aboutWindow.add(aboutButton);
+				
 				count++;
 			}
 		};
