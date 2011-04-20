@@ -27,6 +27,13 @@
 				refresh();
 			}
 		};
+		
+		var show = function() {
+			homeWindow.animate({
+				duration: 250,
+				left: 0
+			});
+		};
 
 		var refresh = function() {
 			setTimeout(function() {
@@ -90,6 +97,7 @@
 			var signedInAsLabel = Ti.UI.createLabel({
 				top: 0,
 				left: 0,
+				width: 'auto',
 				color: '#999',
 				font: { fontSize: 10, fontFamily: 'Helvetica' },
 				text: L('home_signed_in_as')
@@ -98,26 +106,27 @@
 
 			var usernameLabel = Ti.UI.createLabel({
 				top: 0,
-				left: 98,
+				left: signedInAsLabel.width + 4,
 				width: 'auto',
 				color: 'white',
 				font: { fontSize: 12, fontFamily: 'Helvetica', fontWeight: 'Bold' }
 			});
 			textBarView.add(usernameLabel);
 
-			var signOutLabel = Ti.UI.createButton({
+			var signOutLabel = Ti.UI.createLabel({
 				top: 0,
 				right: 9,
-				width: 42,
+				height: 33,
+				width: 'auto',
 				color: '#9F1392',
+				textAlign: 'right',
 				font: { fontSize: 11, fontFamily: 'Helvetica' },
-				title: L('home_sign_out'),
-				style: Titanium.UI.iPhone.SystemButtonStyle.PLAIN
+				text: L('home_sign_out')
 			});
 			signOutLabel.addEventListener('click', function(e) {
 				meme.auth.oadapter.logout('meme', function() {
 					refresh();
-				});	
+				});
 			});
 			logoutBarView.add(signOutLabel);
 
@@ -153,7 +162,14 @@
 				width: 320, 
 				height: 110
 			});
-			createPostButton.addEventListener('click', meme.ui.post.window.open);
+			createPostButton.addEventListener('click', function() {
+				homeWindow.animate({
+					duration: 250,
+					left: -320
+				});
+				meme.ui.post.window.open();
+			});
+			
 			loggedInView.add(createPostButton);
 
 			var yourBlogButton = Titanium.UI.createButton({
@@ -225,6 +241,7 @@
 		
 		return {
 			open: open,
+			show: show,
 			refresh: refresh
 		};
 		

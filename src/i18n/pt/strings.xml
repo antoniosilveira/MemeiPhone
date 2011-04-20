@@ -64,7 +64,7 @@
   <string name="flashlight_btn_new_media">nova busca na flashlight</string>
   <string name="flashlight_search_noresults_title">Sua busca não trouxe resultados.</string>
   <string name="flashlight_search_noresults_tips">Dicas:</string>
-  <string name="flashlight_search_noresults_tip_spelling">Confira se as palavras estão escritas corretamente.</string>
+  <string name="flashlight_search_noresults_tip_spelling">Confira se as palavras estão corretas.</string>
   <string name="flashlight_search_noresults_tip_keywords">Tente palavras diferentes.</string>
   <string name="flashlight_search_noresults_tip_specific">Tente ser mais específico. Ou vago ;)</string>
 </resources>
