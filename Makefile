@@ -107,6 +107,10 @@ publish: project-name-verification build-verification
 	do\
 		cp -prf $$FONT ${SVN_DIR}/Resources/;\
 	done
+	@echo "Copying production secrets..."
+	@if [ -f ${PROJECT_ROOT}/src/Resources/meme/config/PROD_secrets.js ]; then\
+		cp -prvf ${PROJECT_ROOT}/src/Resources/meme/config/PROD_secrets.js ${SVN_DIR}/Resources/meme/config/secrets.js;\
+	fi
 	@echo "Copying Titanium build directory..."
 	@mkdir -p ${SVN_DIR}/build/iphone/
 	@cp -prf ${PROJECT_ROOT}/src/build/iphone/Classes ${SVN_DIR}/build/iphone/
