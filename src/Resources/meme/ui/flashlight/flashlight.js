@@ -242,7 +242,7 @@
 			flashlightWindow.add(noResultsView);
 
 			var titleLabel = Ti.UI.createLabel({
-				top: 108,
+				top: 98,
 				left: 40,
 				width: 240, 
 				height: 58, 
@@ -253,7 +253,7 @@
 			noResultsView.add(titleLabel);
 
 			var subtitleLabel = Ti.UI.createLabel({
-				top: 178,
+				top: 168,
 				left: 40,
 				width: 240, 
 				height: 16, 
@@ -264,10 +264,10 @@
 			noResultsView.add(subtitleLabel);
 
 			var tipsLabel = Ti.UI.createLabel({
-				top: 198,
+				top: 188,
 				left: 40,
 				width: 240, 
-				height: 40, 
+				height: 'auto', 
 				text: L('flashlight_search_noresults_tip_spelling') + '\n' + L('flashlight_search_noresults_tip_keywords') + '\n' + L('flashlight_search_noresults_tip_specific'),
 				color: '#666666',
 				font: { fontSize: 11, fontFamily: 'Helvetica' }
