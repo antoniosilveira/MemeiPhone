@@ -22,7 +22,7 @@
   
   <!-- Logged-in home -->
   <string name="home_signed_in_as">has iniciado sesión como</string>
-  <string name="home_sign_out">cerrar sesión</string>
+  <string name="home_sign_out">salir</string>
   <string name="home_create_post">crear una publicación</string>
   <string name="home_your_blog">tu blog</string>
   
