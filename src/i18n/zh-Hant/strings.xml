@@ -3,68 +3,68 @@
   <string name="app_name">Yahoo! Meme</string> <!-- Limit of 13 characters -->
   
   <!-- Globals -->
-  <string name="alert_btn_ok">Ok</string>
-  <string name="alert_btn_cancel">Cancel</string>
-  <string name="alert_openlink_title">Open link</string>
-  <string name="alert_openlink_message">Open page on Safari?</string>
-  <string name="alert_error_title">Error</string>
-  <string name="alert_oops_title">Oops...</string>
-  <string name="alert_success_title">Success</string>
-  <string name="alert_yql_error">API error, please try again in a few seconds.</string>
+  <string name="alert_btn_ok">好的</string>
+  <string name="alert_btn_cancel">取消</string>
+  <string name="alert_openlink_title">開啟連結</string>
+  <string name="alert_openlink_message">在 Safari 上開啟頁面？</string>
+  <string name="alert_error_title">錯誤</string>
+  <string name="alert_oops_title">糟了…</string>
+  <string name="alert_success_title">成功</string>
+  <string name="alert_yql_error">API 錯誤，請幾秒鐘後再試一次。</string>
   
   <!-- Logged-out home -->
-  <string name="home_try_it_now">try it now!</string>
-  <string name="home_try_it_now_subtitle">create your blog and start posting right away</string>
-  <string name="home_sign_in">sign in</string>
-  <string name="home_sign_in_subtitle">if you already have an account</string>
-  <string name="home_try_it_now_alert_title">Create your blog</string>
-  <string name="home_try_it_now_alert_message">Open the Sign Up page on Safari?</string>
+  <string name="home_try_it_now">立刻試用！</string>
+  <string name="home_try_it_now_subtitle">馬上建立您的部落格，開始發文</string>
+  <string name="home_sign_in">登入</string>
+  <string name="home_sign_in_subtitle">若您已經有帳戶</string>
+  <string name="home_try_it_now_alert_title">建立您的部落格</string>
+  <string name="home_try_it_now_alert_message">在 Safari 上開啟登入頁面？</string>
   
   <!-- Logged-in home -->
-  <string name="home_signed_in_as">you are signed in as</string>
-  <string name="home_sign_out">sign out</string>
-  <string name="home_create_post">create post</string>
-  <string name="home_your_blog">your blog</string>
+  <string name="home_signed_in_as">您的登入身份為</string>
+  <string name="home_sign_out">登出</string>
+  <string name="home_create_post">發文</string>
+  <string name="home_your_blog">您的部落格</string>
   
   <!-- About -->
-  <string name="about_title">about</string>
-  <string name="about_btn_done">done</string>
-  <string name="about_version">version %s</string>
-  <string name="about_utos">Yahoo! Terms of Service</string>
-  <string name="about_atos">Additional Terms of Service</string>
-  <string name="about_privacy">Privacy Policy</string>
-  <string name="about_community">Guidelines</string>
-  <string name="about_feedback">Send us feedback</string>
-  <string name="about_copyright">Copyright © 2011 Yahoo! All rights reserved.</string>
+  <string name="about_title">關於</string>
+  <string name="about_btn_done">完成</string>
+  <string name="about_version">版本 %s</string>
+  <string name="about_utos">Yahoo! 奇摩服務條款</string>
+  <string name="about_atos">其他服務條款</string>
+  <string name="about_privacy">隱私權政策</string>
+  <string name="about_community">指南</string>
+  <string name="about_feedback">給我們意見</string>
+  <string name="about_copyright">Copyright © 2011 Yahoo! 奇摩版權所有。</string>
   
   <!-- Post -->
-  <string name="post_add_title">add title</string>
-  <string name="post_add_text">write your post here</string>
-  <string name="post_btn_post">post</string>
-  <string name="post_btn_take_photo">Take photo with camera</string>
-  <string name="post_btn_choose_existing">Choose existing</string>
-  <string name="post_btn_new_image">new image</string>
-  <string name="post_posting_pre">Preparing to post</string>
-  <string name="post_uploading_image">Uploading image</string>
-  <string name="post_posting_on_meme">Posting on Meme</string>
-  <string name="post_alert_success_message">Posted on Meme successfully!</string>
-  <string name="post_alert_btn_view_post">View post on Safari</string>
-  <string name="post_alert_btn_copy_url">Copy URL</string>
-  <string name="post_alert_camera_error">Device does not have camera.</string>
-  <string name="post_alert_unexpected_error">Unexpected error: %s</string>
-  <string name="post_alert_empty_error">What about writing something before posting?</string>
-  <string name="post_alert_image_upload_error">Error uploading image. Please try again in a few seconds.</string>
-  <string name="post_alert_clipboard_message">The URL was copied to your clipboard.</string>
+  <string name="post_add_title">新增標題</string>
+  <string name="post_add_text">在此撰寫文章內容</string>
+  <string name="post_btn_post">貼文</string>
+  <string name="post_btn_take_photo">用相機拍照</string>
+  <string name="post_btn_choose_existing">選擇現有</string>
+  <string name="post_btn_new_image">新圖片</string>
+  <string name="post_posting_pre">準備發文</string>
+  <string name="post_uploading_image">上傳圖片</string>
+  <string name="post_posting_on_meme">在 Meme 上發文</string>
+  <string name="post_alert_success_message">成功在 Meme 上發文</string>
+  <string name="post_alert_btn_view_post">在 Safari 上閱讀貼文</string>
+  <string name="post_alert_btn_copy_url">複製 URL</string>
+  <string name="post_alert_camera_error">裝置無相機。</string>
+  <string name="post_alert_unexpected_error">非預期錯誤: %s</string>
+  <string name="post_alert_empty_error">貼文前是否要寫些什麼？</string>
+  <string name="post_alert_image_upload_error">上傳圖片發生錯誤。請幾秒鐘後再試一次。</string>
+  <string name="post_alert_clipboard_message">URL 已複製至剪貼簿。</string>
   
   <!-- Flashlight -->
-  <string name="flashlight_search">search</string>
-  <string name="flashlight_loading">loading</string>
-  <string name="flashlight_loading_results">loading results</string>
-  <string name="flashlight_results_more">more</string>
-  <string name="flashlight_btn_new_media">new flashlight search</string>
-  <string name="flashlight_search_noresults_title">Your search didn't match any results.</string>
-  <string name="flashlight_search_noresults_tips">Tips:</string>
-  <string name="flashlight_search_noresults_tip_spelling">Make sure all words are spelled correctly.</string>
-  <string name="flashlight_search_noresults_tip_keywords">Try different keywords.</string>
-  <string name="flashlight_search_noresults_tip_specific">Try to be more specific. Or vague ;)</string>
+  <string name="flashlight_search">搜尋</string>
+  <string name="flashlight_loading">正在載入</string>
+  <string name="flashlight_loading_results">載入結果</string>
+  <string name="flashlight_results_more">更多</string>
+  <string name="flashlight_btn_new_media">全新快速搜尋</string>
+  <string name="flashlight_search_noresults_title">您的搜尋無任何符合結果。</string>
+  <string name="flashlight_search_noresults_tips">秘訣:</string>
+  <string name="flashlight_search_noresults_tip_spelling">請確定沒有拼字錯誤。</string>
+  <string name="flashlight_search_noresults_tip_keywords">請嘗試不同的關鍵字。</string>
+  <string name="flashlight_search_noresults_tip_specific">請更精確。字詞太模糊。;)</string>
 </resources>
