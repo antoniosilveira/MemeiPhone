@@ -3,68 +3,68 @@
   <string name="app_name">Yahoo! Meme</string> <!-- Limit of 13 characters -->
   
   <!-- Globals -->
-  <string name="alert_btn_ok">Ok</string>
-  <string name="alert_btn_cancel">Cancel</string>
-  <string name="alert_openlink_title">Open link</string>
-  <string name="alert_openlink_message">Open page on Safari?</string>
+  <string name="alert_btn_ok">Aceptar</string>
+  <string name="alert_btn_cancel">Cancelar</string>
+  <string name="alert_openlink_title">Abrir enlace</string>
+  <string name="alert_openlink_message">¿Abrir página en Safari?</string>
   <string name="alert_error_title">Error</string>
-  <string name="alert_oops_title">Oops...</string>
-  <string name="alert_success_title">Success</string>
-  <string name="alert_yql_error">API error, please try again in a few seconds.</string>
+  <string name="alert_oops_title">Error</string>
+  <string name="alert_success_title">Correcto</string>
+  <string name="alert_yql_error">Error de API, vuelve a intentarlo en unos segundos.</string>
   
   <!-- Logged-out home -->
-  <string name="home_try_it_now">try it now!</string>
-  <string name="home_try_it_now_subtitle">create your blog and start posting right away</string>
-  <string name="home_sign_in">sign in</string>
-  <string name="home_sign_in_subtitle">if you already have an account</string>
-  <string name="home_try_it_now_alert_title">Create your blog</string>
-  <string name="home_try_it_now_alert_message">Open the Sign Up page on Safari?</string>
+  <string name="home_try_it_now">¡inténtalo ahora!</string>
+  <string name="home_try_it_now_subtitle">crea tu blog y comienza a publicar de inmediato</string>
+  <string name="home_sign_in">iniciar sesión</string>
+  <string name="home_sign_in_subtitle">si ya tienes una cuenta</string>
+  <string name="home_try_it_now_alert_title">Crea tu blog</string>
+  <string name="home_try_it_now_alert_message">¿Deseas abrir la Página de inicio de sesión en Safari?</string>
   
   <!-- Logged-in home -->
-  <string name="home_signed_in_as">you are signed in as</string>
-  <string name="home_sign_out">sign out</string>
-  <string name="home_create_post">create post</string>
-  <string name="home_your_blog">your blog</string>
+  <string name="home_signed_in_as">has iniciado sesión como</string>
+  <string name="home_sign_out">cerrar sesión</string>
+  <string name="home_create_post">crear una publicación</string>
+  <string name="home_your_blog">tu blog</string>
   
   <!-- About -->
-  <string name="about_title">about</string>
-  <string name="about_btn_done">done</string>
-  <string name="about_version">version %s</string>
-  <string name="about_utos">Yahoo! Terms of Service</string>
-  <string name="about_atos">Additional Terms of Service</string>
-  <string name="about_privacy">Privacy Policy</string>
-  <string name="about_community">Guidelines</string>
-  <string name="about_feedback">Send us feedback</string>
-  <string name="about_copyright">Copyright © 2011 Yahoo! All rights reserved.</string>
+  <string name="about_title">acerca de</string>
+  <string name="about_btn_done">listo</string>
+  <string name="about_version">versión %s</string>
+  <string name="about_utos">Yahoo! Términos de Servicio</string>
+  <string name="about_atos">Términos de Servicio Adicionales</string>
+  <string name="about_privacy">Política de Privacidad</string>
+  <string name="about_community">Instrucciones</string>
+  <string name="about_feedback">Envíanos tus comentarios</string>
+  <string name="about_copyright">Derecho de propiedad intelectual © 2011 Yahoo! Todos los derechos reservados.</string>
   
   <!-- Post -->
-  <string name="post_add_title">add title</string>
-  <string name="post_add_text">write your post here</string>
-  <string name="post_btn_post">post</string>
-  <string name="post_btn_take_photo">Take photo with camera</string>
-  <string name="post_btn_choose_existing">Choose existing</string>
-  <string name="post_btn_new_image">new image</string>
-  <string name="post_posting_pre">Preparing to post</string>
-  <string name="post_uploading_image">Uploading image</string>
-  <string name="post_posting_on_meme">Posting on Meme</string>
-  <string name="post_alert_success_message">Posted on Meme successfully!</string>
-  <string name="post_alert_btn_view_post">View post on Safari</string>
-  <string name="post_alert_btn_copy_url">Copy URL</string>
-  <string name="post_alert_camera_error">Device does not have camera.</string>
-  <string name="post_alert_unexpected_error">Unexpected error: %s</string>
-  <string name="post_alert_empty_error">What about writing something before posting?</string>
-  <string name="post_alert_image_upload_error">Error uploading image. Please try again in a few seconds.</string>
-  <string name="post_alert_clipboard_message">The URL was copied to your clipboard.</string>
+  <string name="post_add_title">agregar título</string>
+  <string name="post_add_text">escribe tu publicación aquí</string>
+  <string name="post_btn_post">publicación</string>
+  <string name="post_btn_take_photo">Tomar una foto con la cámara</string>
+  <string name="post_btn_choose_existing">Seleccionar una foto</string>
+  <string name="post_btn_new_image">nueva imagen</string>
+  <string name="post_posting_pre">Preparando para publicar</string>
+  <string name="post_uploading_image">Cargando imagen</string>
+  <string name="post_posting_on_meme">Publicando en Meme</string>
+  <string name="post_alert_success_message">Publicación en Meme correcta</string>
+  <string name="post_alert_btn_view_post">Ver publicación en Safari</string>
+  <string name="post_alert_btn_copy_url">Copiar URL</string>
+  <string name="post_alert_camera_error">El dispositivo no tiene cámara.</string>
+  <string name="post_alert_unexpected_error">Error inesperado: %s</string>
+  <string name="post_alert_empty_error">¿Qué tal si escribes algo antes de publicar?</string>
+  <string name="post_alert_image_upload_error">Error al cargar la imagen. Vuelve a intentarlo en unos segundos.</string>
+  <string name="post_alert_clipboard_message">La URL se ha copiado en el portapapeles.</string>
   
   <!-- Flashlight -->
-  <string name="flashlight_search">search</string>
-  <string name="flashlight_loading">loading</string>
-  <string name="flashlight_loading_results">loading results</string>
-  <string name="flashlight_results_more">more</string>
-  <string name="flashlight_btn_new_media">new flashlight search</string>
-  <string name="flashlight_search_noresults_title">Your search didn't match any results.</string>
-  <string name="flashlight_search_noresults_tips">Tips:</string>
-  <string name="flashlight_search_noresults_tip_spelling">Make sure all words are spelled correctly.</string>
-  <string name="flashlight_search_noresults_tip_keywords">Try different keywords.</string>
-  <string name="flashlight_search_noresults_tip_specific">Try to be more specific. Or vague ;)</string>
+  <string name="flashlight_search">buscar</string>
+  <string name="flashlight_loading">cargando</string>
+  <string name="flashlight_loading_results">cargando resultados</string>
+  <string name="flashlight_results_more">más</string>
+  <string name="flashlight_btn_new_media">nueva búsqueda de flashlight</string>
+  <string name="flashlight_search_noresults_title">Tu búsqueda no obtuvo ningún resultado.</string>
+  <string name="flashlight_search_noresults_tips">Consejos:</string>
+  <string name="flashlight_search_noresults_tip_spelling">Asegúrate de que todas las palabras estén escritas correctamente.</string>
+  <string name="flashlight_search_noresults_tip_keywords">Intenta con diferentes palabras clave.</string>
+  <string name="flashlight_search_noresults_tip_specific">Intenta ser más específico. O más impreciso ;)</string>
 </resources>
