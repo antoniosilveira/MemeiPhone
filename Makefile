@@ -121,6 +121,9 @@ publish: project-name-verification build-verification
 	@cp -prf ${PROJECT_ROOT}/src/build/iphone/${PROJECT_NAME}_Prefix.pch ${SVN_DIR}/build/iphone/
 	@cp -prf ${PROJECT_ROOT}/src/build/iphone/module.xcconfig ${SVN_DIR}/build/iphone/
 	@cp -prf ${PROJECT_ROOT}/src/build/iphone/project.xcconfig ${SVN_DIR}/build/iphone/
+	@echo "Replacing Titanium default images..."
+	@cp -prf ${PROJECT_ROOT}/src/Resources/en.lproj/*.png ${SVN_DIR}/build/iphone/Resources/
+	@cp -prf ${PROJECT_ROOT}/src/Resources/meme_appicon.png ${SVN_DIR}/build/iphone/Resources/appicon.png
 	@echo "**************************************************"
 	@echo "Please remember that the following file:"
 	@echo "- '${PROJECT_ROOT}/src/build/iphone/${PROJECT_NAME}.xcodeproj/project.pbxproj'"
