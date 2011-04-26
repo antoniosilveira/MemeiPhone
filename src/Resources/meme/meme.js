@@ -19,6 +19,7 @@ var meme = {};
 
 Ti.include(
 	'/meme/config/config.js',
+	'/meme/analytics/analytics.js',
 	'/meme/api/api.js',
 	'/meme/auth/auth.js',
 	'/meme/util/util.js',

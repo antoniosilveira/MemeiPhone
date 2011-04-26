@@ -163,6 +163,7 @@
 				height: 110
 			});
 			createPostButton.addEventListener('click', function() {
+				meme.analytics.record(meme.analytics.APP_STARTED);
 				meme.ui.post.window.open();
 				homeWindow.animate({
 					duration: 250,
