@@ -161,10 +161,10 @@
 
 			var newImageButton = Titanium.UI.createButton({
 				backgroundImage: 'images/' + meme.app.lang() + '/btn_new_image.png',
-				width: 190,
-				height: 41,
-				top: 170,
-				left: 65,
+				width: 170,
+				height: 37,
+				top: 174,
+				left: 75,
 				visible: false
 			});
 			newImageButton.addEventListener('click', function() {
@@ -174,10 +174,10 @@
 			
 			var newFlashlightMediaButton = Titanium.UI.createButton({
 				backgroundImage: 'images/' + meme.app.lang() + '/btn_new_flashlight_media.png',
-				width: 140,
-				height: 18,
-				top: 180,
-				left: 90,
+				width: 170,
+				height: 37,
+				top: 174,
+				left: 75,
 				visible: false
 			});
 			newFlashlightMediaButton.addEventListener('click', function() {
