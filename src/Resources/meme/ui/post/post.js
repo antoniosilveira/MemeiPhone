@@ -595,9 +595,7 @@
 				buttonNames: [L('post_alert_btn_view_post'), L('post_alert_btn_copy_url'), L('alert_btn_ok')],
 				onClick: function(e) {
 					if (e.index == 0) {
-						meme.ui.openLinkOnSafari({
-							url: response.status.post.url
-						});
+						Ti.Platform.openURL(response.status.post.url);
 					} else if (e.index == 1) {
 						Ti.UI.Clipboard.setText(response.status.post.url);
 						meme.ui.alert({
