@@ -97,8 +97,9 @@
 			logoutBarView.add(textBarView)
 
 			var signedInAsLabel = Ti.UI.createLabel({
-				top: 0,
+				top: 8,
 				left: 0,
+				height: 14,
 				width: 'auto',
 				color: '#999',
 				font: { fontSize: 10, fontFamily: 'Helvetica' },
@@ -107,8 +108,9 @@
 			textBarView.add(signedInAsLabel);
 
 			var usernameLabel = Ti.UI.createLabel({
-				top: 0,
+				top: 9,
 				left: signedInAsLabel.width + 4,
+				height: 14,
 				width: 'auto',
 				color: 'white',
 				font: { fontSize: 12, fontFamily: 'Helvetica', fontWeight: 'Bold' }
@@ -118,7 +120,7 @@
 			var signOutLabel = Ti.UI.createLabel({
 				top: 0,
 				right: 9,
-				height: 33,
+				height: 31,
 				width: 'auto',
 				color: '#9F1392',
 				textAlign: 'right',
