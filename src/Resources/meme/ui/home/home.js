@@ -81,7 +81,8 @@
 				height: 33
 			});
 			homeWindow.add(logoutBarView);
-
+			
+			// left
 			var iButton = Ti.UI.createButton({
 				top: 6,
 				left: 9,
@@ -89,12 +90,39 @@
 			});
 			iButton.addEventListener('click', meme.ui.about.window.open);
 			logoutBarView.add(iButton);
-
+			
+			// right
+			var signOutLabel = Ti.UI.createLabel({
+				top: 0,
+				right: 9,
+				height: 31,
+				width: 'auto',
+				color: '#9F1392',
+				textAlign: 'right',
+				font: { fontSize: 11, fontFamily: 'Helvetica' },
+				text: L('home_sign_out')
+			});
+			signOutLabel.addEventListener('click', function(e) {
+				meme.auth.oadapter.logout('meme', function() {
+					refresh();
+				});
+			});
+			logoutBarView.add(signOutLabel);
+			
+			// middle
+			var middleContainerView = Ti.UI.createView({
+				top: 0,
+				left: iButton.left + iButton.width,
+				width: 320 - (iButton.left + iButton.width + signOutLabel.width + signOutLabel.right),
+				height: 33
+			});
+			logoutBarView.add(middleContainerView);
+			
 			var textBarView = Ti.UI.createView({
 				width: 'auto',
 				height: 33
 			});
-			logoutBarView.add(textBarView)
+			middleContainerView.add(textBarView);
 
 			var signedInAsLabel = Ti.UI.createLabel({
 				top: 8,
@@ -116,23 +144,6 @@
 				font: { fontSize: 12, fontFamily: 'Helvetica', fontWeight: 'Bold' }
 			});
 			textBarView.add(usernameLabel);
-
-			var signOutLabel = Ti.UI.createLabel({
-				top: 0,
-				right: 9,
-				height: 31,
-				width: 'auto',
-				color: '#9F1392',
-				textAlign: 'right',
-				font: { fontSize: 11, fontFamily: 'Helvetica' },
-				text: L('home_sign_out')
-			});
-			signOutLabel.addEventListener('click', function(e) {
-				meme.auth.oadapter.logout('meme', function() {
-					refresh();
-				});
-			});
-			logoutBarView.add(signOutLabel);
 
 			showLogoutBar = function() {
 				logoutBarView.animate({ top: 0 });
