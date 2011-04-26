@@ -340,6 +340,7 @@
 			};
 			if ((!yqldata || !yqldata.query) && (tries >= MAX_RETRIES)) {
 				Ti.App.fireEvent('yqlerror', { query: yql_query });
+				meme.analytics.record(meme.analytics.YQL_ERROR);
 			}
 			return yqldata;
 		};

@@ -26,6 +26,8 @@
 	
 	// Must pass at least options.url, other parameters are optional
 	meme.ui.openLinkOnSafari = function(options) {
+		meme.analytics.record(meme.analytics.OPEN_SAFARI);
+		
 		if (!options.title) {
 			options.title = L('alert_openlink_title');
 		}
@@ -38,14 +40,6 @@
 			}
 		};
 		meme.ui.alert(options);
-	};
-	
-	meme.ui.createAccount = function() {
-		meme.ui.openLinkOnSafari({
-			title: L('home_try_it_now_alert_title'),
-			message: L('home_try_it_now_alert_message'),
-			url: 'http://meme.yahoo.com/confirm'
-		});
 	};
 	
 })();

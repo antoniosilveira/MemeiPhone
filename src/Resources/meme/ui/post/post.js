@@ -30,6 +30,8 @@
 				duration: 250,
 				left: 0 
 			}));
+			
+			meme.analytics.record(meme.analytics.NEW_POST_OPEN);
 		};
 
 		// Paremeters
@@ -556,6 +558,7 @@
 									updateProgress(1, L('post_posting_on_meme'));
 									response = meme.api.createPhotoPost(url, content);
 									hideProgress();
+									meme.analytics.record(meme.analytics.NEW_POST_PUBLISHED);
 									displayPostSuccess(response);
 								},
 								errorCallback: function() {
@@ -575,6 +578,7 @@
 							response = meme.api.createPhotoPost(postMedia.url, content);
 							updateProgress(1);
 							hideProgress();
+							meme.analytics.record(meme.analytics.NEW_POST_PUBLISHED);
 							displayPostSuccess(response);
 						}
 					}
@@ -583,6 +587,7 @@
 					response = meme.api.createTextPost(content);
 					updateProgress(1);
 					hideProgress();
+					meme.analytics.record(meme.analytics.NEW_POST_PUBLISHED);
 					displayPostSuccess(response);
 				}
 			}
@@ -595,8 +600,10 @@
 				buttonNames: [L('post_alert_btn_view_post'), L('post_alert_btn_copy_url'), L('alert_btn_ok')],
 				onClick: function(e) {
 					if (e.index == 0) {
+						meme.analytics.record(meme.analytics.OPEN_SAFARI);
 						Ti.Platform.openURL(response.status.post.url);
 					} else if (e.index == 1) {
+						meme.analytics.record(meme.analytics.COPY_LINK);
 						Ti.UI.Clipboard.setText(response.status.post.url);
 						meme.ui.alert({
 							title: L('alert_success_title'),

@@ -32,6 +32,8 @@
 			setTimeout(function() {
 				searchFieldFocus();
 			}, 250);
+			
+			meme.analytics.record(meme.analytics.FLASHLIGHT_SEARCH);
 		};
 		
 		var close = function() {

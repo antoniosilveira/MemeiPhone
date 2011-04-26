@@ -25,6 +25,8 @@
 
 				Ti.API.debug('About to refresh home window');
 				refresh();
+				
+				meme.analytics.record(meme.analytics.APP_STARTED);
 			}
 		};
 		
@@ -215,7 +217,15 @@
 				width: 320, 
 				height: 110
 			});
-			tryNowButton.addEventListener('click', meme.ui.createAccount);
+			tryNowButton.addEventListener('click', function() {
+				meme.analytics.record(meme.analytics.OPEN_SAFARI_CREATE_ACCOUNT);
+				
+				meme.ui.openLinkOnSafari({
+					title: L('home_try_it_now_alert_title'),
+					message: L('home_try_it_now_alert_message'),
+					url: 'http://meme.yahoo.com/confirm'
+				});
+			});
 			loggedOutView.add(tryNowButton);
 
 			var signInButton = Titanium.UI.createButton({
@@ -228,6 +238,7 @@
 			loggedOutView.add(signInButton);
 
 			var signInButtonClick = function(continuation) {
+				meme.analytics.record(meme.analytics.SIGN_IN);
 				var clickTimeoutSignIn = 0;
 				signInButton.addEventListener('click', function() {
 					clearTimeout(clickTimeoutSignIn);
