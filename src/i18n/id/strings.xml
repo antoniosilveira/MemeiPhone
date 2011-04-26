@@ -35,7 +35,7 @@
   <string name="about_privacy">Kebijakan Privasi</string>
   <string name="about_community">Pedoman</string>
   <string name="about_feedback">Kirim masukan</string>
-  <string name="about_copyright">Hak Cipta © 2011 Yahoo! Southeast Asia Pte. Ltd. (Co. Reg. No. 199700735D).</string>
+  <string name="about_copyright">Hak Cipta © 2011 Yahoo! Southeast Asia Pte. Ltd.\n(Co. Reg. No. 199700735D)</string>
   
   <!-- Post -->
   <string name="post_add_title">tambah judul</string>

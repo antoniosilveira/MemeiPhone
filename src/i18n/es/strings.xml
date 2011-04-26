@@ -35,7 +35,7 @@
   <string name="about_privacy">Política de Privacidad</string>
   <string name="about_community">Instrucciones</string>
   <string name="about_feedback">Envíanos tus comentarios</string>
-  <string name="about_copyright">Derecho de propiedad intelectual © 2011 Yahoo! Todos los derechos reservados.</string>
+  <string name="about_copyright">Derecho de propiedad intelectual © 2011 Yahoo!\nTodos los derechos reservados.</string>
   
   <!-- Post -->
   <string name="post_add_title">agregar título</string>
