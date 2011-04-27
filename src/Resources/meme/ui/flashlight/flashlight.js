@@ -81,14 +81,14 @@
 				height: 100,
 				color: 'black',
 				zIndex: 5,
-				style: Ti.UI.iPhone.ActivityIndicatorStyle.BIG
+				style: Ti.UI.iPhone.ActivityIndicatorStyle.DARK
 			});
 			loadingView.add(activityIndicator);
 			
 			var loadingLabel = Ti.UI.createLabel({
 			    width: 320,
 			    height: 22,
-			    top: 210,
+			    top: 200,
 			    left: 0,
 			    textAlign: 'center',
                 text: L('flashlight_loading_results'),
@@ -272,7 +272,7 @@
 				top: 43, 
 				height: 357,
 				width: 320, 
-				separatorColor: 'gray',
+				separatorColor: 'white',
 				visible: false
 			});
 			flashlightWindow.add(flashlightTableView);
@@ -464,9 +464,17 @@
 				var results = apiQuery(getSearchText());
 				if (results) {
 					var rows = [];
-					for (var i=0; i<results.length; i++) {
-						rows.push(createRow(results[i]));
+					
+					if (e.source.tabType == 'photo') {
+						for (var i=0; i<results.length; i=i+2) {
+							rows.push(createRow([results[i], results[i+1]]));
+						}
+					} else {
+						for (var i=0; i<results.length; i++) {
+							rows.push(createRow(results[i]));
+						}
 					}
+					
 					setFlashlightRows(rows);
 				} else {
 					showNoResultsView();

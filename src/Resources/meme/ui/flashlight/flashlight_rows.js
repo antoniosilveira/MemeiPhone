@@ -5,42 +5,46 @@
 		var createFlickrPhotoRows = function(data) {
 			if (data) {
 				var row = Ti.UI.createTableViewRow({
-					height: 78
+					height: 106,
+					selectionStyle: Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE
 				});
 				row.addEventListener('click', handleRowClick);
-
-				var thumb = 'http://farm' + data.farm + '.static.flickr.com/' + data.server + '/' + data.id + '_' + data.secret + '_t_d.jpg';
-				var photoUrl = 'http://farm' + data.farm + '.static.flickr.com/' + data.server + '/' + data.id + '_' + data.secret + '.jpg';
-				var title = Ti.UI.createLabel({
-					text: data.title,
-					color: '#863486',
-					height: 55,
-					width: 200,
-					left: 110,
-					textAlign: 'left',
-					font: { fontSize: 12, fontFamily: 'Helvetica', fontWeight: 'regular' }
+				
+				var imageContainerView = Ti.UI.createView({
+					top: 0,
+					left: 0,
+					width: 320,
+					height: 106
 				});
-				row.add(title);
+				row.add(imageContainerView);
+				
+				for (var i=0; i<data.length; i++) {
+					var thumbUrl = 'http://farm' + data[i].farm + '.static.flickr.com/' + data[i].server + '/' + data[i].id + '_' + data[i].secret + '_t_d.jpg';
+					var photoUrl = 'http://farm' + data[i].farm + '.static.flickr.com/' + data[i].server + '/' + data[i].id + '_' + data[i].secret + '.jpg';
 
-				var image = Ti.UI.createImageView({
-					image: thumb,
-					backgroundColor: 'black',
-					height: 75,
-					width: 100,
-					left: 2,
-					defaultImage: 'images/old/default_img.png'
-				});
-				row.add(image);
-
-				row.add(Ti.UI.createView({
-					height: 78,
-					width: 310,
-					zIndex: 2,
-					title: data.title,
-					photoUrl: photoUrl,
-					subType: 'flickr',
-					type: 'photo'
-				}));
+					imageContainerView.add(Ti.UI.createImageView({
+						image: thumbUrl,
+						borderColor: '#C9C9CA',
+						backgroundColor: 'black',
+						top: 6,
+						left: (i == 0) ? 7 : 163,
+						width: 150,
+						height: 100,
+						defaultImage: 'images/old/default_img.png'
+					}));
+					
+					row.add(Ti.UI.createView({
+						top: 0,
+						left: 160 * (i),
+						height: 106,
+						width: 160,
+						zIndex: 2,
+						title: data[i].title,
+						photoUrl: photoUrl,
+						subType: 'flickr',
+						type: 'photo'
+					}));
+				}
 
 				return row;
 			}
