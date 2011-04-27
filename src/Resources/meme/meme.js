@@ -6,7 +6,11 @@ var meme = {};
 	meme.app = {};
 	
 	meme.app.lang = function() {
-		return Ti.Locale.currentLanguage;
+		var lang = Ti.Locale.currentLanguage;
+		if (/(en|es|id|pt|zh-Hant)/.test(lang)) {
+			return lang;
+		}
+		return 'en';
 	};
 	
 	meme.app.userInfo = function() {
