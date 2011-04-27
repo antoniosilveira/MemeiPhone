@@ -112,12 +112,42 @@
 			});
 			textField.addEventListener('focus', function(e) {
 				moveButtonBarUp();
+				hideWriteHere();
 			});
 			textField.addEventListener('blur', function(e) {
 				moveButtonBarDown();
 				hideAttachments();
+				if (textField.value == undefined || textField.value == '') {
+    				showWriteHere();
+				}
 			});
 			postWindow.add(textField);
+
+            var labelWriteHere = Ti.UI.createLabel({
+			    width: 300,
+			    height: 22,
+			    top: 55,
+			    left: 19,
+			    textAlign: 'left',
+                text: L('post_add_text'),
+                color: '#CCCCCC',
+				font: { fontSize: 16, fontFamily: 'Helvetica', fontStyle: 'regular' }
+			});
+			postWindow.add(labelWriteHere);
+            
+            var hideWriteHere = function() {
+                labelWriteHere.animate({
+					opacity: 0, 
+					duration: 300, 
+				});
+			};
+            
+            var showWriteHere = function() {
+                labelWriteHere.animate({
+					opacity: 1, 
+					duration: 300, 
+				});
+            };
 
 			setTitle = function(title) {
 				if (title) {
