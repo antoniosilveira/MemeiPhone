@@ -107,7 +107,7 @@
 		}
 		var params = {
 			cacheKey: 'flashlight:web:' + limiting + ':' + query,
-			yqlQuery: 'SELECT title, abstract, url FROM search.web' + limiting + ' WHERE query="' + query + '"'
+			yqlQuery: 'SELECT title, abstract, url FROM search.web' + limiting + ' WHERE query="' + query + '" and appid="' + meme.config.secrets.appid + '"'
 		};
 		var items;
 		var successCallback = function(results) {
