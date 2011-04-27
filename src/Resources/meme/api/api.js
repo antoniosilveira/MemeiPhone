@@ -225,7 +225,7 @@
 	// }
 	meme.api.uploadImage = function(options) {
 		var xhr = Titanium.Network.createHTTPClient();
-		xhr.setTimeout(300000); // timeout to upload is 5 minutes
+		xhr.setTimeout(1200000); // timeout to upload is 20 minutes
 
 		if (options.cancelButton) {
 			cancelButton.addEventListener('click', function() {
