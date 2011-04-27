@@ -157,7 +157,7 @@
 		if (!items) {
 			var yqlResponse = getYql().query(params.yqlQuery);
 			
-			if (!yqlResponse.query.results) {
+			if (!yqlResponse.query && !yqlResponse.query.results) {
 				if (errorCallback) {
 					errorCallback();
 				} else {
