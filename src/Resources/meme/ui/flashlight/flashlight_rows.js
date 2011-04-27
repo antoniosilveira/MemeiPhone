@@ -53,40 +53,43 @@
 		var createWebPhotoRows = function(data) {
 			if (data) {
 				var row = Ti.UI.createTableViewRow({
-					height: 78
+					height: 106,
+					selectionStyle: Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE
 				});
 				row.addEventListener('click', handleRowClick);
-
-				var title = Ti.UI.createLabel({
-					text: meme.util.stripHtmlEntities(data.abstract),
-					color: '#863486',
-					height: 55,
-					width: 200,
-					left: 110,
-					textAlign: 'left',
-					font: { fontSize: 12, fontFamily: 'Helvetica', fontWeight: 'regular' }
+				
+				var imageContainerView = Ti.UI.createView({
+					top: 0,
+					left: 0,
+					width: 320,
+					height: 106
 				});
-				row.add(title);
-
-				var image = Ti.UI.createImageView({
-					image: data.thumbnail_url,
-					backgroundColor: 'black',
-					height: 75,
-					width: 100,
-					left: 2,
-					defaultImage: 'images/old/default_img.png'
-				});
-				row.add(image);
-
-				row.add(Ti.UI.createView({
-					height: 78,
-					width: 310,
-					zIndex: 2,
-					title: meme.util.stripHtmlEntities(data.abstract),
-					photoUrl: data.url,
-					subType: 'web',
-					type: 'photo'
-				}));
+				row.add(imageContainerView);
+				
+				for (var i=0; i<data.length; i++) {
+					imageContainerView.add(Ti.UI.createImageView({
+						image: data.thumbnail_url,
+						borderColor: '#C9C9CA',
+						backgroundColor: 'black',
+						top: 6,
+						left: (i == 0) ? 7 : 163,
+						width: 150,
+						height: 100,
+						defaultImage: 'images/old/default_img.png'
+					}));
+					
+					row.add(Ti.UI.createView({
+						top: 0,
+						left: 160 * (i),
+						height: 106,
+						width: 160,
+						zIndex: 2,
+						title: meme.util.stripHtmlEntities(data.abstract),
+						photoUrl: data.url,
+						subType: 'web',
+						type: 'photo'
+					}));
+				}
 
 				return row;
 			}

@@ -67,7 +67,7 @@
 		}
 		var params = {
 			cacheKey: 'flashlight:webPhoto:' + limiting + ':' + query,
-			yqlQuery: 'SELECT * FROM search.images' + limiting + ' WHERE query="' + query + ' -url:flickr.com" and filter="yes"'
+			yqlQuery: 'SELECT * FROM search.images' + limiting + ' WHERE query="' + query + ' -url:flickr.com" and filter="yes" and appid="' + meme.config.secrets.appid + '"'
 		};
 		var photos;
 		var successCallback = function(results) {
@@ -157,7 +157,7 @@
 		if (!items) {
 			var yqlResponse = getYql().query(params.yqlQuery);
 			
-			if (!yqlResponse.query && !yqlResponse.query.results) {
+			if ((typeof yqlResponse.query.results == 'undefined') || !yqlResponse.query.results) {
 				if (errorCallback) {
 					errorCallback();
 				} else {

@@ -465,10 +465,12 @@
 				if (results) {
 					var rows = [];
 					
+					// photo rows have 2 items
 					if (e.source.tabType == 'photo') {
 						for (var i=0; i<results.length; i=i+2) {
 							rows.push(createRow([results[i], results[i+1]]));
 						}
+					// all other rows have 1 item
 					} else {
 						for (var i=0; i<results.length; i++) {
 							rows.push(createRow(results[i]));
