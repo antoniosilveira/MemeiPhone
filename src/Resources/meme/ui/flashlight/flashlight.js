@@ -477,6 +477,23 @@
 						}
 					}
 					
+					// add more button in the last row
+					var loadMoreRow = Ti.UI.createTableViewRow({
+						height: 54,
+						selectionStyle: Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE
+					});
+					loadMoreRow.add(Titanium.UI.createButton({
+						backgroundImage: 'images/bg_btn_load_more.png',
+						width: 305,
+						height: 46,
+						top: 4,
+						title: L('flashlight_results_more'),
+						font: { fontSize: 14, fontFamily: 'Helvetica' },
+						color: '#923485'
+					}));
+					rows.push(loadMoreRow);
+					
+					// finally, put the rows in the table view
 					setFlashlightRows(rows);
 				} else {
 					showNoResultsView();
