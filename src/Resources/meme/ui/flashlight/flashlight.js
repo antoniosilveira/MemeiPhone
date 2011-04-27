@@ -63,6 +63,40 @@
 			});
 			flashlightWindow.add(flashlightButton);
 
+			var loadingView = Titanium.UI.createView({
+				backgroundImage: 'images/bg_radial.png',
+				left: 0,
+				top: 43,
+				width: 320,
+				height: 420,
+				zIndex: 4,
+				opacity: 0.0
+			});
+            flashlightWindow.add(loadingView);
+			
+			var activityIndicator = Ti.UI.createActivityIndicator({
+				top: 135, 
+				left: 110,
+				width: 100,
+				height: 100,
+				color: 'black',
+				zIndex: 5,
+				style: Ti.UI.iPhone.ActivityIndicatorStyle.BIG
+			});
+			loadingView.add(activityIndicator);
+			
+			var loadingLabel = Ti.UI.createLabel({
+			    width: 320,
+			    height: 22,
+			    top: 210,
+			    left: 0,
+			    textAlign: 'center',
+                text: L('flashlight_loading_results'),
+				font: { fontSize: 14, fontFamily: 'Helvetica', fontStyle: 'bold' }
+			});
+			loadingView.add(loadingLabel);
+            activityIndicator.show();
+            
 			var lampBright = Titanium.UI.createImageView({
 				image: 'images/lamp_bright.png',
 				left: 1,
@@ -136,10 +170,18 @@
 
 			startLoading = function() {
 				lampBright.show();
+				loadingView.animate(Ti.UI.createAnimation({
+				    opacity: 1.0,
+				    duration: 1
+				}));
 			};
 
 			stopLoading = function() {
 				lampBright.hide();
+				loadingView.animate(Ti.UI.createAnimation({
+				    opacity: 0.0,
+				    duration: 300
+				}));
 			};
 		};
 
