@@ -109,6 +109,7 @@ publish: project-name-verification build-verification
 	done
 	@echo "Copying production secrets..."
 	@if [ -f ${PROJECT_ROOT}/src/Resources/meme/config/PROD_secrets.js ]; then\
+		rm -rf ${SVN_DIR}/Resources/meme/config/*secrets.js;\
 		cp -prvf ${PROJECT_ROOT}/src/Resources/meme/config/PROD_secrets.js ${SVN_DIR}/Resources/meme/config/secrets.js;\
 	fi
 	@echo "Copying Titanium build directory..."
