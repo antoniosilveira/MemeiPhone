@@ -266,7 +266,7 @@
 			};
 		};
 
-		var setResultsWindowMax, setResultsWindowMin, setFlashlightRows, showNoResultsView;
+		var setResultsWindowMax, setResultsWindowMin, addFlashlightRows, showNoResultsView;
 		var createFlashlightWindowResults = function(rows) {
 			var flashlightTableView = Ti.UI.createTableView({
 				top: 43, 
@@ -339,11 +339,29 @@
 				});
 			};
 
-			setFlashlightRows = function(rows) {
+			addFlashlightRows = function(rows) {
 				noResultsView.hide();
-				flashlightTableView.setData(rows);
-				flashlightTableView.show();
-				flashlightTableView.scrollToTop(0);
+				Ti.API.debug('current results length is [' + flashlightTableView.length + ']');
+				Ti.API.debug('received more [' + rows.length + '] rows');
+				
+				if (flashlightTableView.data.length == 0) {
+					flashlightTableView.setData(rows);
+					flashlightTableView.show();
+					flashlightTableView.scrollToTop(0);
+					flashlightTableView.length = rows.length;
+				} else {
+					flashlightTableView.deleteRow(flashlightTableView.length - 1);
+					flashlightTableView.length = flashlightTableView.length - 1;
+					Ti.API.debug('removed 1 result row, current length is [' + flashlightTableView.length + '] rows');
+					
+					for (var i=0; i<rows.length; i++) {
+						flashlightTableView.appendRow(rows[i]);
+					}
+					
+					flashlightTableView.length = flashlightTableView.length + rows.length;
+				}
+				
+				Ti.API.debug('new results length is [' + flashlightTableView.length + ']');
 			}
 		};
 
@@ -412,7 +430,7 @@
 				startLoading();
 				var apiQuery, createRow, tabBarAnimation;
 
-				// settings defaults
+				// set defaults
 				if (!e.source.tabType) {
 					e.source.tabType = 'photo';
 				}
@@ -479,22 +497,47 @@
 					
 					// add more button in the last row
 					var loadMoreRow = Ti.UI.createTableViewRow({
-						height: 54,
+						height: 74,
 						selectionStyle: Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE
 					});
-					loadMoreRow.add(Titanium.UI.createButton({
+					rows.push(loadMoreRow);
+					
+					var loadMoreButton = Titanium.UI.createButton({
 						backgroundImage: 'images/bg_btn_load_more.png',
 						width: 305,
 						height: 46,
-						top: 4,
+						top: 14,
 						title: L('flashlight_results_more'),
-						font: { fontSize: 14, fontFamily: 'Helvetica' },
+						font: { fontSize: 16, fontFamily: 'Helvetica' },
 						color: '#923485'
-					}));
-					rows.push(loadMoreRow);
+					});
+					loadMoreRow.add(loadMoreButton);
+					
+					var handleLoadMore = function() {
+						var activityIndicator = Ti.UI.createActivityIndicator({
+							top: 9, 
+							left: 105,
+							width: 30,
+							height: 30,
+							color: 'black',
+							style: Ti.UI.iPhone.ActivityIndicatorStyle.DARK
+						});
+						loadMoreButton.add(activityIndicator);
+						activityIndicator.show();
+						
+						handleFlashlightSearch({
+							source: {
+								tabType: e.source.tabType,
+								tabSubType: e.source.tabSubType
+							}
+						});
+					};
+					
+					loadMoreButton.removeEventListener('click', handleLoadMore);
+					loadMoreButton.addEventListener('click', handleLoadMore);
 					
 					// finally, put the rows in the table view
-					setFlashlightRows(rows);
+					addFlashlightRows(rows);
 				} else {
 					showNoResultsView();
 				}
