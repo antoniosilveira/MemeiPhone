@@ -70,28 +70,30 @@
 				row.add(imageContainerView);
 				
 				for (var i=0; i<data.length; i++) {
-					imageContainerView.add(Ti.UI.createImageView({
-						image: data.thumbnail_url,
-						borderColor: '#C9C9CA',
-						backgroundColor: 'black',
-						top: 6,
-						left: (i == 0) ? 7 : 163,
-						width: 150,
-						height: 100,
-						defaultImage: 'images/old/default_img.png'
-					}));
-					
-					row.add(Ti.UI.createView({
-						top: 0,
-						left: 160 * (i),
-						height: 106,
-						width: 160,
-						zIndex: 2,
-						title: meme.util.stripHtmlEntities(data.abstract),
-						photoUrl: data.url,
-						subType: 'web',
-						type: 'photo'
-					}));
+					if (data[i]) {
+						imageContainerView.add(Ti.UI.createImageView({
+							image: data[i].thumbnail_url,
+							borderColor: '#C9C9CA',
+							backgroundColor: 'black',
+							top: 6,
+							left: (i == 0) ? 7 : 163,
+							width: 150,
+							height: 100,
+							defaultImage: 'images/old/default_img.png'
+						}));
+
+						row.add(Ti.UI.createView({
+							top: 0,
+							left: 160 * (i),
+							height: 106,
+							width: 160,
+							zIndex: 2,
+							title: meme.util.stripHtmlEntities(data[i].abstract),
+							photoUrl: data[i].url,
+							subType: 'web',
+							type: 'photo'
+						}));
+					}
 				}
 
 				return row;
