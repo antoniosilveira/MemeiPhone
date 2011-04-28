@@ -510,47 +510,50 @@
 					}
 					
 					// add more button in the last row
-					var loadMoreRow = Ti.UI.createTableViewRow({
-						height: 74,
-						selectionStyle: Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE
-					});
-					rows.push(loadMoreRow);
-					
-					var loadMoreButton = Titanium.UI.createButton({
-						backgroundImage: 'images/bg_btn_load_more.png',
-						width: 305,
-						height: 46,
-						top: 14,
-						title: L('flashlight_results_more'),
-						font: { fontSize: 16, fontFamily: 'Helvetica' },
-						color: '#923485'
-					});
-					loadMoreRow.add(loadMoreButton);
-					
-					var handleLoadMore = function() {
-						var activityIndicator = Ti.UI.createActivityIndicator({
-							top: 9, 
-							left: 105,
-							width: 30,
-							height: 30,
-							color: 'black',
-							style: Ti.UI.iPhone.ActivityIndicatorStyle.DARK
+					// only when we had all results we asked for
+					if (results.length == count) {
+						var loadMoreRow = Ti.UI.createTableViewRow({
+							height: 74,
+							selectionStyle: Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE
 						});
-						loadMoreButton.add(activityIndicator);
-						activityIndicator.show();
-						
-						handleFlashlightSearch({
-							source: {
-								isLoadMore: true,
-								startFrom: e.source.startFrom + count,
-								tabType: e.source.tabType,
-								tabSubType: e.source.tabSubType
-							}
+						rows.push(loadMoreRow);
+
+						var loadMoreButton = Titanium.UI.createButton({
+							backgroundImage: 'images/bg_btn_load_more.png',
+							width: 305,
+							height: 46,
+							top: 14,
+							title: L('flashlight_results_more'),
+							font: { fontSize: 16, fontFamily: 'Helvetica' },
+							color: '#923485'
 						});
-					};
-					
-					loadMoreButton.removeEventListener('click', handleLoadMore);
-					loadMoreButton.addEventListener('click', handleLoadMore);
+						loadMoreRow.add(loadMoreButton);
+
+						var handleLoadMore = function() {
+							var activityIndicator = Ti.UI.createActivityIndicator({
+								top: 9, 
+								left: 105,
+								width: 30,
+								height: 30,
+								color: 'black',
+								style: Ti.UI.iPhone.ActivityIndicatorStyle.DARK
+							});
+							loadMoreButton.add(activityIndicator);
+							activityIndicator.show();
+
+							handleFlashlightSearch({
+								source: {
+									isLoadMore: true,
+									startFrom: e.source.startFrom + count,
+									tabType: e.source.tabType,
+									tabSubType: e.source.tabSubType
+								}
+							});
+						};
+
+						loadMoreButton.removeEventListener('click', handleLoadMore);
+						loadMoreButton.addEventListener('click', handleLoadMore);
+					}
 					
 					// finally, put the rows in the table view
 					addFlashlightRows(e.source.tabType, e.source.tabSubType, rows);

@@ -3,6 +3,7 @@
 	meme.ui.flashlight.rows = function() {
 		
 		var createFlickrPhotoRows = function(data) {
+			Ti.API.debug('data from flickr: [' + JSON.stringify(data) + ']');
 			if (data) {
 				var row = Ti.UI.createTableViewRow({
 					height: 106,
@@ -19,31 +20,33 @@
 				row.add(imageContainerView);
 				
 				for (var i=0; i<data.length; i++) {
-					var thumbUrl = 'http://farm' + data[i].farm + '.static.flickr.com/' + data[i].server + '/' + data[i].id + '_' + data[i].secret + '_t_d.jpg';
-					var photoUrl = 'http://farm' + data[i].farm + '.static.flickr.com/' + data[i].server + '/' + data[i].id + '_' + data[i].secret + '.jpg';
+					if (data[i]) {
+						var thumbUrl = 'http://farm' + data[i].farm + '.static.flickr.com/' + data[i].server + '/' + data[i].id + '_' + data[i].secret + '_t_d.jpg';
+						var photoUrl = 'http://farm' + data[i].farm + '.static.flickr.com/' + data[i].server + '/' + data[i].id + '_' + data[i].secret + '.jpg';
 
-					imageContainerView.add(Ti.UI.createImageView({
-						image: thumbUrl,
-						borderColor: '#C9C9CA',
-						backgroundColor: 'black',
-						top: 6,
-						left: (i == 0) ? 7 : 163,
-						width: 150,
-						height: 100,
-						defaultImage: 'images/old/default_img.png'
-					}));
-					
-					row.add(Ti.UI.createView({
-						top: 0,
-						left: 160 * (i),
-						height: 106,
-						width: 160,
-						zIndex: 2,
-						title: data[i].title,
-						photoUrl: photoUrl,
-						subType: 'flickr',
-						type: 'photo'
-					}));
+						imageContainerView.add(Ti.UI.createImageView({
+							image: thumbUrl,
+							borderColor: '#C9C9CA',
+							backgroundColor: 'black',
+							top: 6,
+							left: (i == 0) ? 7 : 163,
+							width: 150,
+							height: 100,
+							defaultImage: 'images/old/default_img.png'
+						}));
+
+						row.add(Ti.UI.createView({
+							top: 0,
+							left: 160 * (i),
+							height: 106,
+							width: 160,
+							zIndex: 2,
+							title: data[i].title,
+							photoUrl: photoUrl,
+							subType: 'flickr',
+							type: 'photo'
+						}));
+					}
 				}
 
 				return row;
