@@ -339,12 +339,12 @@
 				});
 			};
 
-			addFlashlightRows = function(rows) {
+			addFlashlightRows = function(resultsType, resultsSubType, rows) {
 				noResultsView.hide();
 				Ti.API.debug('current results length is [' + flashlightTableView.length + ']');
 				Ti.API.debug('received more [' + rows.length + '] rows');
 				
-				if (flashlightTableView.data.length == 0) {
+				if ((flashlightTableView.data.length == 0) || (flashlightTableView.resultsType != resultsType) || (flashlightTableView.resultsSubType != resultsSubType)) {
 					flashlightTableView.setData(rows);
 					flashlightTableView.show();
 					flashlightTableView.scrollToTop(0);
@@ -360,6 +360,9 @@
 					
 					flashlightTableView.length = flashlightTableView.length + rows.length;
 				}
+				
+				flashlightTableView.resultsType = resultsType;
+				flashlightTableView.resultsSubType = resultsSubType;
 				
 				Ti.API.debug('new results length is [' + flashlightTableView.length + ']');
 			}
@@ -427,7 +430,10 @@
 			Ti.API.debug(JSON.stringify(e.source.tabSubType));
 
 			if (getSearchText()) {
-				startLoading();
+				if (!e.source.isLoadMore) {
+					startLoading();
+				}
+				
 				var apiQuery, createRow, tabBarAnimation;
 
 				// set defaults
@@ -477,9 +483,17 @@
 				}
 
 				buttonBarAnimation(e.source.tabType);
-
+				
+				// pagination setup
+				if (!e.source.startFrom) {
+					e.source.startFrom = 0;
+				}
+				
+				var start = e.source.startFrom;
+				var count = 24;
+				
 				// go!
-				var results = apiQuery(getSearchText());
+				var results = apiQuery(getSearchText(), start, count);
 				if (results) {
 					var rows = [];
 					
@@ -527,6 +541,8 @@
 						
 						handleFlashlightSearch({
 							source: {
+								isLoadMore: true,
+								startFrom: e.source.startFrom + count,
 								tabType: e.source.tabType,
 								tabSubType: e.source.tabSubType
 							}
@@ -537,7 +553,7 @@
 					loadMoreButton.addEventListener('click', handleLoadMore);
 					
 					// finally, put the rows in the table view
-					addFlashlightRows(rows);
+					addFlashlightRows(e.source.tabType, e.source.tabSubType, rows);
 				} else {
 					showNoResultsView();
 				}
