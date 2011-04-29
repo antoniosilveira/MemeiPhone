@@ -257,7 +257,7 @@
 					clearTimeout(clickTimeoutSignIn);
 					clickTimeoutSignIn = setTimeout(function() {
 						continuation();
-					}, 250);
+					}, 100);
 				});
 			};
 			meme.auth.attachLogin(signInButtonClick, refresh);
