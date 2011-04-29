@@ -265,7 +265,7 @@
 		var image = meme.util.resizeImage(720, 1080, options.image);
 
 		// Create upload signture
-		var time = parseInt(meme.util.timestamp()/1000);
+		var time = parseInt(meme.util.timestamp() / 1000);
 		var signature = hex_hmac_sha1(meme.config.secrets.upload_key, meme.app.userInfo().name + ':' + time);
 		
 		// Upload it!
