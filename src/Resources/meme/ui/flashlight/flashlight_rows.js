@@ -180,9 +180,9 @@
 				var title = Ti.UI.createLabel({
 					text: meme.util.stripHtmlEntities(data.title),
 					width: 310,
-					height:15,
+					height: 15,
 					top: 10,
-					left:10,
+					left: 10,
 					color: '#863486',
 					textAlign: 'left',
 					font: { fontSize: 12, fontFamily: 'Helvetica', fontWeight: 'bold' }

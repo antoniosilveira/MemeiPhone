@@ -78,15 +78,15 @@
 			// main loader
 			var activityAnimation = Ti.UI.createAnimation({
 				transform: Ti.UI.create2DMatrix({
-					rotate: 180
+					rotate: 179.9
 				}),
 				curve: Ti.UI.ANIMATION_CURVE_LINEAR,
 				duration: 500,
 				repeat: 1000
 			});
 			var activityIndicator = Ti.UI.createImageView({
-				top: 135, 
-				left: 110,
+				top: 160, 
+				left: 135,
 				width: 50,
 				height: 50
 			});
@@ -109,7 +109,7 @@
 			var loadingLabel = Ti.UI.createLabel({
 			    width: 320,
 			    height: 22,
-			    top: 200,
+			    top: 220,
 			    left: 0,
 			    textAlign: 'center',
                 text: L('flashlight_loading_results'),
@@ -290,7 +290,7 @@
 			var flashlightTableView = Ti.UI.createTableView({
 				top: 43,
 				// Added 60px for 1.0.0 
-				height: 357 + 60,
+				height: 417, //height: 357,
 				width: 320, 
 				separatorColor: 'white',
 				visible: false
@@ -300,7 +300,7 @@
 			var noResultsView = Ti.UI.createView({
 				top: 78,
 				// Added 60px for 1.0.0
-				height: 322 + 60,
+				height: 382, //height: 322,
 				width: 320,
 				visible: false
 			});
@@ -349,7 +349,7 @@
 				flashlightTableView.animate({
 					top: 43, 
 					// Added 60px for 1.0.0 
-					height: 357 + 60
+					height: 417 //height: 357
 				});
 			};
 
@@ -358,7 +358,7 @@
 				flashlightTableView.animate({
 					top: 78,
 					// Added 60px for 1.0.0
-					height: 322 + 60
+					height: 382 //height: 322
 				});
 			};
 
@@ -367,7 +367,7 @@
 				Ti.API.debug('current results length is [' + flashlightTableView.length + ']');
 				Ti.API.debug('received more [' + rows.length + '] rows');
 				
-				if ((flashlightTableView.data.length == 0) || (flashlightTableView.resultsType != resultsType) || (flashlightTableView.resultsSubType != resultsSubType)) {
+				if ((flashlightTableView.data.length == 0) || (flashlightTableView.resultsType != resultsType) || (flashlightTableView.resultsSubType != resultsSubType) || (flashlightTableView.searchText != getSearchText())) {
 					flashlightTableView.setData(rows);
 					flashlightTableView.show();
 					flashlightTableView.scrollToTop(0);
@@ -386,6 +386,7 @@
 				
 				flashlightTableView.resultsType = resultsType;
 				flashlightTableView.resultsSubType = resultsSubType;
+				flashlightTableView.searchText = getSearchText();
 				
 				Ti.API.debug('new results length is [' + flashlightTableView.length + ']');
 			}
