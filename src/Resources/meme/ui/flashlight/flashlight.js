@@ -37,7 +37,6 @@
 		};
 		
 		var close = function() {
-			flashlightWindow.stopLoading();
 			flashlightWindow.close(Ti.UI.createAnimation({
 				duration: 250,
 				top: 460 
