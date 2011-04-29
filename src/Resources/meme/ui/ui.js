@@ -46,6 +46,7 @@
 
 Ti.include(
 	'/meme/ui/inactivity_observer.js',
+	'/meme/ui/spinner.js',
 	'/meme/ui/about/about.js',
 	'/meme/ui/flashlight/flashlight.js',
 	'/meme/ui/home/home.js',
