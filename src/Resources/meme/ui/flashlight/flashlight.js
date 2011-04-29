@@ -269,8 +269,9 @@
 		var setResultsWindowMax, setResultsWindowMin, addFlashlightRows, showNoResultsView;
 		var createFlashlightWindowResults = function(rows) {
 			var flashlightTableView = Ti.UI.createTableView({
-				top: 43, 
-				height: 357,
+				top: 43,
+				// Added 60px for 1.0.0 
+				height: 357 + 60,
 				width: 320, 
 				separatorColor: 'white',
 				visible: false
@@ -327,7 +328,8 @@
 				Ti.API.debug('maximized result window');
 				flashlightTableView.animate({
 					top: 43, 
-					height: 357
+					// Added 60px for 1.0.0 
+					height: 357 + 60
 				});
 			};
 
@@ -335,7 +337,8 @@
 				Ti.API.debug('minimized result window');
 				flashlightTableView.animate({
 					top: 78,
-					height: 322
+					// Added 60px for 1.0.0
+					height: 322 + 60
 				});
 			};
 
@@ -376,7 +379,8 @@
 				width: 320,
 				backgroundImage: 'images/old/bg_flashlight_bar.png'
 			});
-			flashlightWindow.add(footerView);
+			// Commented for 1.0.0
+			//flashlightWindow.add(footerView);
 
 			var flashlightButtons = { photo: null, video: null, web: null, twitter: null };
 			var i = 0;
@@ -405,7 +409,8 @@
 				zIndex: 3,
 				visible: false
 			});
-			flashlightWindow.add(arrow);
+			// Commented for 1.0.0
+			//flashlightWindow.add(arrow);
 
 			showArrow = function(left) {
 				arrow.show();
