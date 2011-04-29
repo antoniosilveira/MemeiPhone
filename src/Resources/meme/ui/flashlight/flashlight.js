@@ -556,16 +556,32 @@
 						loadMoreRow.add(loadMoreButton);
 
 						var handleLoadMore = function() {
-							var activityIndicator = Ti.UI.createActivityIndicator({
-								top: 9, 
-								left: 105,
-								width: 30,
-								height: 30,
-								color: 'black',
-								style: Ti.UI.iPhone.ActivityIndicatorStyle.DARK
+							var activityAnimation = Ti.UI.createAnimation({
+								transform: Ti.UI.create2DMatrix({
+									rotate: 179.9
+								}),
+								curve: Ti.UI.ANIMATION_CURVE_LINEAR,
+								duration: 500,
+								repeat: 1000
+							});
+							var activityIndicator = Ti.UI.createImageView({
+								top: 16, 
+								left: 176,
+								width: 15,
+								height: 15
 							});
 							loadMoreButton.add(activityIndicator);
-							activityIndicator.show();
+							var activityIndicatorImage = Ti.UI.createImageView({
+								image: 'images/loader_more.png',
+								top: 0,
+								left: 0,
+								width: 15,
+								height: 15
+							});
+							activityIndicator.add(activityIndicatorImage);
+
+							activityIndicator.animate(activityAnimation);
+							activityIndicatorImage.animate(activityAnimation);
 
 							handleFlashlightSearch({
 								source: {
