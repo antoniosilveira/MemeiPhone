@@ -278,9 +278,10 @@
 			};
 
 			hideTabBar = function() {
-				if (flashlightTabBar) {
-					flashlightTabBar.animate({ top: 0 });
-				}
+				// Commented for 1.0.0
+				//if (flashlightTabBar) {
+				//	flashlightTabBar.animate({ top: 0 });
+				//}
 			};
 		};
 
