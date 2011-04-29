@@ -75,16 +75,36 @@
 			});
             flashlightWindow.add(loadingView);
 			
-			var activityIndicator = Ti.UI.createActivityIndicator({
+			// main loader
+			var activityAnimation = Ti.UI.createAnimation({
+				transform: Ti.UI.create2DMatrix({
+					rotate: 180
+				}),
+				curve: Ti.UI.ANIMATION_CURVE_LINEAR,
+				duration: 500,
+				repeat: 1000
+			});
+			var activityIndicator = Ti.UI.createImageView({
 				top: 135, 
 				left: 110,
-				width: 100,
-				height: 100,
-				color: 'black',
-				zIndex: 5,
-				style: Ti.UI.iPhone.ActivityIndicatorStyle.DARK
+				width: 50,
+				height: 50
 			});
 			loadingView.add(activityIndicator);
+			var activityIndicatorImage = Ti.UI.createImageView({
+				image: 'images/loader_search.png',
+				top: 0,
+				left: 0,
+				width: 50,
+				height: 50
+			});
+			activityIndicator.add(activityIndicatorImage);
+			
+			setTimeout(function() {
+				activityIndicator.animate(activityAnimation);
+				activityIndicatorImage.animate(activityAnimation);
+			}, 100);
+			// end main loader
 			
 			var loadingLabel = Ti.UI.createLabel({
 			    width: 320,
@@ -96,7 +116,6 @@
 				font: { fontSize: 14, fontFamily: 'Helvetica', fontStyle: 'bold' }
 			});
 			loadingView.add(loadingLabel);
-            activityIndicator.show();
             
 			var lampBright = Titanium.UI.createImageView({
 				image: 'images/lamp_bright.png',
@@ -107,14 +126,14 @@
 				zIndex: 3,
 				visible: false
 			});
-			lampBright.animate(Titanium.UI.createAnimation({
+			var lampBrightAnimation = Titanium.UI.createAnimation({
 				transform: Ti.UI.create2DMatrix({
 					scale: 0.8
 				}),
 				duration: 300,
 				autoreverse: true,
 				repeat: 1000
-			}));
+			});
 			flashlightWindow.add(lampBright);
 
 			var flashlightField = Titanium.UI.createView({
@@ -171,13 +190,12 @@
 
 			startLoading = function() {
 				lampBright.show();
-				loadingView.animate(Ti.UI.createAnimation({
-				    opacity: 1.0,
-				    duration: 1
-				}));
+				lampBright.animate(lampBrightAnimation);
+				loadingView.opacity = 1.0;
 			};
 
 			stopLoading = function() {
+				lampBright.stop();
 				lampBright.hide();
 				loadingView.animate(Ti.UI.createAnimation({
 				    opacity: 0.0,
@@ -281,7 +299,8 @@
 
 			var noResultsView = Ti.UI.createView({
 				top: 78,
-				height: 322,
+				// Added 60px for 1.0.0
+				height: 322 + 60,
 				width: 320,
 				visible: false
 			});
