@@ -54,6 +54,8 @@
 		
 		var url = getRequestUrl(actionId);
 		var xhr = Titanium.Network.createHTTPClient();
+		
+		xhr.setTimeout(15000); // timeout is 15 seconds
 
 	    xhr.onerror = function(e) {
 	        Ti.API.error('YWA error: ' + e.error);
