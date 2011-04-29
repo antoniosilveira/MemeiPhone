@@ -32,7 +32,12 @@ Usage:
 			
 			var animation = null;
 			var duration = 50;
+			
+			// 15 is slow
+			// 30 is medium
+			// 45 is fastest :)
 			var originalDegrees = 30;
+			
 			var currentDegrees = originalDegrees;
 			var direction = 1;
 			
@@ -57,6 +62,7 @@ Usage:
 					}));
 					
 					currentDegrees += originalDegrees;
+					currentDegrees %= 360; // to avoid explode Titanium
 				}, duration);
 				
 				Ti.API.debug('[SPINNER] spinner started');
