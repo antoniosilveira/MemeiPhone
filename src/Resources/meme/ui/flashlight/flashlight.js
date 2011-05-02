@@ -165,7 +165,7 @@
 
 			var observer = meme.ui.inactivityObserver({
 				fieldToObserve: searchField,
-				inactivityTimeout: 1000,
+				inactivityTimeout: 3000,
 				inactivityTimeoutAction: function() {
 					searchField.blur();
 					searchField.fireEvent('return');
