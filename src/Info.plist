@@ -14,8 +14,6 @@
 	<array>
 		<string>meme_appicon.png</string>
 		<string>meme_appicon4.png</string>
-		<string>meme_appicon~ipad.png</string>
-		<string>meme_appicon~ipad-spot.png</string>
 	</array>
 	<key>CFBundleURLTypes</key>
 	<array>
