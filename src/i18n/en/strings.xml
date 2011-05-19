@@ -10,7 +10,7 @@
   <string name="alert_error_title">Error</string>
   <string name="alert_oops_title">Oops...</string>
   <string name="alert_success_title">Success</string>
-  <string name="alert_yql_error">API error, please try again in a few seconds.</string>
+  <string name="alert_yql_error">Could not connect to API, please check your connection and try again.</string>
   
   <!-- Logged-out home -->
   <string name="home_try_it_now">try it now!</string>
