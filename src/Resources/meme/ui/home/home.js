@@ -210,7 +210,8 @@
 			loggedInView.add(yourBlogButton);
 
 			configureLoggedInView = function() {
-				blogUrlLabel.text = 'meme.yahoo.com/' + meme.app.userInfo().name;
+				// "meme.yahoo.com/" + meme.app.userInfo().name;
+				blogUrlLabel.text = '/' + meme.app.userInfo().name;
 			};
 		};
 
