@@ -204,13 +204,12 @@
 			yourBlogButton.add(blogUrlLabel);
 			yourBlogButton.addEventListener('click', function() {
 				meme.ui.openLinkOnSafari({
-					url: 'http://' + blogUrlLabel.text
+					url: 'http://meme.yahoo.com' + blogUrlLabel.text
 				});
 			});
 			loggedInView.add(yourBlogButton);
 
 			configureLoggedInView = function() {
-				// "meme.yahoo.com/" + meme.app.userInfo().name;
 				blogUrlLabel.text = '/' + meme.app.userInfo().name;
 			};
 		};
