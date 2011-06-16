@@ -2,9 +2,9 @@
   <ti:app xmlns:ti="http://ti.appcelerator.org">
   <id>com.yahoo.meme.iphone</id>
   <name>MemeiPhone</name>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <publisher>Yahoo! Inc.</publisher>
-  <url>http://meme.yahoo.com/iphone</url>
+  <url>http://memeapp.net</url>
   <description>Meme for iPhone is a client for Yahoo! Meme blogging platform.</description>
   <copyright>2011 Yahoo! Inc.</copyright>
   <icon>meme_appicon.png</icon>
