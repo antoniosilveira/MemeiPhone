@@ -2,7 +2,9 @@ h1. MemeiPhone
 
 h2. About
 
-*MemeiPhone* is an iPhone app for "Yahoo! Meme":http://meme.yahoo.com, a light blogging platform from Yahoo! that is available in several languages including English, Portuguese, Spanish, Bahasa Indonesia and Traditional Chinese.
+*MemeiPhone* is an iPhone app for "Yahoo! Meme", a light blogging platform from Yahoo! that is available in several languages including English, Portuguese, Spanish, Bahasa Indonesia and Traditional Chinese.
+
+*Yahoo! Meme was discontinued in May 2012.
 
 h2. Features
 
